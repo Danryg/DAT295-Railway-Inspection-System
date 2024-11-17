@@ -1,0 +1,94 @@
+<?xml version="1.0" ?>
+<sdf version="1.7">
+  <world name="default">
+
+    <!-- A global light source -->
+    <include>
+      <uri>model://sun</uri>
+    </include>
+
+    <!-- A ground plane -->
+    <include>
+      <uri>model://ground_plane</uri>
+    </include>
+    <!-- Asphalt -->
+    <include>
+        <uri>model://asphalt_plane_long</uri>
+        <pose>0 400 0 0 0 0</pose>
+    </include>
+    <include>
+      <uri>model://road2</uri>
+      <pose>0 290 0 0 0 0</pose>
+      <static>true</static>
+  </include>
+<model name="rail1">
+  <include>
+    <uri>model://rail</uri>
+    <pose>-0.75 290 0.75 0 0 0</pose>
+    <static>true</static>
+  </include>
+</model>
+<model name="rail2">
+  <include>
+    <uri>model://rail</uri>
+    <pose>0.75 290 0.75 0 0 0</pose>
+    <static>true</static>
+</include>
+</model>
+
+
+    <population name="tree_population_left">
+      <model name="oak_tree_left">
+        <include>
+          <static>true</static>
+          <uri>model://oak_tree</uri>
+          <pose>0 0 0 0 0 0</pose>
+        </include>
+      </model>
+      <pose>-40 300 0 0 0 0</pose>
+      <box>
+        <size>50 600 0.01</size>
+      </box>
+      <model_count>80</model_count>
+      <distribution>
+        <type>random</type>
+      </distribution>
+    </population>
+    <population name="tree_population_right">
+      <model name="oak_tree_right">
+        <include>
+          <static>true</static>
+          <uri>model://oak_tree</uri>
+          <pose>0 0 0 0 0 0</pose>
+        </include>
+      </model>
+      <pose>40 300 0 0 0 0</pose>
+      <box>
+        <size>50 600 0.01</size>
+      </box>
+      <model_count>80</model_count>
+      <distribution>
+        <type>random</type>
+      </distribution>
+    </population>
+    <!-- automatic population of objects -->
+    <population name="lamp_post_population">
+      <model name="lamp_post">
+        <include>
+          <static>true</static>
+          <uri>model://lamp_post</uri>
+          <pose>0 0 0 0 0 1.57</pose>
+        </include>
+      </model>
+      <pose>-5 300 0 0 0 0</pose>
+      <box>
+        <size>2 600 0.01</size>
+      </box>
+      <model_count>10</model_count>
+      <distribution>
+        <type>linear-y</type>
+      </distribution>
+    </population>
+
+  </world>
+</sdf>
