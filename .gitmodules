@@ -10,3 +10,4 @@
 [submodule "PX4-Autopilot"]
 	path = PX4-Autopilot
 	url = https://github.com/griimmm/PX4-Autopilot.git
+	branch = proj_dev
