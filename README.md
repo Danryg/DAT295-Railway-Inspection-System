@@ -19,6 +19,11 @@
        ```
 5. To run the drone
     1. Navigate to PX4-Autopilot
-    2. ```
+    2. For only the drone
+        ```
         make px4_sitl_default gazebo-classic_iris_velodyne_cam
         ```  
+    3. For drone in world 
+        ```
+        make px4_sitl gazebo-classic_iris_velodyne_cam__v1_simple_world
+        ```
