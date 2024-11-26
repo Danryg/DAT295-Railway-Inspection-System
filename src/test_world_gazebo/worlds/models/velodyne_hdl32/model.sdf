@@ -88,17 +88,20 @@
             <resolution>0.02</resolution>
           </range>
         </ray>
-      </sensor>
-      <plugin name="GazeboVelodynePlugin" filename="libgazebo_velodyne_plugin.so">
+      
+      <plugin name="turtlebot3_laserscan" filename="libgazebo_ros_ray_sensor.so">
         <ros>
-            <robotNamespace></robotNamespace>
+          <!-- <namespace>/rrbot/laser</namespace> -->
+          <remapping>~/out:=pointcloud</remapping>
         </ros>
-            <topicName>velodyne_points</topicName>
-            <frameName>velodyne</frameName>
+             <topicName>/velodyne_points</topicName>
+            <!--<frameName>velodyne</frameName>
             <min_range>3.141592</min_range>
             <max_range>3.141592</max_range>
-            <gaussianNoise>0.008</gaussianNoise>
+            <gaussianNoise>0.008</gaussianNoise> -->
+            <output_type>sensor_msgs/PointCloud2</output_type>
         </plugin>
+      </sensor>
     </link>
 
     <joint type="revolute" name="joint">
