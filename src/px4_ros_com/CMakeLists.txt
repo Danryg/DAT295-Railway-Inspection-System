@@ -61,6 +61,11 @@ add_executable(offboard_control src/examples/offboard/offboard_control.cpp)
 ament_target_dependencies(offboard_control rclcpp px4_msgs)
 install(TARGETS offboard_control DESTINATION lib/${PROJECT_NAME})
 
+# examples/offboard/offboard_control_gps
+add_executable(offboard_control_gps src/examples/offboard/offboard_control_gps.cpp)
+ament_target_dependencies(offboard_control_gps rclcpp px4_msgs)
+install(TARGETS offboard_control_gps DESTINATION lib/${PROJECT_NAME})
+
 # examples/offboard/offboard_control_srv
 add_executable(offboard_control_srv src/examples/offboard/offboard_control_srv.cpp)
 ament_target_dependencies(offboard_control_srv rclcpp px4_msgs)
