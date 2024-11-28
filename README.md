@@ -3,7 +3,9 @@
 ## Know problems
 1. gz error
     1. Remove gz-harmonic and associated files
-    2. install ros-humble-gazebo-ros   
+    2. install ros-humble-gazebo-ros
+    3. git rm -r --cached .
+    4. sudo apt autoremove
 ## Running the program/s
 
 1. git clone -b sim_dev --recurse-submodules $git_link
@@ -26,3 +28,19 @@
        ```
        ros2 launch test_world_gazebo gazebo.launch.py
        ```
+## Running MicroXRCEAgent (drivers between PX4 and ROS2)
+From the root directory
+```
+cd Micro-XRCE-DDS-Agent
+mkdir build
+cd build
+cmake ..
+make
+sudo make install
+sudo ldconfig /usr/local/lib/
+```
+
+Then to run it
+```
+MicroXRCEAgent udp4 -p 8888
+```
