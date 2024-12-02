@@ -31,17 +31,17 @@
  ****************************************************************************/
 
 /**
- * @brief Offboard control example
- * @file offboard_control.cpp
+ * @brief Offboard control with gps navigation
+ * @file offboard_control_gps.cpp
  * @addtogroup examples
- * @author Mickey Cowden <info@cowden.tech>
- * @author Nuno Marques <nuno.marques@dronesolutions.io>
+ * @author Abishek Swaminathan
  */
 
 #include <px4_msgs/msg/offboard_control_mode.hpp>
 #include <px4_msgs/msg/trajectory_setpoint.hpp>
 #include <px4_msgs/msg/vehicle_command.hpp>
 #include <px4_msgs/msg/vehicle_control_mode.hpp>
+#include <px4_ros_com/frame_transforms.h>
 #include <rclcpp/rclcpp.hpp>
 #include <stdint.h>
 
