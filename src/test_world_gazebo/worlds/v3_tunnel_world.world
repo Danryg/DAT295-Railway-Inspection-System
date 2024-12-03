@@ -208,6 +208,7 @@
 
   <model name="amp">
     <include>
+<<<<<<< HEAD
       <uri>model://amp</uri>
       <pose>-0 0 0.93 0 0 1.55</pose>
       <static>false</static>
@@ -218,6 +219,11 @@
       <uri>model://newamp</uri>
       <pose>3 0 0.93 0 0 1.55</pose>
       <static>false</static>
+=======
+      <uri>model://my_obj_model</uri>
+      <pose>-0 0 0.93 0 0 1.55</pose>
+      <static>true</static>
+>>>>>>> 1682ac4 (added amp model and modified world files to display it)
     </include>
   </model>
 
