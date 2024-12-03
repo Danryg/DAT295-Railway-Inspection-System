@@ -16,7 +16,7 @@ def generate_launch_description():
   # robot_name_in_model = 'hubert'
 #   rviz_config_file_path = 'rviz/urdf_gazebo_config.rviz'
   sdf_file_path = 'models/model.sdf'
-  world_file_path = 'worlds/v1_simple_world.world'
+  world_file_path = 'worlds/v3_tunnel_world.world'
      
   # Pose where we want to spawn the robot
   # spawn_x_val = '0.0'

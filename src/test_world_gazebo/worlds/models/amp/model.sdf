@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+<sdf version="1.6">
+  <model name="amp">
+    <static>true</static> <!-- 如果模型固定在场景中，设置为 true -->
+    <link name="link">
+      <visual name="visual">
+        <geometry>
+          <mesh>
+            <uri>model://my_obj_model/rr.obj</uri> <!-- 引用 OBJ 文件 -->
+            <scale>1 1 1</scale> <!-- 调整模型比例 -->
+          </mesh>
+        </geometry>
+      </visual>
+      <collision name="collision">
+        <geometry>
+          <mesh>
+            <uri>model://my_obj_model/rr.obj</uri> <!-- 可使用 OBJ 文件 -->
+          </mesh>
+        </geometry>
+      </collision>
+    </link>
+  </model>
+</sdf>
