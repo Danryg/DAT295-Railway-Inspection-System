@@ -15,7 +15,7 @@ def generate_launch_description():
   package_name = 'test_world_gazebo'
   # robot_name_in_model = 'hubert'
 #   rviz_config_file_path = 'rviz/urdf_gazebo_config.rviz'
-  sdf_file_path = 'models/model.sdf'
+  sdf_file_path = 'models/velodyne_hdl32.sdf'
   world_file_path = 'worlds/v1_simple_world.world'
      
   # Pose where we want to spawn the robot
