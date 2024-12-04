@@ -208,7 +208,7 @@
 
   <model name="amp">
     <include>
-      <uri>model://my_obj_model</uri>
+      <uri>model://amp</uri>
       <pose>-0 0 0.93 0 0 1.55</pose>
       <static>true</static>
     </include>
