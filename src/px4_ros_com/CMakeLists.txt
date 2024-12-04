@@ -140,4 +140,14 @@ install(PROGRAMS
   DESTINATION lib/${PROJECT_NAME}
 )
 
+install(PROGRAMS
+  src/examples/teleop_py/velocity_control.py
+  DESTINATION lib/${PROJECT_NAME}
+)
+
+install(PROGRAMS
+  src/examples/teleop_py/control.py
+  DESTINATION lib/${PROJECT_NAME}
+)
+
 ament_package()
