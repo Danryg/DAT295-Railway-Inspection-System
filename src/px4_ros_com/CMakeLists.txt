@@ -61,6 +61,13 @@ add_executable(offboard_control src/examples/offboard/offboard_control.cpp)
 ament_target_dependencies(offboard_control rclcpp px4_msgs)
 install(TARGETS offboard_control DESTINATION lib/${PROJECT_NAME})
 
+# examples/offboard/offboard_control_gps
+# add_executable(offboard_control_gps src/examples/offboard/offboard_control_gps.cpp)
+# ament_target_dependencies(offboard_control_gps Eigen3 geometry_msgs sensor_msgs rclcpp px4_msgs )
+# install(TARGETS offboard_control_gps DESTINATION lib/${PROJECT_NAME})
+# target_include_directories(offboard_control_gps PRIVATE
+# 											frame_transforms
+# )
 # examples/offboard/offboard_control_srv
 add_executable(offboard_control_srv src/examples/offboard/offboard_control_srv.cpp)
 ament_target_dependencies(offboard_control_srv rclcpp px4_msgs)
@@ -89,6 +96,9 @@ install(TARGETS frame_transforms
 	RUNTIME DESTINATION bin
 	INCLUDES DESTINATION include
 )
+
+# install (TARGETS offboard_control_gps
+# 		DESTINATION lib/frame_transforms )
 
 # Install launch files.
 install(DIRECTORY launch DESTINATION share/${PROJECT_NAME}/)
@@ -122,6 +132,21 @@ ament_python_install_package(${PROJECT_NAME})
 # Install Python executables
 install(PROGRAMS
   src/examples/offboard_py/offboard_control.py
+  DESTINATION lib/${PROJECT_NAME}
+)
+
+install(PROGRAMS
+  src/examples/teleop_py/teleop.py
+  DESTINATION lib/${PROJECT_NAME}
+)
+
+install(PROGRAMS
+  src/examples/teleop_py/velocity_control.py
+  DESTINATION lib/${PROJECT_NAME}
+)
+
+install(PROGRAMS
+  src/examples/teleop_py/control.py
   DESTINATION lib/${PROJECT_NAME}
 )
 
