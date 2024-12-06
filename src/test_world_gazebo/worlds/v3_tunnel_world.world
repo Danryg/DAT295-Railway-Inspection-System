@@ -1,4 +1,4 @@
-<?xml version="1.0" ?>
+<?xml version="1.0"?>
 <sdf version="1.7">
   <world name="default">
 
@@ -12,11 +12,11 @@
       <uri>model://ground_plane</uri>
     </include>
     <!-- Asphalt -->
- <include>
-        <uri>model://asphalt_plane_long</uri>
-        <pose>0 400 0 0 0 0</pose>
+    <include>
+      <uri>model://asphalt_plane_long</uri>
+      <pose>0 400 0 0 0 0</pose>
     </include>
-  <!--<include>
+    <!--<include>
       <uri>model://curve_road</uri>
       <pose>-5 -1 0 0 0 0</pose>
       <static>true</static>
@@ -36,8 +36,9 @@
 </include>
 </model>-->
 
-<!--add some noise-->
- <!-- <model name="rail3">
+    <!--add
+    some noise-->
+    <!-- <model name="rail3">
     <include>
       <uri>model://newrail</uri>
       <pose>-1 -1 0.75  0 0</pose>
@@ -57,7 +58,7 @@
     <uri>model://oak_tree</uri>
     <pose>-4.5 30 0 0 0 0</pose>
     <static>true</static>
-</include>-->
+</include>
  <model name="rail">
     <include>
       <uri>model://newrail</uri>
@@ -73,47 +74,49 @@
       <static>true</static>
   </include>
 </model>
+-->
 
- <!--five lamps parallel to the rail track-->
-<model name="lamp1">
-    <include>
-      <uri>model://lamp_post</uri>
-      <pose>-5 0 0 0 0 1.57</pose>
-      <static>true</static>
-  </include>
-</model>
+    <!--five
+    lamps parallel to the rail track-->
+    <model name="lamp1">
+      <include>
+        <uri>model://lamp_post</uri>
+        <pose>-5 0 0 0 0 1.57</pose>
+        <static>true</static>
+      </include>
+    </model>
 
-<model name="lamp2">
-    <include>
-      <uri>model://lamp_post</uri>
-      <pose>-4.5 60 0 0 0 1.57</pose>
-      <static>true</static>
-  </include>
-</model>
+    <model name="lamp2">
+      <include>
+        <uri>model://lamp_post</uri>
+        <pose>-4.5 60 0 0 0 1.57</pose>
+        <static>true</static>
+      </include>
+    </model>
 
-<model name="lamp3">
-    <include>
-      <uri>model://lamp_post</uri>
-      <pose>11 120 0 0 0 1.57</pose>
-      <static>true</static>
-  </include>
-</model>
+    <model name="lamp3">
+      <include>
+        <uri>model://lamp_post</uri>
+        <pose>11 120 0 0 0 1.57</pose>
+        <static>true</static>
+      </include>
+    </model>
 
-<model name="lamp4">
-    <include>
-      <uri>model://lamp_post</uri>
-      <pose>-2.5 180 0 0 0 1.57</pose>
-      <static>true</static>
-  </include>
-</model>
+    <model name="lamp4">
+      <include>
+        <uri>model://lamp_post</uri>
+        <pose>-2.5 180 0 0 0 1.57</pose>
+        <static>true</static>
+      </include>
+    </model>
 
-<model name="lamp5">
-    <include>
-      <uri>model://lamp_post</uri>
-      <pose>-2.5 240 0 0 0 1.57</pose>
-      <static>true</static>
-  </include>
-</model>
+    <model name="lamp5">
+      <include>
+        <uri>model://lamp_post</uri>
+        <pose>-2.5 240 0 0 0 1.57</pose>
+        <static>true</static>
+      </include>
+    </model>
 
     <population name="tree_population_left">
       <model name="oak_tree_left">
@@ -132,8 +135,8 @@
         <type>random</type>
       </distribution>
     </population>
-    
-     <population name="tree_population_near1">
+
+    <population name="tree_population_near1">
       <model name="oak_tree_near1">
         <include>
           <static>true</static>
@@ -150,7 +153,7 @@
         <type>random</type>
       </distribution>
     </population>
-   
+
     <population name="tree_population_near2">
       <model name="oak_tree_near2">
         <include>
@@ -168,7 +171,7 @@
         <type>random</type>
       </distribution>
     </population>
-   
+
 
     <population name="tree_population_right">
       <model name="oak_tree_right">
@@ -188,7 +191,8 @@
       </distribution>
     </population>
     <!-- automatic population of objects -->
-    <!--<population name="lamp_post_population">
+    <!--<population
+    name="lamp_post_population">
       <model name="lamp_post">
         <include>
           <static>true</static>
@@ -206,20 +210,51 @@
       </distribution>
     </population>-->
 
-  <model name="amp">
-    <include>
-      <uri>model://amp</uri>
-      <pose>-0 0 0.93 0 0 1.55</pose>
-      <static>false</static>
-    </include>
-  </model>
-    <model name="newamp">
-    <include>
-      <uri>model://newamp</uri>
-      <pose>3 0 0.93 0 0 1.55</pose>
-      <static>false</static>
-    </include>
-  </model>
+    <model name="amp">
+      <include>
+        <uri>model://amp</uri>
+        <pose>-0 0 0.93 0 0 1.55</pose>
+        <static>false</static>
+      </include>
+    </model>
+
+    <model name='rails2'>
+      <static>1</static>
+      <link name='link'>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://rails2/rails2.obj</uri>
+              <scale>1 1 1</scale>
+            </mesh>
+          </geometry>
+        </visual>
+        <collision name='collision'>
+          <geometry>
+            <mesh>
+              <uri>model://rails2/rails2.obj</uri>
+            </mesh>
+          </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode />
+            </contact>
+            <bounce />
+            <friction>
+              <torsional>
+                <ode />
+              </torsional>
+              <ode />
+            </friction>
+          </surface>
+        </collision>s
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <pose>-0 -3 0 0 0 1.55</pose>
+    </model>
 
   </world>
 </sdf>
