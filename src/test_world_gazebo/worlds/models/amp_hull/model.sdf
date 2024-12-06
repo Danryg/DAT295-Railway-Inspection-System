@@ -1,8 +1,10 @@
 <?xml version="1.0" ?>
 <sdf version="1.6">
-  <model name="rails2">
-    <static>true</static> 
+  <model name="amp_hull">
+    <static>false</static> 
     <link name="link">
+      <static>false</static> 
+      <gravity>true</gravity>
       <visual name="visual">
         <geometry>
           <mesh>

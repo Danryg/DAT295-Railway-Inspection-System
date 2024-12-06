@@ -1,23 +1,126 @@
-<?xml version="1.0" ?>
-<sdf version="1.6">
-  <model name="amp">
-    <static>true</static>
-    <link name="link">
-      <visual name="visual">
-        <geometry>
-          <mesh>
-            <uri>model://amp/rr.obj</uri>
-            <scale>1 1 1</scale>
-          </mesh>
-        </geometry>
-      </visual>
-      <collision name="collision">
-        <geometry>
-          <mesh>
-            <uri>model://amp/rr.obj</uri>
-          </mesh>
-        </geometry>
-      </collision>
-    </link>
-  </model>
+<?xml version='1.0'?>
+<sdf version='1.7'>
+    <model name='amp'>
+
+      <model name='hull'>
+        <static>false</static>
+        <link name='link'>
+          <visual name='visual'>
+            <geometry>
+              <mesh>
+                <uri>model://amp_hull/amp_hull.obj</uri>
+                <scale>1 1 1</scale>
+              </mesh>
+            </geometry>
+          </visual>
+          <collision name='collision'>
+            <geometry>
+              <mesh>
+                <uri>model://amp_hull/amp_hull.obj</uri>
+              </mesh>
+            </geometry>
+          </collision>
+        </link>
+        <pose>0.003725 0.051897 0.000757 0 -0 0</pose>
+      </model>
+
+      <model name='back_axle'>
+        <static>false</static>
+        <link name='link'>
+          <visual name='visual'>
+            <geometry>
+              <mesh>
+                <uri>model://amp_axle/amp_axle.obj</uri>
+                <scale>1 1 1</scale>
+              </mesh>
+            </geometry>
+          </visual>
+          <collision name='collision'>
+            <geometry>
+              <mesh>
+                <uri>model://amp_axle/amp_axle.obj</uri>
+              </mesh>
+            </geometry>
+          </collision>
+        </link>
+        <pose>-0.000953 0.793081 -0.001476 0 -0 0</pose>
+      </model>
+
+      <model name='front_axle'>
+        <static>false</static>
+        <link name='link'>
+          <visual name='visual'>
+            <geometry>
+              <mesh>
+                <uri>model://amp_axle/amp_axle.obj</uri>
+                <scale>1 1 1</scale>
+              </mesh>
+            </geometry>
+          </visual>
+          <collision name='collision'>
+            <geometry>
+              <mesh>
+                <uri>model://amp_axle/amp_axle.obj</uri>
+              </mesh>
+            </geometry>
+          </collision>
+        </link>
+        <pose>-0.002768 -0.844977 0.000719 0 -0 0</pose>
+      </model>
+
+      <joint name='link_JOINT_0' type='continuous'>
+        <parent>hull::link</parent>
+        <child>front_axle::link</child>
+        <pose>0 0 0 0 -0 0</pose>
+        <axis>
+          <xyz>1 0 0</xyz>
+          <dynamics>
+            <spring_reference>0</spring_reference>
+            <spring_stiffness>0</spring_stiffness>
+            <damping>0</damping>
+          </dynamics>
+        </axis>
+        <physics>
+          <ode>
+            <limit>
+              <cfm>0</cfm>
+              <erp>0.2</erp>
+            </limit>
+            <suspension>
+              <cfm>0</cfm>
+              <erp>0.2</erp>
+            </suspension>
+          </ode>
+        </physics>
+      </joint>
+
+      <joint name='link_JOINT_1' type='continuous'>
+        <parent>hull::link</parent>
+        <child>back_axle::link</child>
+        <pose>0 0 0 0 -0 0</pose>
+        <axis>
+          <xyz>1 0 0</xyz>
+          <dynamics>
+            <spring_reference>0</spring_reference>
+            <spring_stiffness>0</spring_stiffness>
+            <damping>0</damping>
+          </dynamics>
+        </axis>
+        <physics>
+          <ode>
+            <limit>
+              <cfm>0</cfm>
+              <erp>0.2</erp>
+            </limit>
+            <suspension>
+              <cfm>0</cfm>
+              <erp>0.2</erp>
+            </suspension>
+          </ode>
+        </physics>
+      </joint>
+
+      <static>false</static>
+      <!---<allow_auto_disable>1</allow_auto_disable> -->
+    </model>
 </sdf>
