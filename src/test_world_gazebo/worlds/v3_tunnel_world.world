@@ -210,7 +210,14 @@
     <include>
       <uri>model://amp</uri>
       <pose>-0 0 0.93 0 0 1.55</pose>
-      <static>true</static>
+      <static>false</static>
+    </include>
+  </model>
+    <model name="newamp">
+    <include>
+      <uri>model://newamp</uri>
+      <pose>3 0 0.93 0 0 1.55</pose>
+      <static>false</static>
     </include>
   </model>
 
