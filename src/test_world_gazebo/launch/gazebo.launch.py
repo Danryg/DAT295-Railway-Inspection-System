@@ -40,7 +40,7 @@ def generate_launch_description():
 #   rviz_config_file = LaunchConfiguration('rviz_config_file')
   sdf_model = LaunchConfiguration('sdf_model')
   # use_namespace = LaunchConfiguration('use_namespace')
-  # use_robot_state_pub = LaunchConfiguration('use_robot_state_pub')
+  use_robot_state_pub = LaunchConfiguration('use_robot_state_pub')
   # use_rviz = LaunchConfiguration('use_rviz')
   # use_sim_time = LaunchConfiguration('use_sim_time')
   use_simulator = LaunchConfiguration('use_simulator')
@@ -77,10 +77,10 @@ def generate_launch_description():
     default_value=default_urdf_model_path, 
     description='Absolute path to robot sdf file')
      
-  # declare_use_robot_state_pub_cmd = DeclareLaunchArgument(
-  #   name='use_robot_state_pub',
-  #   default_value='True',
-  #   description='Whether to start the robot state publisher')
+  declare_use_robot_state_pub_cmd = DeclareLaunchArgument(
+     name='use_robot_state_pub',
+     default_value='True',
+    description='Whether to start the robot state publisher')
  
   declare_use_rviz_cmd = DeclareLaunchArgument(
     name='use_rviz',
@@ -105,17 +105,18 @@ def generate_launch_description():
         )
    
   # Subscribe to the joint states of the robot, and publish the 3D pose of each link.    
-  # start_robot_state_publisher_cmd = Node(
-  #   package='robot_state_publisher',
-  #   executable='robot_state_publisher',
-  #   parameters=[{'robot_description': Command(['xacro ', sdf_model])}])
+  start_robot_state_publisher_cmd = Node(
+     package='robot_state_publisher',
+     executable='robot_state_publisher',
+     parameters=[{'robot_description': Command(['xacro ', sdf_model])}])
  
   # Publish the joint states of the robot
-  # start_joint_state_publisher_cmd = Node(
-  #   package='joint_state_publisher',
-  #   executable='joint_state_publisher',
-  #   name='joint_state_publisher',
-  #   condition=UnlessCondition(gui))
+  start_joint_state_publisher_cmd = Node(
+    package='joint_state_publisher',
+    executable='joint_state_publisher',
+    name='joint_state_publisher',
+    #condition=UnlessCondition(gui))
+  )
   
   # Start Gazebo server
   start_gazebo_server_cmd = IncludeLaunchDescription(
@@ -128,18 +129,18 @@ def generate_launch_description():
     PythonLaunchDescriptionSource(os.path.join(pkg_gazebo_ros, 'launch', 'gzclient.launch.py')),
     condition=IfCondition(PythonExpression([use_simulator, ' and not ', headless])))
  
-  # Launch the robot
-  spawn_entity_cmd = Node(
-    package='gazebo_ros', 
-    executable='spawn_entity.py',
-    arguments=['-entity', 'velodyne', 
-                # '-topic', 'robot_description',
-                '-file', sdf_model,
-                    '-x', '0.0',
-                    '-y', '0.0',
-                    '-z', '0.0',
-                    '-Y', '0.0'],
-                    output='screen')
+  # # Launch the robot
+  # spawn_entity_cmd = Node(
+  #   package='gazebo_ros', 
+  #   executable='spawn_entity.py',
+  #   arguments=['-entity', 'velodyne', 
+  #               # '-topic', 'robot_description',
+  #               '-file', sdf_model,
+  #                   '-x', '0.0',
+  #                   '-y', '0.0',
+  #                   '-z', '0.0',
+  #                   '-Y', '0.0'],
+  #                   output='screen')
  
   # Create the launch description and populate
   ld = LaunchDescription()
@@ -151,7 +152,7 @@ def generate_launch_description():
   ld.add_action(declare_use_namespace_cmd)
   ld.add_action(declare_simulator_cmd)
   ld.add_action(declare_sdf_model_path_cmd)
-  # ld.add_action(declare_use_robot_state_pub_cmd)  
+  ld.add_action(declare_use_robot_state_pub_cmd)  
   # ld.add_action(declare_use_rviz_cmd) 
   ld.add_action(declare_use_sim_time_cmd)
   ld.add_action(declare_use_simulator_cmd)
@@ -159,8 +160,8 @@ def generate_launch_description():
   # Add any actions
   ld.add_action(start_gazebo_server_cmd)
   ld.add_action(start_gazebo_client_cmd)
-  ld.add_action(spawn_entity_cmd)
-  # ld.add_action(start_robot_state_publisher_cmd)
-  # ld.add_action(start_joint_state_publisher_cmd)
+  #ld.add_action(spawn_entity_cmd)
+  ld.add_action(start_robot_state_publisher_cmd)
+  ld.add_action(start_joint_state_publisher_cmd)
  
   return ld

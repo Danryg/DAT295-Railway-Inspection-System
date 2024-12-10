@@ -210,13 +210,21 @@
       </distribution>
     </population>-->
 
-    <model name="amp">
+    <!-- <model name="amp">
       <include>
         <uri>model://amp</uri>
-        <pose>-0 0 0.93 0 0 1.55</pose>
+        <pose>0.04 0 0.93 0 0 3.12</pose>
         <static>false</static>
       </include>
-    </model>
+    </model> -->
+
+        <!-- <model name="newamp">
+      <include>
+        <uri>model://newamp</uri>
+        <pose>3 0 0.93 0 0 1.55</pose>
+        <static>false</static>
+      </include>
+    </model> -->
 
     <model name='rails2'>
       <static>1</static>
