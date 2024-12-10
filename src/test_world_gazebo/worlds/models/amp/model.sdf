@@ -2,6 +2,7 @@
 <sdf version='1.7'>
   <model name='amp'>
     <static>false</static>
+
     <link name='hull'>
 
       <pose>0.003725 0.051897 0.000757 0 -0 0</pose>
@@ -22,47 +23,15 @@
           </mesh>
         </geometry>
       </visual>
-
-      <!-- Caster for testing -->
-      <collision name='caster_collision'>
-        <pose>0 -0.8 -0.05 0 0 0</pose>
-        <geometry>
-          <sphere>
-            <radius>.1</radius>
-          </sphere>
-        </geometry>
-
-        <surface>
-          <friction>
-            <ode>
-              <mu>0</mu>
-              <mu2>0</mu2>
-              <slip1>1.0</slip1>
-              <slip2>1.0</slip2>
-            </ode>
-          </friction>
-        </surface>
-      </collision>
-
-      <visual name='caster_visual'>
-        <pose>0 -0.8 -0.05 0 0 0</pose>
-        <geometry>
-          <sphere>
-            <radius>.1</radius>
-          </sphere>
-        </geometry>
-      </visual>
-      <!-- End Caster -->
     </link>
 
-    <link name='left_back_wheel'>
-      <pose>0.6 0.8 0 0 0 0</pose>
-
+    <link name='back_axle'>
+      <pose>0 0.8 0 0 0 0</pose>
 
       <visual name='visual'>
         <geometry>
           <mesh>
-            <uri>model://amp_wheel/amp_wheel.obj</uri>
+            <uri>model://amp_axle/amp_axle.obj</uri>
             <scale>1 1 1</scale>
           </mesh>
         </geometry>
@@ -71,29 +40,7 @@
       <collision name='collision'>
         <geometry>
           <mesh>
-            <uri>model://amp_wheel/amp_wheel.obj</uri>
-          </mesh>
-        </geometry>
-      </collision>
-
-    </link>
-
-    <link name='right_back_wheel'>
-      <pose>-0.6 0.8 0 0 0 3.14159</pose>
-
-      <visual name='visual'>
-        <geometry>
-          <mesh>
-            <uri>model://amp_wheel/amp_wheel.obj</uri>
-            <scale>1 1 1</scale>
-          </mesh>
-        </geometry>
-      </visual>
-
-      <collision name='collision'>
-        <geometry>
-          <mesh>
-            <uri>model://amp_wheel/amp_wheel.obj</uri>
+            <uri>model://amp_axle/amp_axle.obj</uri>
           </mesh>
         </geometry>
       </collision>
@@ -101,13 +48,13 @@
     </link>
 
 
-    <!-- <link name='left_front_wheel'>
-      <pose>0.6 -0.85 0 0 0 0</pose>
+    <link name='front_axle'>
+      <pose>0 -0.85 0 0 0 0</pose>
 
       <visual name='visual'>
         <geometry>
           <mesh>
-            <uri>model://amp_wheel/amp_wheel.obj</uri>
+            <uri>model://amp_axle/amp_axle.obj</uri>
             <scale>1 1 1</scale>
           </mesh>
 
@@ -117,7 +64,7 @@
       <collision name='collision'>
         <geometry>
           <mesh>
-            <uri>model://amp_wheel/amp_wheel.obj</uri>
+            <uri>model://amp_axle/amp_axle.obj</uri>
           </mesh>
 
         </geometry>
@@ -125,61 +72,18 @@
 
     </link>
 
-    <link name='right_front_wheel'>
-      <pose>-0.6 -0.85 0 0 0 3.14159</pose>
-
-      <visual name='visual'>
-        <geometry>
-          <mesh>
-            <uri>model://amp_wheel/amp_wheel.obj</uri>
-            <scale>1 1 1</scale>
-          </mesh>
-
-        </geometry>
-      </visual>
-
-      <collision name='collision'>
-        <geometry>
-          <mesh>
-            <uri>model://amp_wheel/amp_wheel.obj</uri>
-          </mesh>
-
-        </geometry>
-      </collision>
-
-    </link> -->
-
-
-    <!-- <joint type="revolute" name="left_front_wheel_joint">
+    <joint type="revolute" name="front_axle_hinge">
       <pose>0 0 0 0 0 0</pose>
-      <child>left_front_wheel</child>
+      <child>front_axle</child>
       <parent>hull</parent>
       <axis>
         <xyz>1 0 0</xyz>
       </axis>
     </joint>
 
-    <joint type="revolute" name="right_front_wheel_joint">
+    <joint type="revolute" name="back_axle_hinge">
       <pose>0 0 0 0 0 0</pose>
-      <child>right_front_wheel</child>
-      <parent>hull</parent>
-      <axis>
-        <xyz>1 0 0</xyz>
-      </axis>
-    </joint> -->
-
-    <joint type="revolute" name="left_back_wheel_joint">
-      <pose>0 0 0 0 0 0</pose>
-      <child>left_back_wheel</child>
-      <parent>hull</parent>
-      <axis>
-        <xyz>1 0 0</xyz>
-      </axis>
-    </joint>
-
-    <joint type="revolute" name="right_back_wheel_joint">
-      <pose>0 0 0 0 0 0</pose>
-      <child>right_back_wheel</child>
+      <child>back_axle</child>
       <parent>hull</parent>
       <axis>
         <xyz>1 0 0</xyz>
@@ -199,40 +103,16 @@
       <publish_wheel_tf>true</publish_wheel_tf>
 
       <wheel_separation>0.5</wheel_separation>
-      <wheel_diameter>0.1</wheel_diameter>
+      <wheel_diameter>0.2</wheel_diameter>
 
-      <left_joint>left_back_wheel_joint</left_joint>
-      <right_joint>right_back_wheel_joint</right_joint>
+      <left_joint>front_axle_hinge</left_joint>
+      <right_joint>back_axle_hinge</right_joint>
 
       <update_rate>50.0</update_rate>
       <odom_frame>odom</odom_frame>
       <base_frame>amp</base_frame>
 
     </plugin>
-
-    <!-- Second Diff?? -->
-    <!-- <plugin name="diff_drive" filename="libgazebo_ros_diff_drive.so">
-      <robotNamespace>/amp</robotNamespace>
-
-      <commandTopic>/cmd_vel</commandTopic>
-
-      <odometryTopic>/odom</odometryTopic>
-
-      <publish_odom>true</publish_odom>
-      <publish_odom_tf>true</publish_odom_tf>
-      <publish_wheel_tf>true</publish_wheel_tf>
-
-
-      <wheelSeparation>0.5</wheelSeparation>
-      <wheelRadius>0.1</wheelRadius>
-
-      <leftJoint>front_axle_hinge</leftJoint>
-      <rightJoint>back_axle_hinge</rightJoint>
-
-      <updateRate>50.0</updateRate>
-      <odomFrame>odom</odomFrame>
-      <baseFrame>amp</baseFrame>
-    </plugin> -->
-
+    <!---<allow_auto_disable>1</allow_auto_disable> -->
   </model>
 </sdf>
