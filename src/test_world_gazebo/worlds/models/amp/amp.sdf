@@ -38,7 +38,7 @@
 
 
         <link name='front_axle_link'>
-         <pose>-0.000953 0.793081 -0.001476 0 -0 0</pose>
+         <pose>-0.000953 0.793081 -0.001476 0 0 0</pose>
          <inertial>
         <pose>-0.032 0 0.070 0 0 0</pose>
         <inertia>
@@ -56,17 +56,48 @@
               <mesh>
                 <uri>model://amp_axle/amp_axle.obj</uri>
                 <scale>1 1 1</scale>
+
               </mesh>
             </geometry>
           </visual>
           <collision name='front_axle_collision'>
+          <pose>0 0 0 0 0 1.5708</pose>
             <geometry>
               <mesh>
-                <uri>model://amp_axle/amp_axle.obj</uri>
+                <uri>model://amp_axle/axle_new.obj</uri>
+                <scale>1 0.88 1</scale>
               </mesh>
+
             </geometry>
 
           </collision>
+      <!-- <collision name="axle_collision">
+        <geometry>
+          <cylinder>
+            <radius>0.1</radius>
+            <length>1.2</length>
+          </cylinder>
+        </geometry>
+        <pose>0 0 0 0 1.5708 0</pose>
+      </collision> -->
+      <!-- <collision name="wheel_left_collision">
+        <pose>-0.6 0 0 0 1.72 0</pose>
+        <geometry>
+          <cylinder>
+            <radius>0.18</radius>
+            <length>0.2</length>
+          </cylinder>
+        </geometry>
+      </collision>
+      <collision name="wheel_right_collision">
+        <pose>0.6 0 0 0 1.42 0</pose>
+        <geometry>
+          <cylinder>
+            <radius>0.18</radius>
+            <length>0.2</length>
+          </cylinder>
+        </geometry>
+      </collision> -->
         </link>
 
 
@@ -74,7 +105,7 @@
 
 
         <link name='back_axle_link'>
-         <pose>-0.002768 -0.844977 0.000719 0 -0 0</pose>
+         <pose>-0.002768 -0.844977 0.000719 0 0 0</pose>
          <inertial>
         <pose>-0.032 0 0.070 0 0 0</pose>
         <inertia>
@@ -92,17 +123,48 @@
               <mesh>
                 <uri>model://amp_axle/amp_axle.obj</uri>
                 <scale>1 1 1</scale>
+                
               </mesh>
             </geometry>
           </visual>
           <collision name='back_axle_collision'>
+          <pose>0 0 0 0 0 1.5708</pose>
             <geometry>
               <mesh>
-                <uri>model://amp_axle/amp_axle.obj</uri>
+                <uri>model://amp_axle/axle_new.obj</uri>
+                <scale>1 0.88 1</scale>
               </mesh>
             </geometry>
             
           </collision>
+
+          <!-- <collision name="axle_collision">
+        <geometry>
+          <cylinder>
+            <radius>0.1</radius>
+            <length>1.2</length>
+          </cylinder>
+        </geometry>
+        <pose>0 0 0 0 1.5708 0</pose>
+      </collision> -->
+      <!-- <collision name="wheel_left_collision">
+        <pose>-0.6 0 0 0 1.72 0</pose>
+        <geometry>
+          <cylinder>
+            <radius>0.18</radius>
+            <length>0.2</length>
+          </cylinder>
+        </geometry>
+      </collision>
+      <collision name="wheel_right_collision">
+        <pose>0.6 0 0 0 1.42 0</pose>
+        <geometry>
+          <cylinder>
+            <radius>0.18</radius>
+            <length>0.2</length>
+          </cylinder>
+        </geometry>
+      </collision> -->
         </link>
         
 
@@ -116,7 +178,7 @@
           <dynamics>
             <spring_reference>0</spring_reference>
             <spring_stiffness>0</spring_stiffness>
-            <damping>0.1</damping>
+            <damping>2</damping>
           </dynamics>
         </axis>
         <physics>
@@ -142,7 +204,7 @@
           <dynamics>
             <spring_reference>0</spring_reference>
             <spring_stiffness>0</spring_stiffness>
-            <damping>0.1</damping>
+            <damping>2</damping>
           </dynamics>
         </axis>
         <physics>
