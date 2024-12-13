@@ -43,6 +43,9 @@
 #include <px4_msgs/msg/vehicle_control_mode.hpp>
 #include <px4_ros_com/frame_transforms.h>
 #include <rclcpp/rclcpp.hpp>
+
+#include <px4_msgs/msg/sensor_gps.hpp>
+
 #include <stdint.h>
 
 #include <chrono>
@@ -57,6 +60,14 @@ class OffboardControl : public rclcpp::Node
 public:
 	OffboardControl() : Node("offboard_control")
 	{
+		rmw_qos_profile_t qos_profile = rmw_qos_profile_sensor_data;
+		auto qos = rclcpp::QoS(rclcpp::QoSInitialization(qos_profile.history, 5), qos_profile);
+
+		subscription_ = this->create_subscription<px4_msgs::msg::SensorGps>("/fmu/out/vehicle_gps_position", qos,
+		[this](const px4_msgs::msg::SensorGps::UniquePtr msg) {
+			latitude = msg->latitude_deg;
+			longitude = msg->longitude_deg;
+		});
 
 		offboard_control_mode_publisher_ = this->create_publisher<OffboardControlMode>("/fmu/in/offboard_control_mode", 10);
 		trajectory_setpoint_publisher_ = this->create_publisher<TrajectorySetpoint>("/fmu/in/trajectory_setpoint", 10);
@@ -96,9 +107,14 @@ private:
 	rclcpp::Publisher<TrajectorySetpoint>::SharedPtr trajectory_setpoint_publisher_;
 	rclcpp::Publisher<VehicleCommand>::SharedPtr vehicle_command_publisher_;
 
+	rclcpp::Subscription<px4_msgs::msg::SensorGps>::SharedPtr subscription_;
+	
 	std::atomic<uint64_t> timestamp_;   //!< common synced timestamped
 
 	uint64_t offboard_setpoint_counter_;   //!< counter for the number of setpoints sent
+
+	float latitude;
+	float longitude;
 
 	void publish_offboard_control_mode();
 	void publish_trajectory_setpoint();
@@ -111,6 +127,9 @@ private:
 void OffboardControl::arm()
 {
 	publish_vehicle_command(VehicleCommand::VEHICLE_CMD_COMPONENT_ARM_DISARM, 1.0);
+
+	RCLCPP_INFO(this->get_logger(), "Latitude '%f'", latitude);
+	RCLCPP_INFO(this->get_logger(), "Longitude '%f'", longitude);
 
 	RCLCPP_INFO(this->get_logger(), "Arm command send");
 }
