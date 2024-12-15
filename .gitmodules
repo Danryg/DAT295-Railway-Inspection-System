@@ -11,3 +11,9 @@
 	path = PX4-Autopilot
 	url = https://github.com/griimmm/PX4-Autopilot.git
 	branch = proj_dev
+[submodule "src/glim_ros/src/glim_ros2"]
+	path = src/glim_ros/src/glim_ros2
+	url = git@github.com:ArthurAlexandersson/glim_ros2.git
+[submodule "src/glim_ros/src/glim"]
+	path = src/glim_ros/src/glim
+	url = git@github.com:ArthurAlexandersson/glim.git
