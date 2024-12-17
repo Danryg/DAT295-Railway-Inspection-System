@@ -27,6 +27,8 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
+            'drive = test_world_gazebo.drive:main',
+            'stop = test_world_gazebo.stop:main'
         ],
     },
 )

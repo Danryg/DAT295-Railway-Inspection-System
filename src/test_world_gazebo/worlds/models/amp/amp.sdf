@@ -5,20 +5,21 @@
 
         <link name='base_link'>
         <inertial>
-        <pose>-0.032 0 0.070 0 0 0</pose>
+        <pose>-0.032 0 0.070 0 0 1.5708</pose>
         <inertia>
-          <ixx>7.2397393e-01</ixx>
+          <!-- <ixx>7.2397393e-01</ixx>
           <ixy>4.686399e-10</ixy>
           <ixz>-1.09525703e-08</ixz>
           <iyy>7.2397393e-01</iyy>
           <iyz>2.8582649e-09</iyz>
-          <izz>6.53050163e-01</izz>
+          <izz>6.53050163e-01</izz> -->
         </inertia>
-        <mass>8.2573504</mass>
+        <mass>60.2573504</mass>
       </inertial>
-         <pose>0.003725 0.051897 0.100757 0 -0 0</pose>
+         <pose>0.003725 0.051897 0.100757 0 -0 1.5708</pose>
           <visual name='base_visual'>
             <geometry>
+            <pose>0 0 0 0 0 1.5708</pose>
               <mesh>
                 <uri>model://amp_hull/amp_hull.obj</uri>
                 <scale>1 1 1</scale>
@@ -40,14 +41,14 @@
         <link name='front_axle_link'>
          <pose>-0.000953 0.793081 -0.001476 0 0 0</pose>
          <inertial>
-        <pose>-0.032 0 0.070 0 0 0</pose>
+        <pose>0 0 0 0 0 0</pose>
         <inertia>
-          <ixx>7.2397393e-01</ixx>
+          <!-- <ixx>7.2397393e-01</ixx>
           <ixy>4.686399e-10</ixy>
           <ixz>-1.09525703e-08</ixz>
           <iyy>7.2397393e-01</iyy>
           <iyz>2.8582649e-09</iyz>
-          <izz>6.53050163e-01</izz>
+          <izz>6.53050163e-01</izz> -->
         </inertia>
         <mass>4.2573504</mass>
       </inertial>
@@ -59,6 +60,12 @@
 
               </mesh>
             </geometry>
+            <material>
+        <ambient>0.2 0.2 0.2 1</ambient>
+        <diffuse>0.8 0.8 0.8 1</diffuse>
+        <specular>0.2 0.2 0.2 1</specular>
+        <emissive>0 0 0 1</emissive>
+      </material>
           </visual>
           <collision name='front_axle_collision'>
           <pose>0 0 0 0 0 1.5708</pose>
@@ -69,6 +76,14 @@
               </mesh>
 
             </geometry>
+            <surface>
+        <friction>
+          <ode>
+            <mu>0.9</mu>
+            <mu2>0.9</mu2>
+          </ode>
+        </friction>
+      </surface>
 
           </collision>
       <!-- <collision name="axle_collision">
@@ -107,14 +122,14 @@
         <link name='back_axle_link'>
          <pose>-0.002768 -0.844977 0.000719 0 0 0</pose>
          <inertial>
-        <pose>-0.032 0 0.070 0 0 0</pose>
+        <pose>0 0 0 0 0 0</pose>
         <inertia>
-          <ixx>7.2397393e-01</ixx>
+          <!-- <ixx>7.2397393e-01</ixx>
           <ixy>4.686399e-10</ixy>
           <ixz>-1.09525703e-08</ixz>
           <iyy>7.2397393e-01</iyy>
           <iyz>2.8582649e-09</iyz>
-          <izz>6.53050163e-01</izz>
+          <izz>6.53050163e-01</izz> -->
         </inertia>
         <mass>4.2573504</mass>
       </inertial>
@@ -126,6 +141,12 @@
                 
               </mesh>
             </geometry>
+            <material>
+        <ambient>0.2 0.2 0.2 1</ambient>
+        <diffuse>0.8 0.8 0.8 1</diffuse>
+        <specular>0.2 0.2 0.2 1</specular>
+        <emissive>0 0 0 1</emissive>
+      </material>
           </visual>
           <collision name='back_axle_collision'>
           <pose>0 0 0 0 0 1.5708</pose>
@@ -135,6 +156,15 @@
                 <scale>1 0.88 1</scale>
               </mesh>
             </geometry>
+
+            <surface>
+        <friction>
+          <ode>
+            <mu>0.9</mu>
+            <mu2>0.9</mu2>
+          </ode>
+        </friction>
+        </surface>
             
           </collision>
 
@@ -178,7 +208,7 @@
           <dynamics>
             <spring_reference>0</spring_reference>
             <spring_stiffness>0</spring_stiffness>
-            <damping>2</damping>
+            <damping>1.5</damping>
           </dynamics>
         </axis>
         <physics>
@@ -204,7 +234,7 @@
           <dynamics>
             <spring_reference>0</spring_reference>
             <spring_stiffness>0</spring_stiffness>
-            <damping>2</damping>
+            <damping>0.5</damping>
           </dynamics>
         </axis>
         <physics>
@@ -243,12 +273,12 @@
       <right_joint>link_JOINT_1</right_joint>
 
       <!-- kinematics -->
-      <wheel_separation>0.160</wheel_separation>
-      <wheel_diameter>0.066</wheel_diameter>
+      <wheel_separation>1.5</wheel_separation>
+      <wheel_diameter>0.3</wheel_diameter>
 
       <!-- limits -->
-      <max_wheel_torque>20</max_wheel_torque>
-      <max_wheel_acceleration>1.0</max_wheel_acceleration>
+      <max_wheel_torque>200</max_wheel_torque>
+      <max_wheel_acceleration>10.0</max_wheel_acceleration>
 
       <command_topic>cmd_vel</command_topic>
 
