@@ -41,6 +41,7 @@
 #include <px4_msgs/msg/trajectory_setpoint.hpp>
 #include <px4_msgs/msg/vehicle_command.hpp>
 #include <px4_msgs/msg/vehicle_control_mode.hpp>
+#include <px4_msgs/msg/vehicle_local_position.hpp>
 #include <px4_ros_com/frame_transforms.h>
 #include <rclcpp/rclcpp.hpp>
 
@@ -50,10 +51,12 @@
 
 #include <chrono>
 #include <iostream>
+#include <Eigen/Dense>
 
 using namespace std::chrono;
 using namespace std::chrono_literals;
 using namespace px4_msgs::msg;
+using namespace Eigen;
 
 class OffboardControl : public rclcpp::Node
 {
@@ -65,8 +68,16 @@ public:
 
 		subscription_ = this->create_subscription<px4_msgs::msg::SensorGps>("/fmu/out/vehicle_gps_position", qos,
 		[this](const px4_msgs::msg::SensorGps::UniquePtr msg) {
-			latitude = msg->latitude_deg;
-			longitude = msg->longitude_deg;
+			vect.x() = msg->latitude_deg;
+			vect.y() = msg->longitude_deg;
+			vect.z() = msg-> altitude_ellipsoid_m;
+		});
+
+		subscription_1 = this->create_subscription<px4_msgs::msg::VehicleLocalPosition>("/fmu/out/vehicle_global_position", qos,
+		[this](const px4_msgs::msg::VehicleLocalPosition::UniquePtr msg) {
+			map_origin1.x() = msg->ref_lat;
+			map_origin1.y() = msg->ref_lon;
+			map_origin1.z() = msg-> ref_alt;
 		});
 
 		offboard_control_mode_publisher_ = this->create_publisher<OffboardControlMode>("/fmu/in/offboard_control_mode", 10);
@@ -84,7 +95,14 @@ public:
 				// Arm the vehicle
 				this->arm();
 			}
+			// vect(latitude, longitude, altitude);
+			// map_origin1(ref_latitude, ref_latitude, ref_altitude);
+			converted = px4_ros_com::frame_transforms::ecef_to_enu_local_frame(vect, map_origin1); //ecef_to_enu_local_frame
+			// reconverted = px4_ros_com::frame_transforms::enu_to_ned_local_frame(converted);  //enu/ecef to NED
 
+			RCLCPP_INFO(this->get_logger(), "X '%f'", reconverted.x());
+			RCLCPP_INFO(this->get_logger(), "Y '%f'", reconverted.y());
+			RCLCPP_INFO(this->get_logger(), "Z '%f'", reconverted.z());
 			// offboard_control_mode needs to be paired with trajectory_setpoint
 			publish_offboard_control_mode();
 			publish_trajectory_setpoint();
@@ -108,13 +126,15 @@ private:
 	rclcpp::Publisher<VehicleCommand>::SharedPtr vehicle_command_publisher_;
 
 	rclcpp::Subscription<px4_msgs::msg::SensorGps>::SharedPtr subscription_;
+	rclcpp::Subscription<px4_msgs::msg::VehicleLocalPosition>::SharedPtr subscription_1;
 	
 	std::atomic<uint64_t> timestamp_;   //!< common synced timestamped
 
 	uint64_t offboard_setpoint_counter_;   //!< counter for the number of setpoints sent
 
-	float latitude;
-	float longitude;
+	// float latitude, longitude, altitude, ref_altitude, ref_latitude, ref_longitude;
+
+	Vector3d vect, map_origin1, converted, reconverted;
 
 	void publish_offboard_control_mode();
 	void publish_trajectory_setpoint();
@@ -126,11 +146,9 @@ private:
  */
 void OffboardControl::arm()
 {
+	RCLCPP_INFO(this->get_logger(), "Latitude '%f'", vect.x());
+	RCLCPP_INFO(this->get_logger(), "Longitude '%f'", vect.y());
 	publish_vehicle_command(VehicleCommand::VEHICLE_CMD_COMPONENT_ARM_DISARM, 1.0);
-
-	RCLCPP_INFO(this->get_logger(), "Latitude '%f'", latitude);
-	RCLCPP_INFO(this->get_logger(), "Longitude '%f'", longitude);
-
 	RCLCPP_INFO(this->get_logger(), "Arm command send");
 }
 
