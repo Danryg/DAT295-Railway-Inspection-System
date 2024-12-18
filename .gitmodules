@@ -11,3 +11,7 @@
 	path = PX4-Autopilot
 	url = https://github.com/griimmm/PX4-Autopilot.git
 	branch = proj_dev
+[submodule "ros2_aruco"]
+	path = src/ros2_aruco
+	url = https://github.com/JMU-ROBOTICS-VIVA/ros2_aruco.git
+	branch = main
