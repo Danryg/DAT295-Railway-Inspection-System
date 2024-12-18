@@ -12,6 +12,7 @@ class SmoothVelocityPublisher(Node):
         self.timer = self.create_timer(0.1, self.publish_velocity)
         self.reached_target = False
 
+
     def publish_velocity(self):
         # Gradually increase the velocity
         if self.current_velocity < self.target_velocity:
@@ -34,9 +35,11 @@ class SmoothVelocityPublisher(Node):
             # Flag set to true to stop the spin loop.
 
 def main(args=None):
+    velocity = float(input("Enter the desired velocity: "))
     rclpy.init(args=args)
     node = SmoothVelocityPublisher()
-    
+    node.target_velocity = velocity
+
     # Keep spinning until target velocity is reached
     while rclpy.ok() and not node.reached_target:
         rclpy.spin_once(node)

@@ -28,7 +28,8 @@ setup(
     entry_points={
         'console_scripts': [
             'drive = test_world_gazebo.drive:main',
-            'stop = test_world_gazebo.stop:main'
+            'stop = test_world_gazebo.stop:main',
+            'speed = test_world_gazebo.speed:main'
         ],
     },
 )
