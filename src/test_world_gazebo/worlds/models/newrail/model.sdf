@@ -7,7 +7,7 @@
         <geometry>
           <mesh>
             <uri>model://newrail/mesh/9b95d1b1-651e-4569-89c0-8c6a7efd5182.dae</uri>
-            <scale>1.0 1.0 1.0</scale>
+            <scale>0.80 0.80 1.2</scale>
           </mesh>
         </geometry>
         <surface>
@@ -24,7 +24,7 @@
         <geometry>
           <mesh>
             <uri>model://newrail/mesh/9b95d1b1-651e-4569-89c0-8c6a7efd5182.dae</uri>
-            <scale>1.0 1.0 1.0</scale>
+            <scale>0.8 0.80 1.2</scale>
           </mesh>
         </geometry>
       </visual>

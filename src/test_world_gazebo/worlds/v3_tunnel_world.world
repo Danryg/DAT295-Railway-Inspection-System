@@ -16,12 +16,12 @@
       <uri>model://asphalt_plane_long</uri>
       <pose>0 400 0 0 0 0</pose>
     </include>
-    <!--<include>
+    <!-- <include>
       <uri>model://curve_road</uri>
       <pose>-5 -1 0 0 0 0</pose>
       <static>true</static>
-  </include>
- <model name="rail1">
+  </include> -->
+ <!-- <model name="rail1">
     <include>
       <uri>model://rail</uri>
       <pose>-0.565 290 0.5 0 0 0</pose>
@@ -34,7 +34,7 @@
     <pose>0.565 290 0.5 0 0 0</pose>
     <static>true</static>
 </include>
-</model>-->
+</model> -->
 
     <!--add
     some noise-->
@@ -44,9 +44,9 @@
       <pose>-1 -1 0.75  0 0</pose>
       <static>true</static>
   </include>
-</model>
+</model> -->
 
-  <model name="rail4">
+  <!-- <model name="rail4">
     <include>
       <uri>model://newrail</uri>
       <pose>1 -1 0.75 0 0 0</pose>
@@ -58,23 +58,23 @@
     <uri>model://oak_tree</uri>
     <pose>-4.5 30 0 0 0 0</pose>
     <static>true</static>
-</include>
+</include>!-->
  <model name="rail">
     <include>
       <uri>model://newrail</uri>
-      <pose>0.2 -1 0 0 0 0</pose>
+      <pose>0.2 -1 -0.5 0 0 0</pose>
       <static>true</static>
   </include>
 </model>
 
- <model name="tunnel">
+ <!-- <model name="tunnel">
     <include>
       <uri>model://tunnel</uri>
       <pose>2 200 0 0 0 0</pose>
       <static>true</static>
   </include>
-</model>
--->
+</model> -->
+
 
     <!--five
     lamps parallel to the rail track-->

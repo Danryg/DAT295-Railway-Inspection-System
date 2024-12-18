@@ -115,6 +115,26 @@
       </collision> -->
         </link>
 
+        <link name="front_swivel_link">
+  <pose>-0.000953 0.793081 -0.001476 0 0 0</pose>
+  <inertial>
+    <mass>1.0</mass>
+    <pose>0 0 0 0 0 0</pose>
+    <inertia>
+      <ixx>0.001</ixx>
+      <iyy>0.001</iyy>
+      <izz>0.001</izz>
+    </inertia>
+  </inertial>
+  <visual name="front_swivel">
+    <geometry>
+      <box>
+        <size>0.1 0.1 0.1</size>
+      </box>
+    </geometry>
+  </visual>
+</link>
+
 
 
 
@@ -196,11 +216,32 @@
         </geometry>
       </collision> -->
         </link>
+
+<link name="back_swivel_link">
+  <pose>-0.002768 -0.844977 0.000719 0 0 0</pose>
+  <inertial>
+    <mass>1.0</mass>
+    <pose>0 0 0 0 0 0</pose>
+    <inertia>
+      <ixx>0.001</ixx>
+      <iyy>0.001</iyy>
+      <izz>0.001</izz>
+    </inertia>
+  </inertial>
+  <visual name="back_swivel">
+    <geometry>
+      <box>
+        <size>0.1 0.1 0.1</size>
+      </box>
+    </geometry>
+  </visual>
+</link>
+                                                                
         
 
 
       <joint name='link_JOINT_0' type='revolute'>
-        <parent>base_link</parent>
+        <parent>front_swivel_link</parent>
         <child>front_axle_link</child>
         <pose>0 0 0 0 -0 0</pose>
         <axis>
@@ -208,7 +249,7 @@
           <dynamics>
             <spring_reference>0</spring_reference>
             <spring_stiffness>0</spring_stiffness>
-            <damping>1.5</damping>
+            <damping>0.5</damping>
           </dynamics>
         </axis>
         <physics>
@@ -225,8 +266,65 @@
         </physics>
       </joint>
 
+      <joint name='swivel_JOINT_0' type='revolute'>
+  <parent>base_link</parent>
+  <child>front_swivel_link</child>
+  <pose>0 0 0 0 0 0</pose>
+  <axis>
+    <xyz>0 0 1</xyz> <!-- Swivel axis (Y-axis) -->
+    <dynamics>
+      <spring_reference>0</spring_reference>
+      <spring_stiffness>0</spring_stiffness> <!-- Gentle spring for swiveling -->
+      <damping>5</damping>
+    </dynamics>
+    <limit>
+      <lower>-0.05</lower> <!-- Swivel range in radians -->
+      <upper>0.05</upper>
+      <effort>2.0</effort>
+      <velocity>0.5</velocity>
+    </limit>
+  </axis>
+  <physics>
+    <ode>
+      <limit>
+        <cfm>1e-4</cfm>
+        <erp>0.7</erp>
+      </limit>
+    </ode>
+  </physics>
+</joint>
+
+
+<joint name='swivel_JOINT_1' type='revolute'>
+  <parent>base_link</parent>
+  <child>back_swivel_link</child>
+  <pose>0 0 0 0 0 0</pose>
+  <axis>
+    <xyz>0 0 1</xyz> <!-- Swivel axis (Y-axis) -->
+    <dynamics>
+      <spring_reference>0</spring_reference>
+      <spring_stiffness>0</spring_stiffness> <!-- Gentle spring for swiveling -->
+      <damping>5</damping>
+    </dynamics>
+    <limit>
+      <lower>-0.05</lower> <!-- Swivel range in radians -->
+      <upper>0.05</upper>
+      <effort>2.0</effort>
+      <velocity>0.5</velocity>
+    </limit>
+  </axis>
+  <physics>
+    <ode>
+      <limit>
+        <cfm>1e-4</cfm>
+        <erp>0.7</erp>
+      </limit>
+    </ode>
+  </physics>
+</joint>
+
       <joint name='link_JOINT_1' type='revolute'>
-        <parent>base_link</parent>
+        <parent>back_swivel_link</parent>
         <child>back_axle_link</child>
         <pose>0 0 0 0 -0 0</pose>
         <axis>
