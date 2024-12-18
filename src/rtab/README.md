@@ -21,7 +21,7 @@ Then launch the MicrXRCEDDSAgent:
 ## Launching the drone
 Then launch the drone: 
 In PX4-Autopilot run:
-´´´make px5_sitl gazebo-classic_iris_velodyne_cam__test´´´ to run the drone in a test world with some trees. 
+´´´make px4_sitl gazebo-classic_iris_velodyne_cam__test´´´ to run the drone in a test world with some trees. 
 
 ## Setting transform 
 ´´´ros2 run tf2_ros static_transform_publisher 0 0 0 0 0 0 base iris_imu_link´´´
