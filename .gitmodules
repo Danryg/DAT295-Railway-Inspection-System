@@ -11,3 +11,6 @@
 	path = PX4-Autopilot
 	url = https://github.com/griimmm/PX4-Autopilot.git
 	branch = proj_dev
+[submodule "src/lidar_object_detection"]
+	path = src/lidar_object_detection
+	url = https://github.com/keyvan-dadash/lidar_object_detection
