@@ -14,4 +14,4 @@
 [submodule "ros2_aruco"]
 	path = src/ros2_aruco
 	url = https://github.com/JMU-ROBOTICS-VIVA/ros2_aruco.git
-	branch = main
+	branch = opencv_4.7
