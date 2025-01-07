@@ -46,6 +46,12 @@ def generate_launch_description():
         launch_arguments={'world': world}.items()
     )
 
+    ekf_cmd = IncludeLaunchDescription(
+        PythonLaunchDescriptionSource(
+            os.path.join(launch_file_dir, 'ekf.launch.py')
+        )
+    )
+
     gzclient_cmd = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
             os.path.join(pkg_gazebo_ros, 'launch', 'gzclient.launch.py')
@@ -76,5 +82,6 @@ def generate_launch_description():
     ld.add_action(gzclient_cmd)
     ld.add_action(robot_state_publisher_cmd)
     ld.add_action(spawn_turtlebot_cmd)
+    #ld.add_action(ekf_cmd)
 
     return ld
