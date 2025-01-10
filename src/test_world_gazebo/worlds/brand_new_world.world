@@ -1,0 +1,405 @@
+<?xml version="1.0" ?>
+<sdf version="1.7">
+  <world name="default">
+
+    <!-- A global light source -->
+    <include>
+      <uri>model://sun</uri>
+    </include>
+
+    <!-- A ground plane -->
+    <include>
+      <uri>model://ground_plane</uri>
+    </include>
+    <!-- Asphalt -->
+ <include>
+        <uri>model://asphalt_plane_long</uri>
+        <pose>0 0 0 0 0 0</pose> 
+        <!-- 400 -->
+    </include>
+  <!--<include>
+      <uri>model://curve_road</uri>
+      <pose>-5 -1 0 0 0 0</pose>
+      <static>true</static>
+  </include>
+ <model name="rail1">
+    <include>
+      <uri>model://rail</uri>
+      <pose>-0.565 290 0.5 0 0 0</pose>
+      <static>true</static>
+  </include>
+</model>
+<model name="rail2">
+  <include>
+    <uri>model://rail</uri>
+    <pose>0.565 290 0.5 0 0 0</pose>
+    <static>true</static>
+</include>
+</model>-->
+
+<!--add some noise-->
+ <!-- <model name="rail3">
+    <include>
+      <uri>model://newrail</uri>
+      <pose>-1 -1 0.75  0 0</pose>
+      <static>true</static>
+  </include>
+</model>
+
+  <model name="rail4">
+    <include>
+      <uri>model://newrail</uri>
+      <pose>1 -1 0.75 0 0 0</pose>
+      <static>true</static>
+  </include>
+</model>
+
+<include>
+    <uri>model://oak_tree</uri>
+    <pose>-4.5 30 0 0 0 0</pose>
+    <static>true</static>
+</include>-->
+ <model name="rail">
+    <include>
+      <uri>model://newrail</uri>
+      <pose>0 -140 0 0 0 0</pose>
+      <static>true</static>
+  </include>
+</model>
+
+ <!-- <model name="tunnel">
+    <include>
+      <uri>model://tunnel</uri>
+      <pose>2 200 0 0 0 0</pose>
+      <static>true</static>
+  </include>
+</model> -->
+
+ <!--five lamps parallel to the rail track-->
+<model name="lamp1">
+    <include>
+      <uri>model://lamp_post</uri>
+      <pose>-5 -140 0 0 0 1.57</pose>
+      <static>true</static>
+  </include>
+</model>
+
+<model name="lamp2">
+    <include>
+      <uri>model://lamp_post</uri>
+      <pose>-5 -110 0 0 0 1.57</pose>
+      <static>true</static>
+  </include>
+</model>
+
+<model name="lamp3">
+    <include>
+      <uri>model://lamp_post</uri>
+      <pose>-5 -80 0 0 0 1.57</pose>
+      <static>true</static>
+  </include>
+</model>
+
+<model name="lamp4">
+    <include>
+      <uri>model://lamp_post</uri>
+      <pose>0.0 -50 0 0 0 1.57</pose>
+      <static>true</static>
+  </include>
+</model>
+
+<model name="lamp5">
+    <include>
+      <uri>model://lamp_post</uri>
+      <pose>11 -20 0 0 0 1.57</pose>
+      <static>true</static>
+  </include>
+</model>
+
+<model name="lamp6">
+    <include>
+      <uri>model://lamp_post</uri>
+      <pose>-1.0 10 0 0 0 1.57</pose>
+      <static>true</static>
+  </include>
+</model>
+
+<model name="lamp7">
+    <include>
+      <uri>model://lamp_post</uri>
+      <pose>-2.5 40 0 0 0 1.57</pose>
+      <static>true</static>
+  </include>
+</model>
+
+<model name="lamp8">
+    <include>
+      <uri>model://lamp_post</uri>
+      <pose>-2.5 70 0 0 0 1.57</pose>
+      <static>true</static>
+  </include>
+</model>
+
+<model name="lamp9">
+    <include>
+      <uri>model://lamp_post</uri>
+      <pose>-2.5 100 0 0 0 1.57</pose>
+      <static>true</static>
+  </include>
+</model>
+
+<model name="lamp1r">
+    <include>
+      <uri>model://lamp_post</uri>
+      <pose>5.0 -140 0 0 0 -1.57</pose>
+      <static>true</static>
+  </include>
+</model>
+
+<model name="lamp2r">
+    <include>
+      <uri>model://lamp_post</uri>
+      <pose>5.0 -110 0 0 0 -1.57</pose>
+      <static>true</static>
+  </include>
+</model>
+
+<model name="lamp3r">
+    <include>
+      <uri>model://lamp_post</uri>
+      <pose>5 -80 0 0 0 -1.57</pose>
+      <static>true</static>
+  </include>
+</model>
+
+<model name="lamp4r">
+    <include>
+      <uri>model://lamp_post</uri>
+      <pose>10.0 -50 0 0 0 -1.57</pose>
+      <static>true</static>
+  </include>
+</model>
+
+<model name="lamp5r">
+    <include>
+      <uri>model://lamp_post</uri>
+      <pose>21 -20 0 0 0 -1.57</pose>
+      <static>true</static>
+  </include>
+</model>
+
+<model name="lamp6r">
+    <include>
+      <uri>model://lamp_post</uri>
+      <pose>9.0 10 0 0 0 -1.57</pose>
+      <static>true</static>
+  </include>
+</model>
+
+<model name="lamp7r">
+    <include>
+      <uri>model://lamp_post</uri>
+      <pose>7.5 40 0 0 0 -1.57</pose>
+      <static>true</static>
+  </include>
+</model>
+
+<model name="lamp8r">
+    <include>
+      <uri>model://lamp_post</uri>
+      <pose>7.5 70 0 0 0 -1.57</pose>
+      <static>true</static>
+  </include>
+</model>
+
+<model name="lamp9r">
+    <include>
+      <uri>model://lamp_post</uri>
+      <pose>7.5 100 0 0 0 -1.57</pose>
+      <static>true</static>
+  </include>
+</model>
+
+<population name="tall_box_population_left">
+      <model name="tall_box">
+        <include>
+          <static>true</static>
+          <uri>model://Box</uri>
+          <pose>0 0 0 0 0 0</pose>
+        </include>
+      </model>
+      <pose>-15 0 0 0 0 0</pose>
+      <box>
+        <size>25 300 0.01</size>
+      </box>
+      <model_count>20</model_count>
+      <distribution>
+        <type>random</type>
+      </distribution>
+    </population>
+
+<population name="tall_box_population_right1">
+      <model name="tall_box_right1">
+        <include>
+          <static>true</static>
+          <uri>model://Box</uri>
+          <pose>0 0 0 0 0 0</pose>
+        </include>
+      </model>
+      <pose>15 -100 0 0 0 0</pose>
+      <box>
+        <size>25 100 0.01</size>
+      </box>
+      <model_count>20</model_count>
+      <distribution>
+        <type>random</type>
+      </distribution>
+    </population>
+
+    <population name="tall_box_population_right2">
+      <model name="tall_box_right2">
+        <include>
+          <static>true</static>
+          <uri>model://Box</uri>
+          <pose>0 0 0 0 0 0</pose>
+        </include>
+      </model>
+      <pose>30 0 0 0 0 0</pose>
+      <box>
+        <size>25 100 0.01</size>
+      </box>
+      <model_count>20</model_count>
+      <distribution>
+        <type>random</type>
+      </distribution>
+    </population>
+
+    <population name="tall_box_population_right3">
+      <model name="tall_box_right3">
+        <include>
+          <static>true</static>
+          <uri>model://Box</uri>
+          <pose>0 0 0 0 0 0</pose>
+        </include>
+      </model>
+      <pose>15 100 0 0 0 0</pose>
+      <box>
+        <size>25 100 0.01</size>
+      </box>
+      <model_count>20</model_count>
+      <distribution>
+        <type>random</type>
+      </distribution>
+    </population>
+     
+<!-- <population name="lamp_population_left">
+      <model name="lamp">
+        <include>
+          <static>true</static>
+          <uri>model://lamp_post</uri>
+          <pose>0 0 0 0 0 0</pose>
+        </include>
+      </model>
+      <pose>-40 300 0 0 0 0</pose>
+      <box>
+        <size>50 600 0.01</size>
+      </box>
+      <model_count>20</model_count>
+      <distribution>
+        <type>random</type>
+      </distribution>
+    </population> -->
+
+    <!-- <population name="tree_population_left">
+      <model name="oak_tree_left">
+        <include>
+          <static>true</static>
+          <uri>model://oak_tree</uri>
+          <pose>0 0 0 0 0 0</pose>
+        </include>
+      </model>
+      <pose>-40 300 0 0 0 0</pose>
+      <box>
+        <size>50 600 0.01</size>
+      </box>
+      <model_count>20</model_count>
+      <distribution>
+        <type>random</type>
+      </distribution>
+    </population> -->
+    
+     <!-- <population name="tree_population_near1">
+      <model name="oak_tree_near1">
+        <include>
+          <static>true</static>
+          <uri>model://oak_tree</uri>
+          <pose>0 0 0 0 0 0</pose>
+        </include>
+      </model>
+      <pose>-6 30 0 0 0 0</pose>
+      <box>
+        <size>4 50 0.01</size>
+      </box>
+      <model_count>10</model_count>
+      <distribution>
+        <type>random</type>
+      </distribution>
+    </population> -->
+   
+    <!-- <population name="tree_population_near2">
+      <model name="oak_tree_near2">
+        <include>
+          <static>true</static>
+          <uri>model://oak_tree</uri>
+          <pose>0 0 0 0 0 0</pose>
+        </include>
+      </model>
+      <pose>-6 120 0 0 0 0</pose>
+      <box>
+        <size>4 110 0.01</size>
+      </box>
+      <model_count>10</model_count>
+      <distribution>
+        <type>random</type>
+      </distribution>
+    </population> -->
+   
+
+    <!-- <population name="tree_population_right">
+      <model name="oak_tree_right">
+        <include>
+          <static>true</static>
+          <uri>model://oak_tree</uri>
+          <pose>0 0 0 0 0 0</pose>
+        </include>
+      </model>
+      <pose>70 300 0 0 0 0</pose>
+      <box>
+        <size>50 600 0.01</size>
+      </box>
+      <model_count>20</model_count>
+      <distribution>
+        <type>random</type>
+      </distribution>
+    </population> -->
+    <!-- automatic population of objects -->
+    <!--<population name="lamp_post_population">
+      <model name="lamp_post">
+        <include>
+          <static>true</static>
+          <uri>model://lamp_post</uri>
+          <pose>0 0 0 0 0 1.57</pose>
+        </include>
+      </model>
+      <pose>-5 300 0 0 0 0</pose>
+      <box>
+        <size>2 600 0.01</size>
+      </box>
+      <model_count>10</model_count>
+      <distribution>
+        <type>linear-y</type>
+      </distribution>
+    </population>-->
+
+  </world>
+</sdf>
