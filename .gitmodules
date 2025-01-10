@@ -18,3 +18,9 @@
 [submodule "src/rtab/src/rtabmap"]
 	path = src/rtab/src/rtabmap
 	url = https://github.com/introlab/rtabmap.git
+[submodule "px4-ros2-interface-lib"]
+	path = px4-ros2-interface-lib
+	url = git@github.com:ArthurAlexandersson/px4-ros2-interface-lib.git
+[submodule "src/px4-ros2-interface-lib"]
+	path = src/px4-ros2-interface-lib
+	url = git@github.com:ArthurAlexandersson/px4-ros2-interface-lib.git
