@@ -12,10 +12,10 @@
       <uri>model://ground_plane</uri>
     </include>
     <!-- Asphalt -->
-    <include>
+    <!-- <include>
       <uri>model://asphalt_plane_long</uri>
       <pose>0 400 0 0 0 0</pose>
-    </include>
+    </include> -->
     <!-- <include>
       <uri>model://curve_road</uri>
       <pose>-5 -1 0 0 0 0</pose>
@@ -78,7 +78,7 @@
 
     <!--five
     lamps parallel to the rail track-->
-    <model name="lamp1">
+    <!-- <model name="lamp1">
       <include>
         <uri>model://lamp_post</uri>
         <pose>-5 0 0 0 0 1.57</pose>
@@ -116,9 +116,9 @@
         <pose>-2.5 240 0 0 0 1.57</pose>
         <static>true</static>
       </include>
-    </model>
+    </model> -->
 
-    <population name="tree_population_left">
+    <!-- <population name="tree_population_left">
       <model name="oak_tree_left">
         <include>
           <static>true</static>
@@ -134,9 +134,9 @@
       <distribution>
         <type>random</type>
       </distribution>
-    </population>
+    </population> -->
 
-    <population name="tree_population_near1">
+    <!-- <population name="tree_population_near1">
       <model name="oak_tree_near1">
         <include>
           <static>true</static>
@@ -189,7 +189,7 @@
       <distribution>
         <type>random</type>
       </distribution>
-    </population>
+    </population> -->
     <!-- automatic population of objects -->
     <!--<population
     name="lamp_post_population">
@@ -226,7 +226,7 @@
       </include>
     </model> -->
 
-    <model name='rails2'>
+    <!-- <model name='rails2'>
       <static>1</static>
       <link name='link'>
         <visual name='visual'>
@@ -263,6 +263,6 @@
       </link>
       <pose>-0 -3 0 0 0 1.55</pose>
     </model>
-
+ -->
   </world>
 </sdf>

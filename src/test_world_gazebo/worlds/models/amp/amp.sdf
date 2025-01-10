@@ -22,7 +22,7 @@
             <pose>0 0 0 0 0 1.5708</pose>
               <mesh>
                 <uri>model://amp_hull/amp_hull.obj</uri>
-                <scale>1 1 1</scale>
+                <scale>1 1.2 1</scale>
               </mesh>
             </geometry>
           </visual>
@@ -56,7 +56,7 @@
             <geometry>
               <mesh>
                 <uri>model://amp_axle/amp_axle.obj</uri>
-                <scale>1 1 1</scale>
+                <scale>1.2 1 1</scale>
 
               </mesh>
             </geometry>
@@ -72,7 +72,7 @@
             <geometry>
               <mesh>
                 <uri>model://amp_axle/axle_new.obj</uri>
-                <scale>1 0.88 1</scale>
+                <scale>1 1.08 1</scale>
               </mesh>
 
             </geometry>
@@ -157,7 +157,7 @@
             <geometry>
               <mesh>
                 <uri>model://amp_axle/amp_axle.obj</uri>
-                <scale>1 1 1</scale>
+                <scale>1.2 1 1</scale>
                 
               </mesh>
             </geometry>
@@ -173,7 +173,7 @@
             <geometry>
               <mesh>
                 <uri>model://amp_axle/axle_new.obj</uri>
-                <scale>1 0.88 1</scale>
+                <scale>1 1.08 1</scale>
               </mesh>
             </geometry>
 
