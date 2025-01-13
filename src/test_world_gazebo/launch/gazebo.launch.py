@@ -6,6 +6,7 @@ from launch.launch_description_sources import PythonLaunchDescriptionSource
 from launch.substitutions import Command, LaunchConfiguration, PythonExpression
 from launch_ros.actions import Node
 from launch_ros.substitutions import FindPackageShare
+from ament_index_python.packages import get_package_share_directory
  
  
 def generate_launch_description():
@@ -16,7 +17,7 @@ def generate_launch_description():
   # robot_name_in_model = 'hubert'
 #   rviz_config_file_path = 'rviz/urdf_gazebo_config.rviz'
   sdf_file_path = 'models/velodyne_hdl32.sdf'
-  world_file_path = 'worlds/v1_simple_world.world'
+  world_file_path = 'worlds/simple.world'
      
   # Pose where we want to spawn the robot
   # spawn_x_val = '0.0'
@@ -104,6 +105,18 @@ def generate_launch_description():
             description='World to load into Gazebo'
         )
    
+  launch_file_dir = os.path.join(get_package_share_directory('test_world_gazebo'), 'launch')
+  x_pose = LaunchConfiguration('x_pose', default='0.0')
+  y_pose = LaunchConfiguration('y_pose', default='0.0')
+  spawn_turtlebot_cmd = IncludeLaunchDescription(
+        PythonLaunchDescriptionSource(
+            os.path.join(launch_file_dir, 'spawn_amp.launch.py')
+        ),
+        launch_arguments={
+            'x_pose': x_pose,
+            'y_pose': y_pose
+        }.items()
+    )
   # Subscribe to the joint states of the robot, and publish the 3D pose of each link.    
   # start_robot_state_publisher_cmd = Node(
   #   package='robot_state_publisher',
@@ -162,5 +175,6 @@ def generate_launch_description():
   ld.add_action(spawn_entity_cmd)
   # ld.add_action(start_robot_state_publisher_cmd)
   # ld.add_action(start_joint_state_publisher_cmd)
+  ld.add_action(spawn_turtlebot_cmd)
  
   return ld

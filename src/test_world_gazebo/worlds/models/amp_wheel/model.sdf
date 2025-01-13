@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+<sdf version="1.6">
+  <model name="amp_wheel">
+    <static>false</static> 
+    <link name="link">
+      <visual name="visual">
+        <geometry>
+          <mesh>
+            <uri>model://amp_wheel/amp_wheel.obj</uri> 
+            <scale>1 1 1</scale> 
+          </mesh>
+        </geometry>
+      </visual>
+      <collision name="collision">
+        <geometry>
+          <mesh>
+            <uri>model://amp_wheel/amp_wheel.obj</uri> 
+          </mesh>
+        </geometry>
+      </collision>
+    </link>
+  </model>
+</sdf>

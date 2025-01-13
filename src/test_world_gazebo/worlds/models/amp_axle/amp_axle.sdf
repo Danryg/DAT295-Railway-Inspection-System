@@ -1,0 +1,25 @@
+<?xml version="1.0" ?>
+<sdf version="1.7">
+  <model name="amp_axle">
+    <static>false</static> 
+    <link name="link">
+      <static>false</static> 
+      <gravity>true</gravity>
+      <visual name="visual">
+        <geometry>
+          <mesh>
+            <uri>model://amp_axle/amp_axle.obj</uri> 
+            <scale>1 1 1</scale> 
+          </mesh>
+        </geometry>
+      </visual>
+      <collision name="collision">
+        <geometry>
+          <mesh>
+            <uri>model://amp_axle/amp_axle.obj</uri> 
+          </mesh>
+        </geometry>
+      </collision>
+    </link>
+  </model>
+</sdf>
