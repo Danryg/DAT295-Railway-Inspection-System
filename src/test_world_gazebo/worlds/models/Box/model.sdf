@@ -1,0 +1,31 @@
+<?xml version="1.0" ?>
+<sdf version="1.5">
+  <model name="tall_rectangle">
+  <static>true</static>
+  <link name="link">
+    <collision name="collision">
+      <geometry>
+        <box>
+          <size>1 1 10</size> <!-- Length, Width, Height -->
+        </box>
+      </geometry>
+      <pose>0 0 5 0 0 0</pose> <!-- Adjust to position correctly -->
+    </collision>
+    <visual name="visual">
+      <geometry>
+        <box>
+          <size>1 1 10</size> <!-- Length, Width, Height -->
+        </box>
+      </geometry>
+      <pose>0 0 5 0 0 0</pose> <!-- Match pose with collision -->
+      <material>
+        <script>
+          <uri>file://media/materials/scripts/gazebo.material</uri>
+          <name>Gazebo/Red</name>
+        </script>
+      </material>
+    </visual>
+  </link>
+</model>
+</sdf>
+
