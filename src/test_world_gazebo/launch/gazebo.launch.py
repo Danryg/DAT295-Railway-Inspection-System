@@ -16,8 +16,10 @@ def generate_launch_description():
   package_name = 'test_world_gazebo'
   # robot_name_in_model = 'hubert'
 #   rviz_config_file_path = 'rviz/urdf_gazebo_config.rviz'
+
   sdf_file_path = 'models/velodyne_hdl32.sdf'
   world_file_path = 'worlds/simple.world'
+
      
   # Pose where we want to spawn the robot
   # spawn_x_val = '0.0'
@@ -30,7 +32,7 @@ def generate_launch_description():
   # Set the path to different files and folders.  
   pkg_gazebo_ros = FindPackageShare(package='gazebo_ros').find('gazebo_ros')   
   pkg_share = FindPackageShare(package=package_name).find(package_name)
-  default_urdf_model_path = os.path.join(pkg_share, sdf_file_path)
+  # default_urdf_model_path = os.path.join(pkg_share, sdf_file_path)
   default_world_path = os.path.join(pkg_share, world_file_path)
   os.environ["GAZEBO_MODEL_PATH"] = gazebo_models_path
    
@@ -73,10 +75,10 @@ def generate_launch_description():
     default_value='False',
     description='Whether to execute gzclient')
  
-  declare_sdf_model_path_cmd = DeclareLaunchArgument(
-    name='sdf_model', 
-    default_value=default_urdf_model_path, 
-    description='Absolute path to robot sdf file')
+  # declare_sdf_model_path_cmd = DeclareLaunchArgument(
+  #   name='sdf_model', 
+  #   default_value=default_urdf_model_path, 
+  #   description='Absolute path to robot sdf file')
      
   # declare_use_robot_state_pub_cmd = DeclareLaunchArgument(
   #   name='use_robot_state_pub',
@@ -142,17 +144,17 @@ def generate_launch_description():
     condition=IfCondition(PythonExpression([use_simulator, ' and not ', headless])))
  
   # Launch the robot
-  spawn_entity_cmd = Node(
-    package='gazebo_ros', 
-    executable='spawn_entity.py',
-    arguments=['-entity', 'velodyne', 
-                # '-topic', 'robot_description',
-                '-file', sdf_model,
-                    '-x', '0.0',
-                    '-y', '0.0',
-                    '-z', '0.0',
-                    '-Y', '0.0'],
-                    output='screen')
+  # spawn_entity_cmd = Node(
+  #   package='gazebo_ros', 
+  #   executable='spawn_entity.py',
+  #   arguments=['-entity', 'velodyne', 
+  #               # '-topic', 'robot_description',
+  #               '-file', sdf_model,
+  #                   '-x', '0.0',
+  #                   '-y', '0.0',
+  #                   '-z', '0.0',
+  #                   '-Y', '0.0'],
+  #                   output='screen')
  
   # Create the launch description and populate
   ld = LaunchDescription()
@@ -163,7 +165,7 @@ def generate_launch_description():
   ld.add_action(declare_namespace_cmd)
   ld.add_action(declare_use_namespace_cmd)
   ld.add_action(declare_simulator_cmd)
-  ld.add_action(declare_sdf_model_path_cmd)
+  # ld.add_action(declare_sdf_model_path_cmd)
   # ld.add_action(declare_use_robot_state_pub_cmd)  
   # ld.add_action(declare_use_rviz_cmd) 
   ld.add_action(declare_use_sim_time_cmd)
@@ -172,7 +174,7 @@ def generate_launch_description():
   # Add any actions
   ld.add_action(start_gazebo_server_cmd)
   ld.add_action(start_gazebo_client_cmd)
-  ld.add_action(spawn_entity_cmd)
+  # ld.add_action(spawn_entity_cmd)
   # ld.add_action(start_robot_state_publisher_cmd)
   # ld.add_action(start_joint_state_publisher_cmd)
   ld.add_action(spawn_turtlebot_cmd)
