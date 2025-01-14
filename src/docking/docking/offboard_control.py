@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 import rclpy
+import time
 from rclpy.node import Node
 from rclpy.qos import QoSProfile, ReliabilityPolicy, HistoryPolicy, DurabilityPolicy
 from px4_msgs.msg import OffboardControlMode, TrajectorySetpoint, VehicleCommand, VehicleLocalPosition, VehicleStatus
@@ -8,6 +9,7 @@ from px4_msgs.msg import OffboardControlMode, TrajectorySetpoint, VehicleCommand
 #Resolve with approving PR
 #from ros2_aruco_interfaces.msg import ArucoMarkers
 from geometry_msgs.msg import PoseArray
+from controller import PID
 
 class OffboardControl(Node):
     """Node for controlling a vehicle in offboard mode."""
@@ -91,7 +93,7 @@ class OffboardControl(Node):
         """Publish the trajectory setpoint."""
         msg = TrajectorySetpoint()
         msg.position = [x, y, z]
-        msg.yaw = 1.57079  # (90 degree)
+        msg.yaw = 0 #1.57079  # (90 degree)
         msg.timestamp = int(self.get_clock().now().nanoseconds / 1000)
         self.trajectory_setpoint_publisher.publish(msg)
         self.get_logger().info(f"Publishing position setpoints {[x, y, z]}")
@@ -116,7 +118,8 @@ class OffboardControl(Node):
         self.vehicle_command_publisher.publish(msg)
 
     def aruco_pose_callback(self, msg) -> None:
-        self.aruco_pose = msg
+        """ Callback function for aruco pose"""
+        self.aruco_pose = msg #msg.poses.position.x, .y, .z
 
     def timer_callback(self) -> None:
         """Callback function for the timer."""
@@ -131,6 +134,39 @@ class OffboardControl(Node):
             compare aruco pose and do pid
             correct position and land
         '''
+        controller_x = PID()
+        controller_y = PID()
+
+        z_val = -2
+
+        time_when_state_last_steady = 0
+
+        OFFSET_X = 50
+        OFFSET_Y = 3
+
+        ERROR_MARGIN = 50
+        while True:
+            estimate = self._estimateQueue.get() #Change to aruco_pose and modify accordingly
+
+            if (
+                abs(estimate[1][0] - OFFSET_X) < ERROR_MARGIN #Change to aruco_pose and modify accordingly
+                and abs(estimate[1][1] - OFFSET_Y) < ERROR_MARGIN
+            ):
+                time_when_state_last_steady = time.time()
+
+            controller_x.update(estimate[1][0] + OFFSET_X) #Change to aruco_pose and modify accordingly
+            controller_y.update(estimate[1][1] + OFFSET_Y) #Change to aruco_pose and modify accordingly
+
+            print("x:", estimate[1][0], " ,y:", estimate[1][1], ",z:", z_val)
+
+            if time.time() - time_when_state_last_steady < 1:
+                z_val += 0.004
+
+            # await self._drone.offboard.set_position_ned(
+            #     PositionNedYaw(controller_y.output, -controller_x.output, z_val, 1.57)
+            # )
+
+            self.publish_position_setpoint(controller_x.output, controller_y.output, z_val)
 
         # if self.offboard_setpoint_counter == 10:
         #     self.engage_offboard_mode()
