@@ -21,7 +21,7 @@ class OdometryConverter(Node):
             self.odometry_callback,
             qos_profile
             )
-        self.publisher = self.create_publisher(Odometry, 'converted_odometry', 10)
+        self.publisher = self.create_publisher(Odometry, 'odom', 10)
 
     def odometry_callback(self, msg):
         odometry_msg = Odometry()
