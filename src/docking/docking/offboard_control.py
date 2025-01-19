@@ -146,28 +146,27 @@ class OffboardControl(Node):
 
         ERROR_MARGIN = 50
         while True:
-            estimate = self._estimateQueue.get() #Change to aruco_pose and modify accordingly
+            #self.aruco_pose_subscriber = self.create_subscription(PoseArray, '/aruco_poses', self.aruco_pose_callback, qos_profile)
+            
+            estimate = self.aruco_pose #Change to aruco_pose and modify accordingly
 
             if (
-                abs(estimate[1][0] - OFFSET_X) < ERROR_MARGIN #Change to aruco_pose and modify accordingly
-                and abs(estimate[1][1] - OFFSET_Y) < ERROR_MARGIN
+                abs(estimate.poses.position.x - OFFSET_X) < ERROR_MARGIN #Change to aruco_pose and modify accordingly
+                and abs(estimate.poses.position.y - OFFSET_Y) < ERROR_MARGIN
             ):
                 time_when_state_last_steady = time.time()
 
-            controller_x.update(estimate[1][0] + OFFSET_X) #Change to aruco_pose and modify accordingly
-            controller_y.update(estimate[1][1] + OFFSET_Y) #Change to aruco_pose and modify accordingly
+            controller_x.update(estimate.poses.position.x + OFFSET_X) #Change to aruco_pose and modify accordingly
+            controller_y.update(estimate.poses.position.y + OFFSET_Y) #Change to aruco_pose and modify accordingly
 
-            print("x:", estimate[1][0], " ,y:", estimate[1][1], ",z:", z_val)
+            print("x:", estimate.poses.position.x, " ,y:", estimate.poses.position.y, ",z:", z_val)
 
             if time.time() - time_when_state_last_steady < 1:
-                z_val += 0.004
-
-            # await self._drone.offboard.set_position_ned(
-            #     PositionNedYaw(controller_y.output, -controller_x.output, z_val, 1.57)
-            # )
+                z_val += 0.004 #might have to change sign to account for descent/land
 
             self.publish_position_setpoint(controller_x.output, controller_y.output, z_val)
 
+        #Might need sme of this, figure out
         # if self.offboard_setpoint_counter == 10:
         #     self.engage_offboard_mode()
         #     self.arm()
