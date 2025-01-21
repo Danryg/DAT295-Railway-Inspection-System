@@ -16,6 +16,7 @@
         <uri>model://asphalt_plane_long</uri>
         <pose>0 400 0 0 0 0</pose>
     </include>
+
   <!--<include>
       <uri>model://curve_road</uri>
       <pose>-5 -1 0 0 0 0</pose>

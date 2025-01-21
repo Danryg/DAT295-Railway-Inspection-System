@@ -17,6 +17,34 @@
         <pose>0 0 0 0 0 0</pose> 
         <!-- 400 -->
     </include>
+
+<model name="big_red_plane">
+    <static>true</static>
+    <link name="plane_link">
+      <pose>0 0 10 0 0 0</pose> <!-- Positioned 10 meters in the air -->
+      <collision name="plane_collision">
+        <geometry>
+          <plane>
+            <normal>0 0 1</normal>
+            <size>10 10</size> <!-- 10x10 meter plane -->
+          </plane>
+        </geometry>
+      </collision>
+      <visual name="plane_visual">
+        <geometry>
+          <plane>
+            <normal>0 0 1</normal>
+            <size>10 10</size>
+          </plane>
+        </geometry>
+        <material>
+          <ambient>1 0 0 1</ambient> <!-- Red color -->
+          <diffuse>1 0 0 1</diffuse>
+          <specular>0.5 0.5 0.5 1</specular>
+        </material>
+      </visual>
+    </link>
+  </model>
   <!--<include>
       <uri>model://curve_road</uri>
       <pose>-5 -1 0 0 0 0</pose>

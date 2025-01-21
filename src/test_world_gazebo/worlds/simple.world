@@ -18,6 +18,36 @@
         <falloff>0</falloff>
       </spot>
     </light>
+
+     <model name="big_red_plane"> 
+    <static>1</static>
+    <link name="plane_link">
+      <pose>0 0 1.8 0 0 0</pose> 
+      <collision name="plane_collision">
+        <geometry>
+          <box>
+            <normal>0 0 1</normal>
+            <size>100 300 0.01</size> 
+          </box>
+        </geometry>
+      </collision>
+      <visual name="plane_visual">
+        <geometry>
+          <box>
+            <normal>0 0 1</normal>
+            <size>100 300 0.01</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>1 0 0 0.3</ambient> 
+          <diffuse>1 0 0 0.3</diffuse>
+          <specular>0.5 0.5 0.5 0.3</specular>
+        </material>
+      </visual>
+    </link>
+  </model>
+
+
     <model name='ground_plane'>
       <static>1</static>
       <link name='link'>

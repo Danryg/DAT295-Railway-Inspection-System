@@ -51,7 +51,7 @@ def generate_launch_description():
             '-file', urdf_path,
             '-x', '-0.2',
             '-y', '-140.37',
-            '-z', '1.01',
+            '-z', '1',
             '-Y', '3.11'
         ],
         output='screen',
