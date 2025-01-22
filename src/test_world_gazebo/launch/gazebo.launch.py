@@ -62,10 +62,10 @@ def generate_launch_description():
   use_respawn = 'False'
 
 
-  rviz_config_file = os.path.join(bringup_dir, 'rviz', 'nav2_default_view.rviz')
+  # rviz_config_file = os.path.join(bringup_dir, 'rviz', 'nav2_default_view.rviz')
   use_simulator = 'True'
   use_robot_state_pub = 'True'
-  use_rviz = 'True'
+  # use_rviz = 'True'
   headless = LaunchConfiguration('headless')
   world = LaunchConfiguration('world')
   pose = {'x': LaunchConfiguration('x_pose', default='-2.00'),
@@ -179,8 +179,6 @@ def generate_launch_description():
     condition=IfCondition(PythonExpression([use_simulator, ' and not ', headless])))
 
 
-
-
   urdf = os.path.join(bringup_dir, 'urdf', 'turtlebot3_waffle.urdf')
   with open(urdf, 'r') as infp:
       robot_description = infp.read()
@@ -208,26 +206,26 @@ def generate_launch_description():
           '-x', pose['x'], '-y', pose['y'], '-z', pose['z'],
           '-R', pose['R'], '-P', pose['P'], '-Y', pose['Y']])
 
-  rviz_cmd = IncludeLaunchDescription(
-      PythonLaunchDescriptionSource(
-          os.path.join(launch_dir, 'rviz_launch.py')),
-      condition=IfCondition(use_rviz),
-      launch_arguments={'namespace': namespace,
-                        'use_namespace': use_namespace,
-                        'rviz_config': rviz_config_file}.items())
+  # rviz_cmd = IncludeLaunchDescription(
+  #     PythonLaunchDescriptionSource(
+  #         os.path.join(launch_dir, 'rviz_launch.py')),
+  #     condition=IfCondition(use_rviz),
+  #     launch_arguments={'namespace': namespace,
+  #                       'use_namespace': use_namespace,
+  #                       'rviz_config': rviz_config_file}.items())
 
-  bringup_cmd = IncludeLaunchDescription(
-      PythonLaunchDescriptionSource(
-          os.path.join(launch_dir, 'bringup_launch.py')),
-      launch_arguments={'namespace': namespace,
-                        'use_namespace': use_namespace,
-                        'slam': slam,
-                        'map': map_yaml_file,
-                        'use_sim_time': use_sim_time,
-                        'params_file': params_file,
-                        'autostart': autostart,
-                        'use_composition': use_composition,
-                        'use_respawn': use_respawn}.items())
+  # bringup_cmd = IncludeLaunchDescription(
+  #     PythonLaunchDescriptionSource(
+  #         os.path.join(launch_dir, 'bringup_launch.py')),
+  #     launch_arguments={'namespace': namespace,
+  #                       'use_namespace': use_namespace,
+  #                       'slam': slam,
+  #                       'map': map_yaml_file,
+  #                       'use_sim_time': use_sim_time,
+  #                       'params_file': params_file,
+  #                       'autostart': autostart,
+  #                       'use_composition': use_composition,
+  #                       'use_respawn': use_respawn}.items())
 
 
   # Launch the robot
@@ -261,7 +259,6 @@ def generate_launch_description():
 #new
   ld.add_action(declare_use_robot_state_pub_cmd)
 
-
   # Add any actions
   ld.add_action(start_gazebo_server_cmd)
   ld.add_action(start_gazebo_client_cmd)
@@ -273,9 +270,8 @@ def generate_launch_description():
   #new
 
   ld.add_action(start_gazebo_spawner_cmd)
-
   ld.add_action(start_robot_state_publisher_cmd)
-  ld.add_action(rviz_cmd)
-  ld.add_action(bringup_cmd)
+  # ld.add_action(rviz_cmd)
+  # ld.add_action(bringup_cmd)
 
   return ld
