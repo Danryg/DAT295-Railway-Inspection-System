@@ -7,9 +7,9 @@ from rclpy.qos import QoSProfile, ReliabilityPolicy, HistoryPolicy, DurabilityPo
 from px4_msgs.msg import OffboardControlMode, TrajectorySetpoint, VehicleCommand, VehicleLocalPosition, VehicleStatus
 
 #Resolve with approving PR
-#from ros2_aruco_interfaces.msg import ArucoMarkers
+# from ros2_aruco_interfaces.msg import ArucoMarkers
 from geometry_msgs.msg import PoseArray
-from controller import PID
+from docking.controller import PID
 
 class OffboardControl(Node):
     """Node for controlling a vehicle in offboard mode."""
@@ -39,7 +39,7 @@ class OffboardControl(Node):
         self.vehicle_status_subscriber = self.create_subscription(
             VehicleStatus, '/fmu/out/vehicle_status', self.vehicle_status_callback, qos_profile)
         self.aruco_pose_subscriber = self.create_subscription(
-                PoseArray, '/aruco_poses', self.aruco_pose_callback, qos_profile)
+                PoseArray, '/aruco_poses', self.aruco_pose_callback, 10)
         # self.aruco_marker_subscriber = self.create_subscription(
         #         ArucoMarkers, '/aruco_markers', self.aruco_marker_callback, qos_profile)
         
@@ -47,7 +47,7 @@ class OffboardControl(Node):
         self.offboard_setpoint_counter = 0
         self.vehicle_local_position = VehicleLocalPosition()
         self.vehicle_status = VehicleStatus()
-        # self.aruco_pose = ArucoMarkers
+        self.aruco_poses = PoseArray
         self.takeoff_height = -5.0 #not need this
 
         # Create a timer to publish control commands
@@ -93,7 +93,7 @@ class OffboardControl(Node):
         """Publish the trajectory setpoint."""
         msg = TrajectorySetpoint()
         msg.position = [x, y, z]
-        msg.yaw = 0 #1.57079  # (90 degree)
+        msg.yaw = 0.0 #1.57079  # (90 degree)
         msg.timestamp = int(self.get_clock().now().nanoseconds / 1000)
         self.trajectory_setpoint_publisher.publish(msg)
         self.get_logger().info(f"Publishing position setpoints {[x, y, z]}")
@@ -118,15 +118,15 @@ class OffboardControl(Node):
         self.vehicle_command_publisher.publish(msg)
 
     def aruco_pose_callback(self, msg) -> None:
-        """ Callback function for aruco pose"""
-        self.aruco_pose = msg #msg.poses.position.x, .y, .z
-
+        """ Callback function for aruco pose"""  
+        self.aruco_poses = msg
+        
     def timer_callback(self) -> None:
         """Callback function for the timer."""
         self.publish_offboard_control_heartbeat_signal()
 
         ##Subscribe to ArUco /aruco_poses
-        self.get_logger().info(f"Aruco pose {self.aruco_pose}")
+        self.aruco_pose_subscriber = self.create_subscription(PoseArray, '/aruco_poses', self.aruco_pose_callback, 10)        
 
         ## PID Loop and land
         '''
@@ -137,7 +137,7 @@ class OffboardControl(Node):
         controller_x = PID()
         controller_y = PID()
 
-        z_val = -2
+        z_val = -2.0
 
         time_when_state_last_steady = 0
 
@@ -148,23 +148,23 @@ class OffboardControl(Node):
         while True:
             #self.aruco_pose_subscriber = self.create_subscription(PoseArray, '/aruco_poses', self.aruco_pose_callback, qos_profile)
             
-            estimate = self.aruco_pose #Change to aruco_pose and modify accordingly
+            # estimate = self.aruco_pose #Change to aruco_pose and modify accordingly
 
             if (
-                abs(estimate.poses.position.x - OFFSET_X) < ERROR_MARGIN #Change to aruco_pose and modify accordingly
-                and abs(estimate.poses.position.y - OFFSET_Y) < ERROR_MARGIN
+                abs(self.aruco_poses.poses[-1].position.x - OFFSET_X) < ERROR_MARGIN #Change to aruco_pose and modify accordingly
+                and abs(self.aruco_poses.poses[-1].position.y - OFFSET_Y) < ERROR_MARGIN
             ):
                 time_when_state_last_steady = time.time()
 
-            controller_x.update(estimate.poses.position.x + OFFSET_X) #Change to aruco_pose and modify accordingly
-            controller_y.update(estimate.poses.position.y + OFFSET_Y) #Change to aruco_pose and modify accordingly
+            controller_x.update(self.aruco_poses.poses[-1].position.x + OFFSET_X) #Change to aruco_pose and modify accordingly
+            controller_y.update(self.aruco_poses.poses[-1].position.y + OFFSET_Y) #Change to aruco_pose and modify accordingly
 
-            print("x:", estimate.poses.position.x, " ,y:", estimate.poses.position.y, ",z:", z_val)
+            print("x:", self.aruco_poses.poses[-1].position.x, " ,y:", self.aruco_poses.poses[-1].position.y, ",z:", z_val)
 
             if time.time() - time_when_state_last_steady < 1:
                 z_val += 0.004 #might have to change sign to account for descent/land
 
-            self.publish_position_setpoint(controller_x.output, controller_y.output, z_val)
+            self.publish_position_setpoint(round(controller_x.output,3), round(controller_y.output,3), z_val)
 
         #Might need sme of this, figure out
         # if self.offboard_setpoint_counter == 10:

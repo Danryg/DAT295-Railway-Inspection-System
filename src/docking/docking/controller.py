@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 #https://github.com/8OL-Robotics/precision-landing/blob/main/controllers/NED_controllers.py
 
 import time
