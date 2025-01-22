@@ -17,6 +17,15 @@ setup(
         (os.path.join('share', package_name, 'models'), glob(os.path.join('worlds/models/amp', '*.[sdf]*'))),
         (os.path.join('share', package_name, 'models'), glob(os.path.join('worlds/models/amp_hull', '*.[sdf]*'))),
         (os.path.join('share', package_name, 'models'), glob(os.path.join('worlds/models/amp_axle', '*.[sdf]*'))),
+
+        #new for turtlebot
+        (os.path.join('share', package_name, 'urdf'), glob(os.path.join('urdf', '*.[urdf]*'))),
+        (os.path.join('share', package_name, 'worlds'), glob(os.path.join('worlds', '*.[model]*'))),
+        (os.path.join('share', package_name, 'maps'), glob(os.path.join('maps', '*.[pgm]*'))),
+        (os.path.join('share', package_name, 'maps'), glob(os.path.join('maps', '*.[yaml]*'))),
+        (os.path.join('share', package_name, 'params'), glob(os.path.join('params', '*.[yaml]*'))),
+        (os.path.join('share', package_name, 'rviz'), glob(os.path.join('rviz', '*.[rviz]*'))),
+
     ],
     install_requires=['setuptools'],
     zip_safe=True,
