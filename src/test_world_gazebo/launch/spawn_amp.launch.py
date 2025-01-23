@@ -1,3 +1,4 @@
+
 # Copyright 2019 Open Source Robotics Foundation, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -33,6 +34,7 @@ def generate_launch_description():
     # Launch configuration variables specific to simulation
     x_pose = LaunchConfiguration('x_pose', default='0.0')
     y_pose = LaunchConfiguration('y_pose', default='0.0')
+    z_pose = LaunchConfiguration('z_pose', default='0.0')
 
     # Declare the launch arguments
     declare_x_position_cmd = DeclareLaunchArgument(
@@ -43,15 +45,19 @@ def generate_launch_description():
         'y_pose', default_value='0.0',
         description='Specify namespace of the robot')
 
+    declare_z_position_cmd = DeclareLaunchArgument(
+        'z_pose', default_value='0.0',
+        description='Specify namespace of the robot')
+
     start_gazebo_ros_spawner_cmd = Node(
         package='gazebo_ros',
         executable='spawn_entity.py',
         arguments=[
             '-entity', 'amp',
             '-file', urdf_path,
-            '-x', '1.06',
-            '-y', '-56.37',
-            '-z', '0.7',
+            '-x', x_pose,
+            '-y', y_pose,
+            '-z', z_pose,
             '-Y', '3.11'
         ],
         output='screen',
@@ -62,6 +68,7 @@ def generate_launch_description():
     # Declare the launch options
     ld.add_action(declare_x_position_cmd)
     ld.add_action(declare_y_position_cmd)
+    ld.add_action(declare_z_position_cmd)
 
     # Add any conditioned actions
     ld.add_action(start_gazebo_ros_spawner_cmd)

@@ -1,3 +1,4 @@
+
 #!/usr/bin/env python3
 #
 # Copyright 2019 ROBOTIS CO., LTD.
@@ -31,10 +32,26 @@ def generate_launch_description():
     pkg_gazebo_ros = get_package_share_directory('gazebo_ros')
 
     use_sim_time = LaunchConfiguration('use_sim_time', default='true')
-    x_pose = LaunchConfiguration('x_pose', default='0.0')
-    y_pose = LaunchConfiguration('y_pose', default='0.0')
-    z_pose = LaunchConfiguration('z_pose', default='0.0')
 
+    # AMP spawn positions
+    amp_spawn_x = '1.06'
+    amp_spawn_y = '-56.37'
+    amp_spawn_z = '0.7'
+
+    # TurtleBot spawn positions
+    tb_spawn_x = '3.06'
+    tb_spawn_y = '-56.37'
+    tb_spawn_z = '0.0'
+
+    # Unique LaunchConfigurations for AMP
+    amp_x_pose = LaunchConfiguration('amp_x_pose', default=amp_spawn_x)
+    amp_y_pose = LaunchConfiguration('amp_y_pose', default=amp_spawn_y)
+    amp_z_pose = LaunchConfiguration('amp_z_pose', default=amp_spawn_z)
+
+    # Unique LaunchConfigurations for TurtleBot
+    tb_x_pose = LaunchConfiguration('tb_x_pose', default=tb_spawn_x)
+    tb_y_pose = LaunchConfiguration('tb_y_pose', default=tb_spawn_y)
+    tb_z_pose = LaunchConfiguration('tb_z_pose', default=tb_spawn_z)
 
     world = os.path.join(
         get_package_share_directory(base_directory),
@@ -67,9 +84,20 @@ def generate_launch_description():
             os.path.join(launch_file_dir, 'spawn_turtlebot3.launch.py')
         ),
         launch_arguments={
-            'x_pose': x_pose,
-            'y_pose': y_pose,
-            'z_pose': z_pose
+            'x_pose': tb_x_pose,
+            'y_pose': tb_y_pose,
+            'z_pose': tb_z_pose 
+        }.items()
+    )
+
+    spawn_amp_cmd = IncludeLaunchDescription(
+        PythonLaunchDescriptionSource(
+            os.path.join(launch_file_dir, 'spawn_amp.launch.py')
+        ),
+        launch_arguments={
+            'x_pose': amp_x_pose,
+            'y_pose': amp_y_pose,
+            'z_pose': amp_z_pose
         }.items()
     )
 
@@ -78,6 +106,7 @@ def generate_launch_description():
     # Add the commands to the launch description
     ld.add_action(gzserver_cmd)
     ld.add_action(gzclient_cmd)
+    ld.add_action(spawn_amp_cmd)
     ld.add_action(robot_state_publisher_cmd)
     ld.add_action(spawn_turtlebot_cmd)
 
