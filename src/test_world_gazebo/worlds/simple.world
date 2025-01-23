@@ -207,7 +207,7 @@
         <collision name='collision'>
           <geometry>
             <mesh>
-              <uri>model://newrail/mesh/9b95d1b1-651e-4569-89c0-8c6a7efd5182.dae</uri>
+              <uri>model://rails2</uri>
               <scale>1 1 1</scale>
             </mesh>
           </geometry>
@@ -232,7 +232,7 @@
           <cast_shadows>0</cast_shadows>
           <geometry>
             <mesh>
-              <uri>model://newrail/mesh/9b95d1b1-651e-4569-89c0-8c6a7efd5182.dae</uri>
+              <uri>model://rails2</uri>
               <scale>1 1 1</scale>
             </mesh>
           </geometry>

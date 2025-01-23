@@ -8,38 +8,71 @@
     </include>
 
     <!-- A ground plane -->
-    <include>
+    <!-- <include>
       <uri>model://ground_plane</uri>
-    </include>
+    </include> -->
     <!-- Asphalt -->
- <include>
+ <!-- <include>
         <uri>model://asphalt_plane_long</uri>
         <pose>0 0 0 0 0 0</pose> 
-        <!-- 400 -->
-    </include>
 
-<model name="big_red_plane">
-    <static>true</static>
+    </include> -->
+
+
+     <model name="big_green_plane"> 
+    <static>1</static>
     <link name="plane_link">
-      <pose>0 0 10 0 0 0</pose> <!-- Positioned 10 meters in the air -->
+      <pose>0 0 0 0 0 0</pose> 
       <collision name="plane_collision">
         <geometry>
-          <plane>
+          <box>
             <normal>0 0 1</normal>
-            <size>10 10</size> <!-- 10x10 meter plane -->
-          </plane>
+            <size>50 125 0.01</size> 
+          </box>
         </geometry>
       </collision>
       <visual name="plane_visual">
         <geometry>
-          <plane>
+          <box>
             <normal>0 0 1</normal>
-            <size>10 10</size>
-          </plane>
+            <size>50 125 0.01</size>
+          </box>
         </geometry>
         <material>
-          <ambient>1 0 0 1</ambient> <!-- Red color -->
-          <diffuse>1 0 0 1</diffuse>
+          <ambient>0.1, 0.4, 0.1 1</ambient> 
+          <diffuse>0.13 0.4 0.13</diffuse>
+          <specular>0.1, 0.2, 0.1 1</specular>
+          <shininess>10</shininess>
+        </material>
+      </visual>
+    </link>
+  </model>
+
+
+
+
+     <model name="big_transparent_plane"> 
+    <static>1</static>
+    <link name="plane_link">
+      <pose>0 0 1.8 0 0 0</pose> 
+      <collision name="plane_collision">
+        <geometry>
+          <box>
+            <normal>0 0 1</normal>
+            <size>50 125 0.01</size> 
+          </box>
+        </geometry>
+      </collision>
+      <visual name="plane_visual">
+        <geometry>
+          <box>
+            <normal>0 0 1</normal>
+            <size>50 125 0.01</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>1 0 0 0</ambient> 
+          <diffuse>1 0 0 0</diffuse>
           <specular>0.5 0.5 0.5 1</specular>
         </material>
       </visual>
@@ -87,14 +120,81 @@
     <pose>-4.5 30 0 0 0 0</pose>
     <static>true</static>
 </include>-->
- <model name="rail">
+ <!-- <model name="rail0">
     <include>
-      <uri>model://newrail</uri>
-      <pose>0 -140 0 0 0 0</pose>
+      <uri>model://rails2</uri>
+      <pose>-0.231311 -137.452 0 0 -0 1.55592</pose>
       <static>true</static>
   </include>
 </model>
 
+
+ <model name="rail1">
+    <include>
+      <uri>model://rails2</uri>
+      <pose>0.193219 -108.822 0 0 -0 1.55592</pose>
+      <static>true</static>
+  </include>
+</model>
+
+ <model name="rail2">
+    <include>
+      <uri>model://rails2</uri>
+      <pose>0.618864 -80.192 0 0 -0 1.55592</pose>
+      <static>true</static>
+  </include>
+</model> -->
+
+
+<model name="rail3">
+    <include>
+      <uri>model://rails2</uri>
+      <pose>1.04612 -58.5192 0 0 -0 1.55592</pose>
+      <static>true</static>
+  </include>
+</model>
+
+<model name="rail4">
+    <include>
+      <uri>model://rails2</uri>
+      <pose>1.47177 -29.8994 0 0 -0 1.55592</pose>
+      <static>true</static>
+  </include>
+</model>
+
+<model name="rail5">
+    <include>
+      <uri>model://rails2</uri>
+      <pose>1.89424 -1.30453 0 0 -0 1.55592</pose>
+      <static>true</static>
+  </include>
+</model>
+
+<model name="rail6">
+    <include>
+      <uri>model://rails2</uri>
+      <pose>2.32124 27.3167 0 0 -0 1.55592</pose>
+      <static>true</static>
+  </include>
+</model>
+
+
+<!-- <model name="rail7">
+    <include>
+      <uri>model://rails2</uri>
+      <pose>2.74865 62.9859 0 0 -0 1.55592</pose>
+      <static>true</static>
+  </include>
+</model>
+
+
+<model name="rail8">
+    <include>
+      <uri>model://rails2</uri>
+      <pose>3.17568 91.6512 0 0 -0 1.55592</pose>
+      <static>true</static>
+  </include>
+</model> -->
  <!-- <model name="tunnel">
     <include>
       <uri>model://tunnel</uri>
@@ -104,7 +204,7 @@
 </model> -->
 
  <!--five lamps parallel to the rail track-->
-<model name="lamp1">
+<!-- <model name="lamp1">
     <include>
       <uri>model://lamp_post</uri>
       <pose>-5 -140 0 0 0 1.57</pose>
@@ -115,7 +215,7 @@
 <model name="lamp2">
     <include>
       <uri>model://lamp_post</uri>
-      <pose>-5 -110 0 0 0 1.57</pose>
+      <pose>-4.6 -110 0 0 0 1.57</pose>
       <static>true</static>
   </include>
 </model>
@@ -123,15 +223,15 @@
 <model name="lamp3">
     <include>
       <uri>model://lamp_post</uri>
-      <pose>-5 -80 0 0 0 1.57</pose>
+      <pose>-4.2 -80 0 0 0 1.57</pose>
       <static>true</static>
   </include>
-</model>
+</model> -->
 
 <model name="lamp4">
     <include>
       <uri>model://lamp_post</uri>
-      <pose>0.0 -50 0 0 0 1.57</pose>
+      <pose>-3.8  -50 0 0 0 1.57</pose>
       <static>true</static>
   </include>
 </model>
@@ -139,7 +239,7 @@
 <model name="lamp5">
     <include>
       <uri>model://lamp_post</uri>
-      <pose>11 -20 0 0 0 1.57</pose>
+      <pose>-3.4  -20 0 0 0 1.57</pose>
       <static>true</static>
   </include>
 </model>
@@ -147,7 +247,7 @@
 <model name="lamp6">
     <include>
       <uri>model://lamp_post</uri>
-      <pose>-1.0 10 0 0 0 1.57</pose>
+      <pose>-3  10 0 0 0 1.57</pose>
       <static>true</static>
   </include>
 </model>
@@ -155,15 +255,15 @@
 <model name="lamp7">
     <include>
       <uri>model://lamp_post</uri>
-      <pose>-2.5 40 0 0 0 1.57</pose>
+      <pose>-2.6  40 0 0 0 1.57</pose>
       <static>true</static>
   </include>
 </model>
 
-<model name="lamp8">
+<!--  <model name="lamp8">
     <include>
       <uri>model://lamp_post</uri>
-      <pose>-2.5 70 0 0 0 1.57</pose>
+      <pose>-2.2  70 0 0 0 1.57</pose>
       <static>true</static>
   </include>
 </model>
@@ -171,12 +271,12 @@
 <model name="lamp9">
     <include>
       <uri>model://lamp_post</uri>
-      <pose>-2.5 100 0 0 0 1.57</pose>
+      <pose>-1.8 100 0 0 0 1.57</pose>
       <static>true</static>
   </include>
-</model>
+</model> -->
 
-<model name="lamp1r">
+<!-- <model name="lamp1r">
     <include>
       <uri>model://lamp_post</uri>
       <pose>5.0 -140 0 0 0 -1.57</pose>
@@ -187,7 +287,7 @@
 <model name="lamp2r">
     <include>
       <uri>model://lamp_post</uri>
-      <pose>5.0 -110 0 0 0 -1.57</pose>
+      <pose>5.4 -110 0 0 0 -1.57</pose>
       <static>true</static>
   </include>
 </model>
@@ -195,15 +295,15 @@
 <model name="lamp3r">
     <include>
       <uri>model://lamp_post</uri>
-      <pose>5 -80 0 0 0 -1.57</pose>
+      <pose>5.8 -80 0 0 0 -1.57</pose>
       <static>true</static>
   </include>
-</model>
+</model> -->
 
 <model name="lamp4r">
     <include>
       <uri>model://lamp_post</uri>
-      <pose>10.0 -50 0 0 0 -1.57</pose>
+      <pose>6.2 -50 0 0 0 -1.57</pose>
       <static>true</static>
   </include>
 </model>
@@ -211,7 +311,7 @@
 <model name="lamp5r">
     <include>
       <uri>model://lamp_post</uri>
-      <pose>21 -20 0 0 0 -1.57</pose>
+      <pose>6.6 -20 0 0 0 -1.57</pose>
       <static>true</static>
   </include>
 </model>
@@ -219,7 +319,7 @@
 <model name="lamp6r">
     <include>
       <uri>model://lamp_post</uri>
-      <pose>9.0 10 0 0 0 -1.57</pose>
+      <pose>7.0 10 0 0 0 -1.57</pose>
       <static>true</static>
   </include>
 </model>
@@ -227,15 +327,15 @@
 <model name="lamp7r">
     <include>
       <uri>model://lamp_post</uri>
-      <pose>7.5 40 0 0 0 -1.57</pose>
+      <pose>7.4 40 0 0 0 -1.57</pose>
       <static>true</static>
   </include>
 </model>
 
-<model name="lamp8r">
+<!-- <model name="lamp8r">
     <include>
       <uri>model://lamp_post</uri>
-      <pose>7.5 70 0 0 0 -1.57</pose>
+      <pose>7.8 70 0 0 0 -1.57</pose>
       <static>true</static>
   </include>
 </model>
@@ -243,24 +343,24 @@
 <model name="lamp9r">
     <include>
       <uri>model://lamp_post</uri>
-      <pose>7.5 100 0 0 0 -1.57</pose>
+      <pose>8.2 100 0 0 0 -1.57</pose>
       <static>true</static>
   </include>
-</model>
+</model> -->
 
 <population name="tall_box_population_left">
       <model name="tall_box">
         <include>
           <static>true</static>
-          <uri>model://Box</uri>
+          <uri>model://oak_tree</uri>
           <pose>0 0 0 0 0 0</pose>
         </include>
       </model>
       <pose>-15 0 0 0 0 0</pose>
       <box>
-        <size>25 300 0.01</size>
+        <size>15 125 0.01</size>
       </box>
-      <model_count>20</model_count>
+      <model_count>40</model_count>
       <distribution>
         <type>random</type>
       </distribution>
@@ -270,25 +370,25 @@
       <model name="tall_box_right1">
         <include>
           <static>true</static>
-          <uri>model://Box</uri>
+          <uri>model://oak_tree</uri>
           <pose>0 0 0 0 0 0</pose>
         </include>
       </model>
-      <pose>15 -100 0 0 0 0</pose>
+      <pose>15 0 0 0 0 0</pose>
       <box>
-        <size>25 100 0.01</size>
+        <size>15 125 0.01</size>
       </box>
-      <model_count>20</model_count>
+      <model_count>40</model_count>
       <distribution>
         <type>random</type>
       </distribution>
     </population>
 
-    <population name="tall_box_population_right2">
+    <!-- <population name="tall_box_population_right2">
       <model name="tall_box_right2">
         <include>
           <static>true</static>
-          <uri>model://Box</uri>
+          <uri>model://oak_tree</uri>
           <pose>0 0 0 0 0 0</pose>
         </include>
       </model>
@@ -306,11 +406,11 @@
       <model name="tall_box_right3">
         <include>
           <static>true</static>
-          <uri>model://Box</uri>
+          <uri>model://oak_tree</uri>
           <pose>0 0 0 0 0 0</pose>
         </include>
       </model>
-      <pose>15 100 0 0 0 0</pose>
+      <pose>25 100 0 0 0 0</pose>
       <box>
         <size>25 100 0.01</size>
       </box>
@@ -318,7 +418,7 @@
       <distribution>
         <type>random</type>
       </distribution>
-    </population>
+    </population> -->
      
 <!-- <population name="lamp_population_left">
       <model name="lamp">
