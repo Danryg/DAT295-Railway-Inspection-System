@@ -103,3 +103,18 @@ This will build all necessary packages including rtabmap for slam and px4_ros_co
 ## Teleop
 ```ros2 run px4_ros_com velocity_control.py```
 ```ros2 run px4_ros_com control.py```
+
+
+# Turtlebot + mapping
+
+## TB3 in our world
+ros2 launch test_world_gazebo turtlebot_launch.py
+
+## Slam toolbox
+ros2 launch slam_toolbox online_async_launch.py use_sim_time:=True
+
+## Nav2 
+ros2 launch nav2_bringup navigation_launch.py use_sim_time:=True
+
+## Rviz2
+ros2 run rviz2 rviz2 -d /opt/ros/humble/share/nav2_bringup/rviz/nav2_default_view.rviz
