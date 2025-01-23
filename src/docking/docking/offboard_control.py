@@ -51,7 +51,7 @@ class OffboardControl(Node):
         self.takeoff_height = -5.0 #not need this
 
         # Create a timer to publish control commands
-        self.timer = self.create_timer(0.1, self.timer_callback)
+        self.timer = self.create_timer(1, self.timer_callback)
 
     def vehicle_local_position_callback(self, vehicle_local_position):
         """Callback function for vehicle_local_position topic subscriber."""
@@ -136,50 +136,38 @@ class OffboardControl(Node):
         '''
         controller_x = PID()
         controller_y = PID()
-
-        z_val = -2.0
+        controller_z = PID()
+        
+        z_val = -2.5
 
         time_when_state_last_steady = 0
 
+        #fix this
         OFFSET_X = 50
         OFFSET_Y = 3
+        OFFSET_Z = 2
 
-        ERROR_MARGIN = 50
-        while True:
-            #self.aruco_pose_subscriber = self.create_subscription(PoseArray, '/aruco_poses', self.aruco_pose_callback, qos_profile)
+        ERROR_MARGIN = 50 #fix
             
-            # estimate = self.aruco_pose #Change to aruco_pose and modify accordingly
+        if (
+            abs(self.aruco_poses.poses[-1].position.x - self.vehicle_local_position.x) < ERROR_MARGIN #Change to aruco_pose and modify accordingly
+            and abs(self.aruco_poses.poses[-1].position.y - self.vehicle_local_position.y) < ERROR_MARGIN
+        ):
+            time_when_state_last_steady = time.time()
 
-            if (
-                abs(self.aruco_poses.poses[-1].position.x - OFFSET_X) < ERROR_MARGIN #Change to aruco_pose and modify accordingly
-                and abs(self.aruco_poses.poses[-1].position.y - OFFSET_Y) < ERROR_MARGIN
-            ):
-                time_when_state_last_steady = time.time()
+        controller_x.update(self.aruco_poses.poses[-1].position.x + OFFSET_X) #fix the offsets
+        controller_y.update(self.aruco_poses.poses[-1].position.y + OFFSET_Y) #fix the offsets
+        controller_z.update(self.aruco_poses.poses[-1].position.z + OFFSET_Z) #fix the offsets
 
-            controller_x.update(self.aruco_poses.poses[-1].position.x + OFFSET_X) #Change to aruco_pose and modify accordingly
-            controller_y.update(self.aruco_poses.poses[-1].position.y + OFFSET_Y) #Change to aruco_pose and modify accordingly
 
-            print("x:", self.aruco_poses.poses[-1].position.x, " ,y:", self.aruco_poses.poses[-1].position.y, ",z:", z_val)
+        if time.time() - time_when_state_last_steady < 1:
+            z_val += 0.004 #might have to change sign to account for descent/land
 
-            if time.time() - time_when_state_last_steady < 1:
-                z_val += 0.004 #might have to change sign to account for descent/land
+        self.publish_position_setpoint(round(controller_x.output, 3), round(controller_y.output, 3), round(controller_z.output, 3))
 
-            self.publish_position_setpoint(round(controller_x.output,3), round(controller_y.output,3), z_val)
-
-        #Might need sme of this, figure out
-        # if self.offboard_setpoint_counter == 10:
-        #     self.engage_offboard_mode()
-        #     self.arm()
-
-        # if self.vehicle_local_position.z > self.takeoff_height and self.vehicle_status.nav_state == VehicleStatus.NAVIGATION_STATE_OFFBOARD:
-        #     self.publish_position_setpoint(0.0, 0.0, self.takeoff_height)
-
-        # elif self.vehicle_local_position.z <= self.takeoff_height:
-        #     self.land()
-        #     exit(0)
-
-        # if self.offboard_setpoint_counter < 11:
-        #     self.offboard_setpoint_counter += 1
+        if abs(round(controller_z.output, 3)) <= 0.06:
+            self.land()
+            exit(0)
 
 
 def main(args=None) -> None:
