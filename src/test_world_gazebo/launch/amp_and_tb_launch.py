@@ -23,13 +23,15 @@ from ament_index_python.packages import get_package_share_directory
 from launch import LaunchDescription
 from launch.actions import IncludeLaunchDescription, SetEnvironmentVariable
 from launch.launch_description_sources import PythonLaunchDescriptionSource
-from launch.substitutions import LaunchConfiguration
+from launch.substitutions import LaunchConfiguration,PathJoinSubstitution
 
 
 def generate_launch_description():
     base_directory = 'test_world_gazebo'
     launch_file_dir = os.path.join(get_package_share_directory(base_directory), 'launch')
     pkg_gazebo_ros = get_package_share_directory('gazebo_ros')
+    model_path = os.path.join(os.getcwd(), "src", base_directory, "worlds", "models")
+    os.environ["GAZEBO_MODEL_PATH"] = os.path.abspath(model_path)
 
     use_sim_time = LaunchConfiguration('use_sim_time', default='true')
 
@@ -41,7 +43,7 @@ def generate_launch_description():
     # TurtleBot spawn positions
     tb_spawn_x = '3.06'
     tb_spawn_y = '-56.37'
-    tb_spawn_z = '0.0'
+    tb_spawn_z = '0.2'
 
     # Unique LaunchConfigurations for AMP
     amp_x_pose = LaunchConfiguration('amp_x_pose', default=amp_spawn_x)
@@ -58,6 +60,7 @@ def generate_launch_description():
         'worlds',
         'brand_new_world.world'
     )
+
 
     gzserver_cmd = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
@@ -84,6 +87,7 @@ def generate_launch_description():
             os.path.join(launch_file_dir, 'spawn_turtlebot3.launch.py')
         ),
         launch_arguments={
+            'use_sim_time': use_sim_time,
             'x_pose': tb_x_pose,
             'y_pose': tb_y_pose,
             'z_pose': tb_z_pose 
@@ -95,6 +99,7 @@ def generate_launch_description():
             os.path.join(launch_file_dir, 'spawn_amp.launch.py')
         ),
         launch_arguments={
+            'use_sim_time': use_sim_time,
             'x_pose': amp_x_pose,
             'y_pose': amp_y_pose,
             'z_pose': amp_z_pose
