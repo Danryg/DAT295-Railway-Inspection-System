@@ -7,16 +7,16 @@ endif()
 
 # find dependencies
 find_package(ament_cmake REQUIRED)
-find_package(behaviortree_ros2 REQUIRED)
-find_package(btcpp_ros2_interfaces REQUIRED)
+# find_package(behaviortree_ros2 REQUIRED)
+# find_package(btcpp_ros2_interfaces REQUIRED)
 find_package(std_msgs REQUIRED)
 find_package(std_srvs REQUIRED)
 
 set(THIS_PACKAGE_DEPS
-    behaviortree_ros2
+    # behaviortree_ros2
     std_msgs
     std_srvs
-    btcpp_ros2_interfaces 
+    # btcpp_ros2_interfaces 
     irobot_create_msgs
   )
 

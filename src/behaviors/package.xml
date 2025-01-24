@@ -9,11 +9,11 @@
 
   <buildtool_depend>ament_cmake</buildtool_depend>
 
-  <depend>behaviortree_ros2</depend>
+  <!-- <depend>behaviortree_ros2</depend> -->
   <depend>irobot_create_msgs</depend>
   <depend>std_msgs</depend>
   <depend>std_srvs</depend>
-  <depend>btcpp_ros2_interfaces</depend>
+  <!-- <depend>btcpp_ros2_interfaces</depend> -->
   
   <test_depend>ament_lint_auto</test_depend>
   <test_depend>ament_lint_common</test_depend>
