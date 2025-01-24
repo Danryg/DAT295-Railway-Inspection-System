@@ -30,6 +30,7 @@ def generate_launch_description():
     base_directory = 'test_world_gazebo'
     launch_file_dir = os.path.join(get_package_share_directory(base_directory), 'launch')
     pkg_gazebo_ros = get_package_share_directory('gazebo_ros')
+
     model_path = os.path.join(os.getcwd(), "src", base_directory, "worlds", "models")
     os.environ["GAZEBO_MODEL_PATH"] = os.path.abspath(model_path)
 

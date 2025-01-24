@@ -24,10 +24,11 @@ from launch_ros.actions import Node
 
 def generate_launch_description():
 
-    model_folder = 'models'
+    base_directory = 'test_world_gazebo'
+    model_path = os.path.join(os.getcwd(), "src", base_directory, "worlds", "models", "amp")
+
     urdf_path = os.path.join(
-        get_package_share_directory('test_world_gazebo'),
-        model_folder,
+        model_path,
         'amp.sdf'
     )
 
