@@ -118,3 +118,8 @@ This will build all necessary packages including rtabmap for slam and px4_ros_co
 
 ## Rviz2
 ```ros2 run rviz2 rviz2 -d /opt/ros/humble/share/nav2_bringup/rviz/nav2_default_view.rviz```
+
+
+# AMP speed controller topic
+## publish to a float32 to the /amp_robot/speed topic in order to control the speed via the controller
+## an example of how to do this can be found in the input_handler.py and speed_controller.py files in ~/DAT295-Railway-Inspection-System/src/test_world_gazebo/test_world_gazebo
