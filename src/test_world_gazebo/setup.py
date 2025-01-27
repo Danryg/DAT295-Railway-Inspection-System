@@ -36,7 +36,9 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
-            'speed = test_world_gazebo.speed:main'
+            'speed = test_world_gazebo.speed:main',
+            'input = test_world_gazebo.input_handler:main',
+            'controller = test_world_gazebo.speed_controller:main'
         ],
     },
 )
