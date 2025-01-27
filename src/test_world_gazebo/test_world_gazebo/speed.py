@@ -5,7 +5,7 @@ from geometry_msgs.msg import Twist
 class SmoothVelocityPublisher(Node):
     def __init__(self):
         super().__init__('smooth_velocity_publisher')
-        self.publisher_ = self.create_publisher(Twist, '/tb3/cmd_vel', 10)
+        self.publisher_ = self.create_publisher(Twist, '/amp_robot/cmd_vel', 10)
         self.target_velocity = 10.0
         self.acceleration = 1.0
         self.current_velocity = 0.0
