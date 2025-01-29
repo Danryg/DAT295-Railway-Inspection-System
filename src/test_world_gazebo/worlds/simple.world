@@ -1,0 +1,6039 @@
+<sdf version='1.7'>
+  <world name='default'>
+    <light name='sun' type='directional'>
+      <cast_shadows>1</cast_shadows>
+      <pose>0 0 10 0 -0 0</pose>
+      <diffuse>0.8 0.8 0.8 1</diffuse>
+      <specular>0.2 0.2 0.2 1</specular>
+      <attenuation>
+        <range>1000</range>
+        <constant>0.9</constant>
+        <linear>0.01</linear>
+        <quadratic>0.001</quadratic>
+      </attenuation>
+      <direction>-0.5 0.1 -0.9</direction>
+      <spot>
+        <inner_angle>0</inner_angle>
+        <outer_angle>0</outer_angle>
+        <falloff>0</falloff>
+      </spot>
+    </light>
+
+     <model name="big_red_plane"> 
+    <static>1</static>
+    <link name="plane_link">
+      <pose>0 0 1.8 0 0 0</pose> 
+      <collision name="plane_collision">
+        <geometry>
+          <box>
+            <normal>0 0 1</normal>
+            <size>100 300 0.01</size> 
+          </box>
+        </geometry>
+      </collision>
+      <visual name="plane_visual">
+        <geometry>
+          <box>
+            <normal>0 0 1</normal>
+            <size>100 300 0.01</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>1 0 0 0.3</ambient> 
+          <diffuse>1 0 0 0.3</diffuse>
+          <specular>0.5 0.5 0.5 0.3</specular>
+        </material>
+      </visual>
+    </link>
+  </model>
+
+
+    <model name='ground_plane'>
+      <static>1</static>
+      <link name='link'>
+        <collision name='collision'>
+          <geometry>
+            <plane>
+              <normal>0 0 1</normal>
+              <size>100 100</size>
+            </plane>
+          </geometry>
+          <surface>
+            <friction>
+              <ode>
+                <mu>100</mu>
+                <mu2>50</mu2>
+              </ode>
+              <torsional>
+                <ode/>
+              </torsional>
+            </friction>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+          </surface>
+          <max_contacts>10</max_contacts>
+        </collision>
+        <visual name='visual'>
+          <cast_shadows>0</cast_shadows>
+          <geometry>
+            <plane>
+              <normal>0 0 1</normal>
+              <size>100 100</size>
+            </plane>
+          </geometry>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/Grey</name>
+            </script>
+          </material>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+    </model>
+    <model name='asphalt_plane_long'>
+      <link name='link'>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+        <pose>0 0 0 0 -0 0</pose>
+        <gravity>1</gravity>
+        <inertial>
+          <mass>1</mass>
+          <pose>0 0 0 0 -0 0</pose>
+          <inertia>
+            <ixx>1</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>1</iyy>
+            <iyz>0</iyz>
+            <izz>1</izz>
+          </inertia>
+        </inertial>
+        <visual name='visual'>
+          <cast_shadows>0</cast_shadows>
+          <geometry>
+            <box>
+              <size>100 300 0.1</size>
+            </box>
+          </geometry>
+          <material>
+            <script>
+              <uri>model://asphalt_plane/materials/scripts</uri>
+              <uri>model://asphalt_plane/materials/textures</uri>
+              <name>vrc/asphalt</name>
+            </script>
+            <shader type='pixel'>
+              <normal_map>__default__</normal_map>
+            </shader>
+            <ambient>0.5 0.5 0.5 1</ambient>
+            <diffuse>0.5 0.5 0.5 1</diffuse>
+            <specular>0.2 0.2 0.2 1</specular>
+            <emissive>0 0 0 1</emissive>
+          </material>
+          <pose>0 0 0 0 -0 0</pose>
+          <transparency>0</transparency>
+        </visual>
+        <collision name='collision'>
+          <laser_retro>0</laser_retro>
+          <max_contacts>10</max_contacts>
+          <pose>0 0 0 0 -0 0</pose>
+          <geometry>
+            <box>
+              <size>20 20 0.1</size>
+            </box>
+          </geometry>
+          <surface>
+            <friction>
+              <ode>
+                <mu>1</mu>
+                <mu2>1</mu2>
+                <fdir1>0 0 0</fdir1>
+                <slip1>0</slip1>
+                <slip2>0</slip2>
+              </ode>
+              <torsional>
+                <coefficient>1</coefficient>
+                <patch_radius>0</patch_radius>
+                <surface_radius>0</surface_radius>
+                <use_patch_radius>1</use_patch_radius>
+                <ode>
+                  <slip>0</slip>
+                </ode>
+              </torsional>
+            </friction>
+            <bounce>
+              <restitution_coefficient>0</restitution_coefficient>
+              <threshold>1e+06</threshold>
+            </bounce>
+            <contact>
+              <collide_without_contact>0</collide_without_contact>
+              <collide_without_contact_bitmask>1</collide_without_contact_bitmask>
+              <collide_bitmask>1</collide_bitmask>
+              <ode>
+                <soft_cfm>0</soft_cfm>
+                <soft_erp>0.2</soft_erp>
+                <kp>1e+13</kp>
+                <kd>1</kd>
+                <max_vel>0.01</max_vel>
+                <min_depth>0</min_depth>
+              </ode>
+              <bullet>
+                <split_impulse>1</split_impulse>
+                <split_impulse_penetration_threshold>-0.01</split_impulse_penetration_threshold>
+                <soft_cfm>0</soft_cfm>
+                <soft_erp>0.2</soft_erp>
+                <kp>1e+13</kp>
+                <kd>1</kd>
+              </bullet>
+            </contact>
+          </surface>
+        </collision>
+      </link>
+      <static>1</static>
+      <allow_auto_disable>1</allow_auto_disable>
+      <pose>0 0 0 0 -0 0</pose>
+    </model>
+    <model name='rail'>
+      <frame name='track::__model__' attached_to='track::link'>
+        <pose relative_to='__model__'>0 -140 0 0 -0 0</pose>
+      </frame>
+      <static>1</static>
+      <link name='track::link'>
+        <collision name='collision'>
+          <geometry>
+            <mesh>
+              <uri>model://rails2</uri>
+              <scale>1 1 1</scale>
+            </mesh>
+          </geometry>
+          <surface>
+            <friction>
+              <ode>
+                <mu>100</mu>
+                <mu2>50</mu2>
+              </ode>
+              <torsional>
+                <ode/>
+              </torsional>
+            </friction>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+          </surface>
+          <max_contacts>10</max_contacts>
+        </collision>
+        <visual name='visual'>
+          <cast_shadows>0</cast_shadows>
+          <geometry>
+            <mesh>
+              <uri>model://rails2</uri>
+              <scale>1 1 1</scale>
+            </mesh>
+          </geometry>
+        </visual>
+        <pose relative_to='track::__model__'>0 0 0 0 -0 0</pose>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+    </model>
+    <model name='lamp1'>
+      <frame name='Lamp Post::__model__' attached_to='Lamp Post::link'>
+        <pose relative_to='__model__'>-5 -140 0 0 -0 1.57</pose>
+      </frame>
+      <static>1</static>
+      <link name='Lamp Post::link'>
+        <collision name='collision'>
+          <geometry>
+            <mesh>
+              <uri>model://lamp_post/meshes/lamp_post.dae</uri>
+              <scale>3 3 3</scale>
+            </mesh>
+          </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://lamp_post/meshes/lamp_post.dae</uri>
+              <scale>3 3 3</scale>
+            </mesh>
+          </geometry>
+        </visual>
+        <pose relative_to='Lamp Post::__model__'>0 0 0 0 -0 0</pose>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+    </model>
+    <model name='lamp2'>
+      <frame name='Lamp Post::__model__' attached_to='Lamp Post::link'>
+        <pose relative_to='__model__'>-5 -110 0 0 -0 1.57</pose>
+      </frame>
+      <static>1</static>
+      <link name='Lamp Post::link'>
+        <collision name='collision'>
+          <geometry>
+            <mesh>
+              <uri>model://lamp_post/meshes/lamp_post.dae</uri>
+              <scale>3 3 3</scale>
+            </mesh>
+          </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://lamp_post/meshes/lamp_post.dae</uri>
+              <scale>3 3 3</scale>
+            </mesh>
+          </geometry>
+        </visual>
+        <pose relative_to='Lamp Post::__model__'>0 0 0 0 -0 0</pose>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+    </model>
+    <model name='lamp3'>
+      <frame name='Lamp Post::__model__' attached_to='Lamp Post::link'>
+        <pose relative_to='__model__'>-5 -80 0 0 -0 1.57</pose>
+      </frame>
+      <static>1</static>
+      <link name='Lamp Post::link'>
+        <collision name='collision'>
+          <geometry>
+            <mesh>
+              <uri>model://lamp_post/meshes/lamp_post.dae</uri>
+              <scale>3 3 3</scale>
+            </mesh>
+          </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://lamp_post/meshes/lamp_post.dae</uri>
+              <scale>3 3 3</scale>
+            </mesh>
+          </geometry>
+        </visual>
+        <pose relative_to='Lamp Post::__model__'>0 0 0 0 -0 0</pose>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+    </model>
+    <model name='lamp4'>
+      <frame name='Lamp Post::__model__' attached_to='Lamp Post::link'>
+        <pose relative_to='__model__'>0 -50 0 0 -0 1.57</pose>
+      </frame>
+      <static>1</static>
+      <link name='Lamp Post::link'>
+        <collision name='collision'>
+          <geometry>
+            <mesh>
+              <uri>model://lamp_post/meshes/lamp_post.dae</uri>
+              <scale>3 3 3</scale>
+            </mesh>
+          </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://lamp_post/meshes/lamp_post.dae</uri>
+              <scale>3 3 3</scale>
+            </mesh>
+          </geometry>
+        </visual>
+        <pose relative_to='Lamp Post::__model__'>0 0 0 0 -0 0</pose>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+    </model>
+    <model name='lamp5'>
+      <frame name='Lamp Post::__model__' attached_to='Lamp Post::link'>
+        <pose relative_to='__model__'>11 -20 0 0 -0 1.57</pose>
+      </frame>
+      <static>1</static>
+      <link name='Lamp Post::link'>
+        <collision name='collision'>
+          <geometry>
+            <mesh>
+              <uri>model://lamp_post/meshes/lamp_post.dae</uri>
+              <scale>3 3 3</scale>
+            </mesh>
+          </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://lamp_post/meshes/lamp_post.dae</uri>
+              <scale>3 3 3</scale>
+            </mesh>
+          </geometry>
+        </visual>
+        <pose relative_to='Lamp Post::__model__'>0 0 0 0 -0 0</pose>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+    </model>
+    <model name='lamp6'>
+      <frame name='Lamp Post::__model__' attached_to='Lamp Post::link'>
+        <pose relative_to='__model__'>-1 10 0 0 -0 1.57</pose>
+      </frame>
+      <static>1</static>
+      <link name='Lamp Post::link'>
+        <collision name='collision'>
+          <geometry>
+            <mesh>
+              <uri>model://lamp_post/meshes/lamp_post.dae</uri>
+              <scale>3 3 3</scale>
+            </mesh>
+          </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://lamp_post/meshes/lamp_post.dae</uri>
+              <scale>3 3 3</scale>
+            </mesh>
+          </geometry>
+        </visual>
+        <pose relative_to='Lamp Post::__model__'>0 0 0 0 -0 0</pose>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+    </model>
+    <model name='lamp7'>
+      <frame name='Lamp Post::__model__' attached_to='Lamp Post::link'>
+        <pose relative_to='__model__'>-2.5 40 0 0 -0 1.57</pose>
+      </frame>
+      <static>1</static>
+      <link name='Lamp Post::link'>
+        <collision name='collision'>
+          <geometry>
+            <mesh>
+              <uri>model://lamp_post/meshes/lamp_post.dae</uri>
+              <scale>3 3 3</scale>
+            </mesh>
+          </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://lamp_post/meshes/lamp_post.dae</uri>
+              <scale>3 3 3</scale>
+            </mesh>
+          </geometry>
+        </visual>
+        <pose relative_to='Lamp Post::__model__'>0 0 0 0 -0 0</pose>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+    </model>
+    <model name='lamp8'>
+      <frame name='Lamp Post::__model__' attached_to='Lamp Post::link'>
+        <pose relative_to='__model__'>-2.5 70 0 0 -0 1.57</pose>
+      </frame>
+      <static>1</static>
+      <link name='Lamp Post::link'>
+        <collision name='collision'>
+          <geometry>
+            <mesh>
+              <uri>model://lamp_post/meshes/lamp_post.dae</uri>
+              <scale>3 3 3</scale>
+            </mesh>
+          </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://lamp_post/meshes/lamp_post.dae</uri>
+              <scale>3 3 3</scale>
+            </mesh>
+          </geometry>
+        </visual>
+        <pose relative_to='Lamp Post::__model__'>0 0 0 0 -0 0</pose>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+    </model>
+    <model name='lamp9'>
+      <frame name='Lamp Post::__model__' attached_to='Lamp Post::link'>
+        <pose relative_to='__model__'>-2.5 100 0 0 -0 1.57</pose>
+      </frame>
+      <static>1</static>
+      <link name='Lamp Post::link'>
+        <collision name='collision'>
+          <geometry>
+            <mesh>
+              <uri>model://lamp_post/meshes/lamp_post.dae</uri>
+              <scale>3 3 3</scale>
+            </mesh>
+          </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://lamp_post/meshes/lamp_post.dae</uri>
+              <scale>3 3 3</scale>
+            </mesh>
+          </geometry>
+        </visual>
+        <pose relative_to='Lamp Post::__model__'>0 0 0 0 -0 0</pose>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+    </model>
+    <model name='lamp1r'>
+      <frame name='Lamp Post::__model__' attached_to='Lamp Post::link'>
+        <pose relative_to='__model__'>5 -140 0 0 0 -1.57</pose>
+      </frame>
+      <static>1</static>
+      <link name='Lamp Post::link'>
+        <collision name='collision'>
+          <geometry>
+            <mesh>
+              <uri>model://lamp_post/meshes/lamp_post.dae</uri>
+              <scale>3 3 3</scale>
+            </mesh>
+          </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://lamp_post/meshes/lamp_post.dae</uri>
+              <scale>3 3 3</scale>
+            </mesh>
+          </geometry>
+        </visual>
+        <pose relative_to='Lamp Post::__model__'>0 0 0 0 -0 0</pose>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+    </model>
+    <model name='lamp2r'>
+      <frame name='Lamp Post::__model__' attached_to='Lamp Post::link'>
+        <pose relative_to='__model__'>5 -110 0 0 0 -1.57</pose>
+      </frame>
+      <static>1</static>
+      <link name='Lamp Post::link'>
+        <collision name='collision'>
+          <geometry>
+            <mesh>
+              <uri>model://lamp_post/meshes/lamp_post.dae</uri>
+              <scale>3 3 3</scale>
+            </mesh>
+          </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://lamp_post/meshes/lamp_post.dae</uri>
+              <scale>3 3 3</scale>
+            </mesh>
+          </geometry>
+        </visual>
+        <pose relative_to='Lamp Post::__model__'>0 0 0 0 -0 0</pose>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+    </model>
+    <model name='lamp3r'>
+      <frame name='Lamp Post::__model__' attached_to='Lamp Post::link'>
+        <pose relative_to='__model__'>5 -80 0 0 0 -1.57</pose>
+      </frame>
+      <static>1</static>
+      <link name='Lamp Post::link'>
+        <collision name='collision'>
+          <geometry>
+            <mesh>
+              <uri>model://lamp_post/meshes/lamp_post.dae</uri>
+              <scale>3 3 3</scale>
+            </mesh>
+          </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://lamp_post/meshes/lamp_post.dae</uri>
+              <scale>3 3 3</scale>
+            </mesh>
+          </geometry>
+        </visual>
+        <pose relative_to='Lamp Post::__model__'>0 0 0 0 -0 0</pose>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+    </model>
+    <model name='lamp4r'>
+      <frame name='Lamp Post::__model__' attached_to='Lamp Post::link'>
+        <pose relative_to='__model__'>10 -50 0 0 0 -1.57</pose>
+      </frame>
+      <static>1</static>
+      <link name='Lamp Post::link'>
+        <collision name='collision'>
+          <geometry>
+            <mesh>
+              <uri>model://lamp_post/meshes/lamp_post.dae</uri>
+              <scale>3 3 3</scale>
+            </mesh>
+          </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://lamp_post/meshes/lamp_post.dae</uri>
+              <scale>3 3 3</scale>
+            </mesh>
+          </geometry>
+        </visual>
+        <pose relative_to='Lamp Post::__model__'>0 0 0 0 -0 0</pose>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+    </model>
+    <model name='lamp5r'>
+      <frame name='Lamp Post::__model__' attached_to='Lamp Post::link'>
+        <pose relative_to='__model__'>21 -20 0 0 0 -1.57</pose>
+      </frame>
+      <static>1</static>
+      <link name='Lamp Post::link'>
+        <collision name='collision'>
+          <geometry>
+            <mesh>
+              <uri>model://lamp_post/meshes/lamp_post.dae</uri>
+              <scale>3 3 3</scale>
+            </mesh>
+          </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://lamp_post/meshes/lamp_post.dae</uri>
+              <scale>3 3 3</scale>
+            </mesh>
+          </geometry>
+        </visual>
+        <pose relative_to='Lamp Post::__model__'>0 0 0 0 -0 0</pose>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+    </model>
+    <model name='lamp6r'>
+      <frame name='Lamp Post::__model__' attached_to='Lamp Post::link'>
+        <pose relative_to='__model__'>9 10 0 0 0 -1.57</pose>
+      </frame>
+      <static>1</static>
+      <link name='Lamp Post::link'>
+        <collision name='collision'>
+          <geometry>
+            <mesh>
+              <uri>model://lamp_post/meshes/lamp_post.dae</uri>
+              <scale>3 3 3</scale>
+            </mesh>
+          </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://lamp_post/meshes/lamp_post.dae</uri>
+              <scale>3 3 3</scale>
+            </mesh>
+          </geometry>
+        </visual>
+        <pose relative_to='Lamp Post::__model__'>0 0 0 0 -0 0</pose>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+    </model>
+    <model name='lamp7r'>
+      <frame name='Lamp Post::__model__' attached_to='Lamp Post::link'>
+        <pose relative_to='__model__'>7.5 40 0 0 0 -1.57</pose>
+      </frame>
+      <static>1</static>
+      <link name='Lamp Post::link'>
+        <collision name='collision'>
+          <geometry>
+            <mesh>
+              <uri>model://lamp_post/meshes/lamp_post.dae</uri>
+              <scale>3 3 3</scale>
+            </mesh>
+          </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://lamp_post/meshes/lamp_post.dae</uri>
+              <scale>3 3 3</scale>
+            </mesh>
+          </geometry>
+        </visual>
+        <pose relative_to='Lamp Post::__model__'>0 0 0 0 -0 0</pose>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+    </model>
+    <model name='lamp8r'>
+      <frame name='Lamp Post::__model__' attached_to='Lamp Post::link'>
+        <pose relative_to='__model__'>7.5 70 0 0 0 -1.57</pose>
+      </frame>
+      <static>1</static>
+      <link name='Lamp Post::link'>
+        <collision name='collision'>
+          <geometry>
+            <mesh>
+              <uri>model://lamp_post/meshes/lamp_post.dae</uri>
+              <scale>3 3 3</scale>
+            </mesh>
+          </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://lamp_post/meshes/lamp_post.dae</uri>
+              <scale>3 3 3</scale>
+            </mesh>
+          </geometry>
+        </visual>
+        <pose relative_to='Lamp Post::__model__'>0 0 0 0 -0 0</pose>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+    </model>
+    <model name='lamp9r'>
+      <frame name='Lamp Post::__model__' attached_to='Lamp Post::link'>
+        <pose relative_to='__model__'>7.5 100 0 0 0 -1.57</pose>
+      </frame>
+      <static>1</static>
+      <link name='Lamp Post::link'>
+        <collision name='collision'>
+          <geometry>
+            <mesh>
+              <uri>model://lamp_post/meshes/lamp_post.dae</uri>
+              <scale>3 3 3</scale>
+            </mesh>
+          </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://lamp_post/meshes/lamp_post.dae</uri>
+              <scale>3 3 3</scale>
+            </mesh>
+          </geometry>
+        </visual>
+        <pose relative_to='Lamp Post::__model__'>0 0 0 0 -0 0</pose>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+    </model>
+    <population name='tall_box_population_left'>
+      <model name='tall_box'>
+        <frame name='tall_rectangle::__model__' attached_to='tall_rectangle::link'>
+          <pose relative_to='__model__'>0 0 0 0 -0 0</pose>
+        </frame>
+        <static>1</static>
+        <link name='tall_rectangle::link'>
+          <collision name='collision'>
+            <geometry>
+              <box>
+                <size>1 1 10</size>
+              </box>
+            </geometry>
+            <pose>0 0 5 0 -0 0</pose>
+          </collision>
+          <visual name='visual'>
+            <geometry>
+              <box>
+                <size>1 1 10</size>
+              </box>
+            </geometry>
+            <pose>0 0 5 0 -0 0</pose>
+            <material>
+              <script>
+                <uri>file://media/materials/scripts/gazebo.material</uri>
+                <name>Gazebo/Red</name>
+              </script>
+            </material>
+          </visual>
+          <pose relative_to='tall_rectangle::__model__'>0 0 0 0 -0 0</pose>
+        </link>
+      </model>
+      <pose>-15 0 0 0 -0 0</pose>
+      <box>
+        <size>25 300 0.01</size>
+      </box>
+      <model_count>20</model_count>
+      <distribution>
+        <type>random</type>
+      </distribution>
+    </population>
+    <population name='tall_box_population_right1'>
+      <model name='tall_box_right1'>
+        <frame name='tall_rectangle::__model__' attached_to='tall_rectangle::link'>
+          <pose relative_to='__model__'>0 0 0 0 -0 0</pose>
+        </frame>
+        <static>1</static>
+        <link name='tall_rectangle::link'>
+          <collision name='collision'>
+            <geometry>
+              <box>
+                <size>1 1 10</size>
+              </box>
+            </geometry>
+            <pose>0 0 5 0 -0 0</pose>
+          </collision>
+          <visual name='visual'>
+            <geometry>
+              <box>
+                <size>1 1 10</size>
+              </box>
+            </geometry>
+            <pose>0 0 5 0 -0 0</pose>
+            <material>
+              <script>
+                <uri>file://media/materials/scripts/gazebo.material</uri>
+                <name>Gazebo/Red</name>
+              </script>
+            </material>
+          </visual>
+          <pose relative_to='tall_rectangle::__model__'>0 0 0 0 -0 0</pose>
+        </link>
+      </model>
+      <pose>15 -100 0 0 -0 0</pose>
+      <box>
+        <size>25 100 0.01</size>
+      </box>
+      <model_count>20</model_count>
+      <distribution>
+        <type>random</type>
+      </distribution>
+    </population>
+    <population name='tall_box_population_right2'>
+      <model name='tall_box_right2'>
+        <frame name='tall_rectangle::__model__' attached_to='tall_rectangle::link'>
+          <pose relative_to='__model__'>0 0 0 0 -0 0</pose>
+        </frame>
+        <static>1</static>
+        <link name='tall_rectangle::link'>
+          <collision name='collision'>
+            <geometry>
+              <box>
+                <size>1 1 10</size>
+              </box>
+            </geometry>
+            <pose>0 0 5 0 -0 0</pose>
+          </collision>
+          <visual name='visual'>
+            <geometry>
+              <box>
+                <size>1 1 10</size>
+              </box>
+            </geometry>
+            <pose>0 0 5 0 -0 0</pose>
+            <material>
+              <script>
+                <uri>file://media/materials/scripts/gazebo.material</uri>
+                <name>Gazebo/Red</name>
+              </script>
+            </material>
+          </visual>
+          <pose relative_to='tall_rectangle::__model__'>0 0 0 0 -0 0</pose>
+        </link>
+      </model>
+      <pose>30 0 0 0 -0 0</pose>
+      <box>
+        <size>25 100 0.01</size>
+      </box>
+      <model_count>20</model_count>
+      <distribution>
+        <type>random</type>
+      </distribution>
+    </population>
+    <population name='tall_box_population_right3'>
+      <model name='tall_box_right3'>
+        <frame name='tall_rectangle::__model__' attached_to='tall_rectangle::link'>
+          <pose relative_to='__model__'>0 0 0 0 -0 0</pose>
+        </frame>
+        <static>1</static>
+        <link name='tall_rectangle::link'>
+          <collision name='collision'>
+            <geometry>
+              <box>
+                <size>1 1 10</size>
+              </box>
+            </geometry>
+            <pose>0 0 5 0 -0 0</pose>
+          </collision>
+          <visual name='visual'>
+            <geometry>
+              <box>
+                <size>1 1 10</size>
+              </box>
+            </geometry>
+            <pose>0 0 5 0 -0 0</pose>
+            <material>
+              <script>
+                <uri>file://media/materials/scripts/gazebo.material</uri>
+                <name>Gazebo/Red</name>
+              </script>
+            </material>
+          </visual>
+          <pose relative_to='tall_rectangle::__model__'>0 0 0 0 -0 0</pose>
+        </link>
+      </model>
+      <pose>15 100 0 0 -0 0</pose>
+      <box>
+        <size>25 100 0.01</size>
+      </box>
+      <model_count>20</model_count>
+      <distribution>
+        <type>random</type>
+      </distribution>
+    </population>
+    <gravity>0 0 -9.8</gravity>
+    <magnetic_field>6e-06 2.3e-05 -4.2e-05</magnetic_field>
+    <atmosphere type='adiabatic'/>
+    <physics type='ode'>
+      <max_step_size>0.001</max_step_size>
+      <real_time_factor>1</real_time_factor>
+      <real_time_update_rate>1000</real_time_update_rate>
+    </physics>
+    <scene>
+      <ambient>0.4 0.4 0.4 1</ambient>
+      <background>0.7 0.7 0.7 1</background>
+      <shadows>1</shadows>
+    </scene>
+    <audio>
+      <device>default</device>
+    </audio>
+    <wind/>
+    <spherical_coordinates>
+      <surface_model>EARTH_WGS84</surface_model>
+      <latitude_deg>0</latitude_deg>
+      <longitude_deg>0</longitude_deg>
+      <elevation>0</elevation>
+      <heading_deg>0</heading_deg>
+    </spherical_coordinates>
+    <model name='tall_box_clone_0'>
+      <pose>-24.5512 -94.038 -0.000571 0 -0 0</pose>
+      <frame name='tall_rectangle::__model__' attached_to='tall_rectangle::link'>
+        <pose relative_to='__model__'>0 0 0 0 -0 0</pose>
+      </frame>
+      <static>1</static>
+      <link name='tall_rectangle::link'>
+        <collision name='collision'>
+          <geometry>
+            <box>
+              <size>1 1 10</size>
+            </box>
+          </geometry>
+          <pose>0 0 5 0 -0 0</pose>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <box>
+              <size>1 1 10</size>
+            </box>
+          </geometry>
+          <pose>0 0 5 0 -0 0</pose>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/Red</name>
+            </script>
+          </material>
+        </visual>
+        <pose relative_to='tall_rectangle::__model__'>0 0 0 0 -0 0</pose>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+    </model>
+    <model name='tall_box_clone_1'>
+      <pose>-5.20692 -96.1053 -0.000554 0 -0 0</pose>
+      <frame name='tall_rectangle::__model__' attached_to='tall_rectangle::link'>
+        <pose relative_to='__model__'>0 0 0 0 -0 0</pose>
+      </frame>
+      <static>1</static>
+      <link name='tall_rectangle::link'>
+        <collision name='collision'>
+          <geometry>
+            <box>
+              <size>1 1 10</size>
+            </box>
+          </geometry>
+          <pose>0 0 5 0 -0 0</pose>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <box>
+              <size>1 1 10</size>
+            </box>
+          </geometry>
+          <pose>0 0 5 0 -0 0</pose>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/Red</name>
+            </script>
+          </material>
+        </visual>
+        <pose relative_to='tall_rectangle::__model__'>0 0 0 0 -0 0</pose>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+    </model>
+    <model name='tall_box_clone_2'>
+      <pose>-20.6012 -128.382 -0.001441 0 -0 0</pose>
+      <frame name='tall_rectangle::__model__' attached_to='tall_rectangle::link'>
+        <pose relative_to='__model__'>0 0 0 0 -0 0</pose>
+      </frame>
+      <static>1</static>
+      <link name='tall_rectangle::link'>
+        <collision name='collision'>
+          <geometry>
+            <box>
+              <size>1 1 10</size>
+            </box>
+          </geometry>
+          <pose>0 0 5 0 -0 0</pose>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <box>
+              <size>1 1 10</size>
+            </box>
+          </geometry>
+          <pose>0 0 5 0 -0 0</pose>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/Red</name>
+            </script>
+          </material>
+        </visual>
+        <pose relative_to='tall_rectangle::__model__'>0 0 0 0 -0 0</pose>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+    </model>
+    <model name='tall_box_clone_3'>
+      <pose>-11.5249 136.631 0.00167 0 -0 0</pose>
+      <frame name='tall_rectangle::__model__' attached_to='tall_rectangle::link'>
+        <pose relative_to='__model__'>0 0 0 0 -0 0</pose>
+      </frame>
+      <static>1</static>
+      <link name='tall_rectangle::link'>
+        <collision name='collision'>
+          <geometry>
+            <box>
+              <size>1 1 10</size>
+            </box>
+          </geometry>
+          <pose>0 0 5 0 -0 0</pose>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <box>
+              <size>1 1 10</size>
+            </box>
+          </geometry>
+          <pose>0 0 5 0 -0 0</pose>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/Red</name>
+            </script>
+          </material>
+        </visual>
+        <pose relative_to='tall_rectangle::__model__'>0 0 0 0 -0 0</pose>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+    </model>
+    <model name='tall_box_clone_4'>
+      <pose>-5.06957 0.77507 0.000476 0 -0 0</pose>
+      <frame name='tall_rectangle::__model__' attached_to='tall_rectangle::link'>
+        <pose relative_to='__model__'>0 0 0 0 -0 0</pose>
+      </frame>
+      <static>1</static>
+      <link name='tall_rectangle::link'>
+        <collision name='collision'>
+          <geometry>
+            <box>
+              <size>1 1 10</size>
+            </box>
+          </geometry>
+          <pose>0 0 5 0 -0 0</pose>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <box>
+              <size>1 1 10</size>
+            </box>
+          </geometry>
+          <pose>0 0 5 0 -0 0</pose>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/Red</name>
+            </script>
+          </material>
+        </visual>
+        <pose relative_to='tall_rectangle::__model__'>0 0 0 0 -0 0</pose>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+    </model>
+    <model name='tall_box_clone_5'>
+      <pose>-24.7503 -110.656 0.000918 0 -0 0</pose>
+      <frame name='tall_rectangle::__model__' attached_to='tall_rectangle::link'>
+        <pose relative_to='__model__'>0 0 0 0 -0 0</pose>
+      </frame>
+      <static>1</static>
+      <link name='tall_rectangle::link'>
+        <collision name='collision'>
+          <geometry>
+            <box>
+              <size>1 1 10</size>
+            </box>
+          </geometry>
+          <pose>0 0 5 0 -0 0</pose>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <box>
+              <size>1 1 10</size>
+            </box>
+          </geometry>
+          <pose>0 0 5 0 -0 0</pose>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/Red</name>
+            </script>
+          </material>
+        </visual>
+        <pose relative_to='tall_rectangle::__model__'>0 0 0 0 -0 0</pose>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+    </model>
+    <model name='tall_box_clone_6'>
+      <pose>-2.6741 -131.806 0.000339 0 -0 0</pose>
+      <frame name='tall_rectangle::__model__' attached_to='tall_rectangle::link'>
+        <pose relative_to='__model__'>0 0 0 0 -0 0</pose>
+      </frame>
+      <static>1</static>
+      <link name='tall_rectangle::link'>
+        <collision name='collision'>
+          <geometry>
+            <box>
+              <size>1 1 10</size>
+            </box>
+          </geometry>
+          <pose>0 0 5 0 -0 0</pose>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <box>
+              <size>1 1 10</size>
+            </box>
+          </geometry>
+          <pose>0 0 5 0 -0 0</pose>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/Red</name>
+            </script>
+          </material>
+        </visual>
+        <pose relative_to='tall_rectangle::__model__'>0 0 0 0 -0 0</pose>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+    </model>
+    <model name='tall_box_clone_7'>
+      <pose>-2.76985 -94.3517 -0.003949 0 -0 0</pose>
+      <frame name='tall_rectangle::__model__' attached_to='tall_rectangle::link'>
+        <pose relative_to='__model__'>0 0 0 0 -0 0</pose>
+      </frame>
+      <static>1</static>
+      <link name='tall_rectangle::link'>
+        <collision name='collision'>
+          <geometry>
+            <box>
+              <size>1 1 10</size>
+            </box>
+          </geometry>
+          <pose>0 0 5 0 -0 0</pose>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <box>
+              <size>1 1 10</size>
+            </box>
+          </geometry>
+          <pose>0 0 5 0 -0 0</pose>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/Red</name>
+            </script>
+          </material>
+        </visual>
+        <pose relative_to='tall_rectangle::__model__'>0 0 0 0 -0 0</pose>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+    </model>
+    <model name='tall_box_clone_8'>
+      <pose>-22.8738 -46.0578 0.003746 0 -0 0</pose>
+      <frame name='tall_rectangle::__model__' attached_to='tall_rectangle::link'>
+        <pose relative_to='__model__'>0 0 0 0 -0 0</pose>
+      </frame>
+      <static>1</static>
+      <link name='tall_rectangle::link'>
+        <collision name='collision'>
+          <geometry>
+            <box>
+              <size>1 1 10</size>
+            </box>
+          </geometry>
+          <pose>0 0 5 0 -0 0</pose>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <box>
+              <size>1 1 10</size>
+            </box>
+          </geometry>
+          <pose>0 0 5 0 -0 0</pose>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/Red</name>
+            </script>
+          </material>
+        </visual>
+        <pose relative_to='tall_rectangle::__model__'>0 0 0 0 -0 0</pose>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+    </model>
+    <model name='tall_box_clone_9'>
+      <pose>-19.6136 61.047 -0.000116 0 -0 0</pose>
+      <frame name='tall_rectangle::__model__' attached_to='tall_rectangle::link'>
+        <pose relative_to='__model__'>0 0 0 0 -0 0</pose>
+      </frame>
+      <static>1</static>
+      <link name='tall_rectangle::link'>
+        <collision name='collision'>
+          <geometry>
+            <box>
+              <size>1 1 10</size>
+            </box>
+          </geometry>
+          <pose>0 0 5 0 -0 0</pose>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <box>
+              <size>1 1 10</size>
+            </box>
+          </geometry>
+          <pose>0 0 5 0 -0 0</pose>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/Red</name>
+            </script>
+          </material>
+        </visual>
+        <pose relative_to='tall_rectangle::__model__'>0 0 0 0 -0 0</pose>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+    </model>
+    <model name='tall_box_clone_10'>
+      <pose>-4.01017 -31.1595 0.000522 0 -0 0</pose>
+      <frame name='tall_rectangle::__model__' attached_to='tall_rectangle::link'>
+        <pose relative_to='__model__'>0 0 0 0 -0 0</pose>
+      </frame>
+      <static>1</static>
+      <link name='tall_rectangle::link'>
+        <collision name='collision'>
+          <geometry>
+            <box>
+              <size>1 1 10</size>
+            </box>
+          </geometry>
+          <pose>0 0 5 0 -0 0</pose>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <box>
+              <size>1 1 10</size>
+            </box>
+          </geometry>
+          <pose>0 0 5 0 -0 0</pose>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/Red</name>
+            </script>
+          </material>
+        </visual>
+        <pose relative_to='tall_rectangle::__model__'>0 0 0 0 -0 0</pose>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+    </model>
+    <model name='tall_box_clone_11'>
+      <pose>-8.71474 81.7809 -0.004431 0 -0 0</pose>
+      <frame name='tall_rectangle::__model__' attached_to='tall_rectangle::link'>
+        <pose relative_to='__model__'>0 0 0 0 -0 0</pose>
+      </frame>
+      <static>1</static>
+      <link name='tall_rectangle::link'>
+        <collision name='collision'>
+          <geometry>
+            <box>
+              <size>1 1 10</size>
+            </box>
+          </geometry>
+          <pose>0 0 5 0 -0 0</pose>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <box>
+              <size>1 1 10</size>
+            </box>
+          </geometry>
+          <pose>0 0 5 0 -0 0</pose>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/Red</name>
+            </script>
+          </material>
+        </visual>
+        <pose relative_to='tall_rectangle::__model__'>0 0 0 0 -0 0</pose>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+    </model>
+    <model name='tall_box_clone_12'>
+      <pose>-16.4555 41.4288 -0.000575 0 -0 0</pose>
+      <frame name='tall_rectangle::__model__' attached_to='tall_rectangle::link'>
+        <pose relative_to='__model__'>0 0 0 0 -0 0</pose>
+      </frame>
+      <static>1</static>
+      <link name='tall_rectangle::link'>
+        <collision name='collision'>
+          <geometry>
+            <box>
+              <size>1 1 10</size>
+            </box>
+          </geometry>
+          <pose>0 0 5 0 -0 0</pose>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <box>
+              <size>1 1 10</size>
+            </box>
+          </geometry>
+          <pose>0 0 5 0 -0 0</pose>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/Red</name>
+            </script>
+          </material>
+        </visual>
+        <pose relative_to='tall_rectangle::__model__'>0 0 0 0 -0 0</pose>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+    </model>
+    <model name='tall_box_clone_13'>
+      <pose>-16.3469 126.609 0.003519 0 -0 0</pose>
+      <frame name='tall_rectangle::__model__' attached_to='tall_rectangle::link'>
+        <pose relative_to='__model__'>0 0 0 0 -0 0</pose>
+      </frame>
+      <static>1</static>
+      <link name='tall_rectangle::link'>
+        <collision name='collision'>
+          <geometry>
+            <box>
+              <size>1 1 10</size>
+            </box>
+          </geometry>
+          <pose>0 0 5 0 -0 0</pose>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <box>
+              <size>1 1 10</size>
+            </box>
+          </geometry>
+          <pose>0 0 5 0 -0 0</pose>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/Red</name>
+            </script>
+          </material>
+        </visual>
+        <pose relative_to='tall_rectangle::__model__'>0 0 0 0 -0 0</pose>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+    </model>
+    <model name='tall_box_clone_14'>
+      <pose>-9.62085 -77.6429 -0.002965 0 -0 0</pose>
+      <frame name='tall_rectangle::__model__' attached_to='tall_rectangle::link'>
+        <pose relative_to='__model__'>0 0 0 0 -0 0</pose>
+      </frame>
+      <static>1</static>
+      <link name='tall_rectangle::link'>
+        <collision name='collision'>
+          <geometry>
+            <box>
+              <size>1 1 10</size>
+            </box>
+          </geometry>
+          <pose>0 0 5 0 -0 0</pose>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <box>
+              <size>1 1 10</size>
+            </box>
+          </geometry>
+          <pose>0 0 5 0 -0 0</pose>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/Red</name>
+            </script>
+          </material>
+        </visual>
+        <pose relative_to='tall_rectangle::__model__'>0 0 0 0 -0 0</pose>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+    </model>
+    <model name='tall_box_clone_15'>
+      <pose>-13.4669 29.9735 -0.00105 0 -0 0</pose>
+      <frame name='tall_rectangle::__model__' attached_to='tall_rectangle::link'>
+        <pose relative_to='__model__'>0 0 0 0 -0 0</pose>
+      </frame>
+      <static>1</static>
+      <link name='tall_rectangle::link'>
+        <collision name='collision'>
+          <geometry>
+            <box>
+              <size>1 1 10</size>
+            </box>
+          </geometry>
+          <pose>0 0 5 0 -0 0</pose>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <box>
+              <size>1 1 10</size>
+            </box>
+          </geometry>
+          <pose>0 0 5 0 -0 0</pose>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/Red</name>
+            </script>
+          </material>
+        </visual>
+        <pose relative_to='tall_rectangle::__model__'>0 0 0 0 -0 0</pose>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+    </model>
+    <model name='tall_box_clone_16'>
+      <pose>-18.883 59.5983 0.000104 0 -0 0</pose>
+      <frame name='tall_rectangle::__model__' attached_to='tall_rectangle::link'>
+        <pose relative_to='__model__'>0 0 0 0 -0 0</pose>
+      </frame>
+      <static>1</static>
+      <link name='tall_rectangle::link'>
+        <collision name='collision'>
+          <geometry>
+            <box>
+              <size>1 1 10</size>
+            </box>
+          </geometry>
+          <pose>0 0 5 0 -0 0</pose>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <box>
+              <size>1 1 10</size>
+            </box>
+          </geometry>
+          <pose>0 0 5 0 -0 0</pose>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/Red</name>
+            </script>
+          </material>
+        </visual>
+        <pose relative_to='tall_rectangle::__model__'>0 0 0 0 -0 0</pose>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+    </model>
+    <model name='tall_box_clone_17'>
+      <pose>-24.3543 48.1485 -0.003086 0 -0 0</pose>
+      <frame name='tall_rectangle::__model__' attached_to='tall_rectangle::link'>
+        <pose relative_to='__model__'>0 0 0 0 -0 0</pose>
+      </frame>
+      <static>1</static>
+      <link name='tall_rectangle::link'>
+        <collision name='collision'>
+          <geometry>
+            <box>
+              <size>1 1 10</size>
+            </box>
+          </geometry>
+          <pose>0 0 5 0 -0 0</pose>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <box>
+              <size>1 1 10</size>
+            </box>
+          </geometry>
+          <pose>0 0 5 0 -0 0</pose>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/Red</name>
+            </script>
+          </material>
+        </visual>
+        <pose relative_to='tall_rectangle::__model__'>0 0 0 0 -0 0</pose>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+    </model>
+    <model name='tall_box_clone_18'>
+      <pose>-10.5749 -43.8238 0.003688 0 -0 0</pose>
+      <frame name='tall_rectangle::__model__' attached_to='tall_rectangle::link'>
+        <pose relative_to='__model__'>0 0 0 0 -0 0</pose>
+      </frame>
+      <static>1</static>
+      <link name='tall_rectangle::link'>
+        <collision name='collision'>
+          <geometry>
+            <box>
+              <size>1 1 10</size>
+            </box>
+          </geometry>
+          <pose>0 0 5 0 -0 0</pose>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <box>
+              <size>1 1 10</size>
+            </box>
+          </geometry>
+          <pose>0 0 5 0 -0 0</pose>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/Red</name>
+            </script>
+          </material>
+        </visual>
+        <pose relative_to='tall_rectangle::__model__'>0 0 0 0 -0 0</pose>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+    </model>
+    <model name='tall_box_clone_19'>
+      <pose>-26.9021 23.1935 0.004637 0 -0 0</pose>
+      <frame name='tall_rectangle::__model__' attached_to='tall_rectangle::link'>
+        <pose relative_to='__model__'>0 0 0 0 -0 0</pose>
+      </frame>
+      <static>1</static>
+      <link name='tall_rectangle::link'>
+        <collision name='collision'>
+          <geometry>
+            <box>
+              <size>1 1 10</size>
+            </box>
+          </geometry>
+          <pose>0 0 5 0 -0 0</pose>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <box>
+              <size>1 1 10</size>
+            </box>
+          </geometry>
+          <pose>0 0 5 0 -0 0</pose>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/Red</name>
+            </script>
+          </material>
+        </visual>
+        <pose relative_to='tall_rectangle::__model__'>0 0 0 0 -0 0</pose>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+    </model>
+    <model name='tall_box_right1_clone_0'>
+      <pose>26.6099 -122.141 0.000854 0 -0 0</pose>
+      <frame name='tall_rectangle::__model__' attached_to='tall_rectangle::link'>
+        <pose relative_to='__model__'>0 0 0 0 -0 0</pose>
+      </frame>
+      <static>1</static>
+      <link name='tall_rectangle::link'>
+        <collision name='collision'>
+          <geometry>
+            <box>
+              <size>1 1 10</size>
+            </box>
+          </geometry>
+          <pose>0 0 5 0 -0 0</pose>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <box>
+              <size>1 1 10</size>
+            </box>
+          </geometry>
+          <pose>0 0 5 0 -0 0</pose>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/Red</name>
+            </script>
+          </material>
+        </visual>
+        <pose relative_to='tall_rectangle::__model__'>0 0 0 0 -0 0</pose>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+    </model>
+    <model name='tall_box_right1_clone_1'>
+      <pose>8.53225 -93.6332 0.003912 0 -0 0</pose>
+      <frame name='tall_rectangle::__model__' attached_to='tall_rectangle::link'>
+        <pose relative_to='__model__'>0 0 0 0 -0 0</pose>
+      </frame>
+      <static>1</static>
+      <link name='tall_rectangle::link'>
+        <collision name='collision'>
+          <geometry>
+            <box>
+              <size>1 1 10</size>
+            </box>
+          </geometry>
+          <pose>0 0 5 0 -0 0</pose>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <box>
+              <size>1 1 10</size>
+            </box>
+          </geometry>
+          <pose>0 0 5 0 -0 0</pose>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/Red</name>
+            </script>
+          </material>
+        </visual>
+        <pose relative_to='tall_rectangle::__model__'>0 0 0 0 -0 0</pose>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+    </model>
+    <model name='tall_box_right1_clone_2'>
+      <pose>22.843 -130.898 -0.003009 0 -0 0</pose>
+      <frame name='tall_rectangle::__model__' attached_to='tall_rectangle::link'>
+        <pose relative_to='__model__'>0 0 0 0 -0 0</pose>
+      </frame>
+      <static>1</static>
+      <link name='tall_rectangle::link'>
+        <collision name='collision'>
+          <geometry>
+            <box>
+              <size>1 1 10</size>
+            </box>
+          </geometry>
+          <pose>0 0 5 0 -0 0</pose>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <box>
+              <size>1 1 10</size>
+            </box>
+          </geometry>
+          <pose>0 0 5 0 -0 0</pose>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/Red</name>
+            </script>
+          </material>
+        </visual>
+        <pose relative_to='tall_rectangle::__model__'>0 0 0 0 -0 0</pose>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+    </model>
+    <model name='tall_box_right1_clone_3'>
+      <pose>20.968 -118.801 0.002417 0 -0 0</pose>
+      <frame name='tall_rectangle::__model__' attached_to='tall_rectangle::link'>
+        <pose relative_to='__model__'>0 0 0 0 -0 0</pose>
+      </frame>
+      <static>1</static>
+      <link name='tall_rectangle::link'>
+        <collision name='collision'>
+          <geometry>
+            <box>
+              <size>1 1 10</size>
+            </box>
+          </geometry>
+          <pose>0 0 5 0 -0 0</pose>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <box>
+              <size>1 1 10</size>
+            </box>
+          </geometry>
+          <pose>0 0 5 0 -0 0</pose>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/Red</name>
+            </script>
+          </material>
+        </visual>
+        <pose relative_to='tall_rectangle::__model__'>0 0 0 0 -0 0</pose>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+    </model>
+    <model name='tall_box_right1_clone_4'>
+      <pose>10.6142 -89.2719 0.004563 0 -0 0</pose>
+      <frame name='tall_rectangle::__model__' attached_to='tall_rectangle::link'>
+        <pose relative_to='__model__'>0 0 0 0 -0 0</pose>
+      </frame>
+      <static>1</static>
+      <link name='tall_rectangle::link'>
+        <collision name='collision'>
+          <geometry>
+            <box>
+              <size>1 1 10</size>
+            </box>
+          </geometry>
+          <pose>0 0 5 0 -0 0</pose>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <box>
+              <size>1 1 10</size>
+            </box>
+          </geometry>
+          <pose>0 0 5 0 -0 0</pose>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/Red</name>
+            </script>
+          </material>
+        </visual>
+        <pose relative_to='tall_rectangle::__model__'>0 0 0 0 -0 0</pose>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+    </model>
+    <model name='tall_box_right1_clone_5'>
+      <pose>15.2898 -64.0803 -0.000205 0 -0 0</pose>
+      <frame name='tall_rectangle::__model__' attached_to='tall_rectangle::link'>
+        <pose relative_to='__model__'>0 0 0 0 -0 0</pose>
+      </frame>
+      <static>1</static>
+      <link name='tall_rectangle::link'>
+        <collision name='collision'>
+          <geometry>
+            <box>
+              <size>1 1 10</size>
+            </box>
+          </geometry>
+          <pose>0 0 5 0 -0 0</pose>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <box>
+              <size>1 1 10</size>
+            </box>
+          </geometry>
+          <pose>0 0 5 0 -0 0</pose>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/Red</name>
+            </script>
+          </material>
+        </visual>
+        <pose relative_to='tall_rectangle::__model__'>0 0 0 0 -0 0</pose>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+    </model>
+    <model name='tall_box_right1_clone_6'>
+      <pose>20.569 -99.1149 0.00287 0 -0 0</pose>
+      <frame name='tall_rectangle::__model__' attached_to='tall_rectangle::link'>
+        <pose relative_to='__model__'>0 0 0 0 -0 0</pose>
+      </frame>
+      <static>1</static>
+      <link name='tall_rectangle::link'>
+        <collision name='collision'>
+          <geometry>
+            <box>
+              <size>1 1 10</size>
+            </box>
+          </geometry>
+          <pose>0 0 5 0 -0 0</pose>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <box>
+              <size>1 1 10</size>
+            </box>
+          </geometry>
+          <pose>0 0 5 0 -0 0</pose>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/Red</name>
+            </script>
+          </material>
+        </visual>
+        <pose relative_to='tall_rectangle::__model__'>0 0 0 0 -0 0</pose>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+    </model>
+    <model name='tall_box_right1_clone_7'>
+      <pose>15.483 -110.918 0.001759 0 -0 0</pose>
+      <frame name='tall_rectangle::__model__' attached_to='tall_rectangle::link'>
+        <pose relative_to='__model__'>0 0 0 0 -0 0</pose>
+      </frame>
+      <static>1</static>
+      <link name='tall_rectangle::link'>
+        <collision name='collision'>
+          <geometry>
+            <box>
+              <size>1 1 10</size>
+            </box>
+          </geometry>
+          <pose>0 0 5 0 -0 0</pose>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <box>
+              <size>1 1 10</size>
+            </box>
+          </geometry>
+          <pose>0 0 5 0 -0 0</pose>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/Red</name>
+            </script>
+          </material>
+        </visual>
+        <pose relative_to='tall_rectangle::__model__'>0 0 0 0 -0 0</pose>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+    </model>
+    <model name='tall_box_right1_clone_8'>
+      <pose>25.6106 -70.1663 -0.00248 0 -0 0</pose>
+      <frame name='tall_rectangle::__model__' attached_to='tall_rectangle::link'>
+        <pose relative_to='__model__'>0 0 0 0 -0 0</pose>
+      </frame>
+      <static>1</static>
+      <link name='tall_rectangle::link'>
+        <collision name='collision'>
+          <geometry>
+            <box>
+              <size>1 1 10</size>
+            </box>
+          </geometry>
+          <pose>0 0 5 0 -0 0</pose>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <box>
+              <size>1 1 10</size>
+            </box>
+          </geometry>
+          <pose>0 0 5 0 -0 0</pose>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/Red</name>
+            </script>
+          </material>
+        </visual>
+        <pose relative_to='tall_rectangle::__model__'>0 0 0 0 -0 0</pose>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+    </model>
+    <model name='tall_box_right1_clone_9'>
+      <pose>14.8809 -95.1818 -0.003836 0 -0 0</pose>
+      <frame name='tall_rectangle::__model__' attached_to='tall_rectangle::link'>
+        <pose relative_to='__model__'>0 0 0 0 -0 0</pose>
+      </frame>
+      <static>1</static>
+      <link name='tall_rectangle::link'>
+        <collision name='collision'>
+          <geometry>
+            <box>
+              <size>1 1 10</size>
+            </box>
+          </geometry>
+          <pose>0 0 5 0 -0 0</pose>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <box>
+              <size>1 1 10</size>
+            </box>
+          </geometry>
+          <pose>0 0 5 0 -0 0</pose>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/Red</name>
+            </script>
+          </material>
+        </visual>
+        <pose relative_to='tall_rectangle::__model__'>0 0 0 0 -0 0</pose>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+    </model>
+    <model name='tall_box_right1_clone_10'>
+      <pose>11.8813 -59.8091 0.003992 0 -0 0</pose>
+      <frame name='tall_rectangle::__model__' attached_to='tall_rectangle::link'>
+        <pose relative_to='__model__'>0 0 0 0 -0 0</pose>
+      </frame>
+      <static>1</static>
+      <link name='tall_rectangle::link'>
+        <collision name='collision'>
+          <geometry>
+            <box>
+              <size>1 1 10</size>
+            </box>
+          </geometry>
+          <pose>0 0 5 0 -0 0</pose>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <box>
+              <size>1 1 10</size>
+            </box>
+          </geometry>
+          <pose>0 0 5 0 -0 0</pose>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/Red</name>
+            </script>
+          </material>
+        </visual>
+        <pose relative_to='tall_rectangle::__model__'>0 0 0 0 -0 0</pose>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+    </model>
+    <model name='tall_box_right1_clone_11'>
+      <pose>6.89856 -74.6685 -0.003091 0 -0 0</pose>
+      <frame name='tall_rectangle::__model__' attached_to='tall_rectangle::link'>
+        <pose relative_to='__model__'>0 0 0 0 -0 0</pose>
+      </frame>
+      <static>1</static>
+      <link name='tall_rectangle::link'>
+        <collision name='collision'>
+          <geometry>
+            <box>
+              <size>1 1 10</size>
+            </box>
+          </geometry>
+          <pose>0 0 5 0 -0 0</pose>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <box>
+              <size>1 1 10</size>
+            </box>
+          </geometry>
+          <pose>0 0 5 0 -0 0</pose>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/Red</name>
+            </script>
+          </material>
+        </visual>
+        <pose relative_to='tall_rectangle::__model__'>0 0 0 0 -0 0</pose>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+    </model>
+    <model name='tall_box_right1_clone_12'>
+      <pose>19.4264 -65.4831 -0.002482 0 -0 0</pose>
+      <frame name='tall_rectangle::__model__' attached_to='tall_rectangle::link'>
+        <pose relative_to='__model__'>0 0 0 0 -0 0</pose>
+      </frame>
+      <static>1</static>
+      <link name='tall_rectangle::link'>
+        <collision name='collision'>
+          <geometry>
+            <box>
+              <size>1 1 10</size>
+            </box>
+          </geometry>
+          <pose>0 0 5 0 -0 0</pose>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <box>
+              <size>1 1 10</size>
+            </box>
+          </geometry>
+          <pose>0 0 5 0 -0 0</pose>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/Red</name>
+            </script>
+          </material>
+        </visual>
+        <pose relative_to='tall_rectangle::__model__'>0 0 0 0 -0 0</pose>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+    </model>
+    <model name='tall_box_right1_clone_13'>
+      <pose>10.0696 -122.983 0.003759 0 -0 0</pose>
+      <frame name='tall_rectangle::__model__' attached_to='tall_rectangle::link'>
+        <pose relative_to='__model__'>0 0 0 0 -0 0</pose>
+      </frame>
+      <static>1</static>
+      <link name='tall_rectangle::link'>
+        <collision name='collision'>
+          <geometry>
+            <box>
+              <size>1 1 10</size>
+            </box>
+          </geometry>
+          <pose>0 0 5 0 -0 0</pose>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <box>
+              <size>1 1 10</size>
+            </box>
+          </geometry>
+          <pose>0 0 5 0 -0 0</pose>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/Red</name>
+            </script>
+          </material>
+        </visual>
+        <pose relative_to='tall_rectangle::__model__'>0 0 0 0 -0 0</pose>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+    </model>
+    <model name='tall_box_right1_clone_14'>
+      <pose>5.10956 -63.6483 -0.004621 0 -0 0</pose>
+      <frame name='tall_rectangle::__model__' attached_to='tall_rectangle::link'>
+        <pose relative_to='__model__'>0 0 0 0 -0 0</pose>
+      </frame>
+      <static>1</static>
+      <link name='tall_rectangle::link'>
+        <collision name='collision'>
+          <geometry>
+            <box>
+              <size>1 1 10</size>
+            </box>
+          </geometry>
+          <pose>0 0 5 0 -0 0</pose>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <box>
+              <size>1 1 10</size>
+            </box>
+          </geometry>
+          <pose>0 0 5 0 -0 0</pose>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/Red</name>
+            </script>
+          </material>
+        </visual>
+        <pose relative_to='tall_rectangle::__model__'>0 0 0 0 -0 0</pose>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+    </model>
+    <model name='tall_box_right1_clone_15'>
+      <pose>6.33056 -121.502 0.001837 0 -0 0</pose>
+      <frame name='tall_rectangle::__model__' attached_to='tall_rectangle::link'>
+        <pose relative_to='__model__'>0 0 0 0 -0 0</pose>
+      </frame>
+      <static>1</static>
+      <link name='tall_rectangle::link'>
+        <collision name='collision'>
+          <geometry>
+            <box>
+              <size>1 1 10</size>
+            </box>
+          </geometry>
+          <pose>0 0 5 0 -0 0</pose>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <box>
+              <size>1 1 10</size>
+            </box>
+          </geometry>
+          <pose>0 0 5 0 -0 0</pose>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/Red</name>
+            </script>
+          </material>
+        </visual>
+        <pose relative_to='tall_rectangle::__model__'>0 0 0 0 -0 0</pose>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+    </model>
+    <model name='tall_box_right1_clone_16'>
+      <pose>15.2322 -76.1326 0.000991 0 -0 0</pose>
+      <frame name='tall_rectangle::__model__' attached_to='tall_rectangle::link'>
+        <pose relative_to='__model__'>0 0 0 0 -0 0</pose>
+      </frame>
+      <static>1</static>
+      <link name='tall_rectangle::link'>
+        <collision name='collision'>
+          <geometry>
+            <box>
+              <size>1 1 10</size>
+            </box>
+          </geometry>
+          <pose>0 0 5 0 -0 0</pose>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <box>
+              <size>1 1 10</size>
+            </box>
+          </geometry>
+          <pose>0 0 5 0 -0 0</pose>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/Red</name>
+            </script>
+          </material>
+        </visual>
+        <pose relative_to='tall_rectangle::__model__'>0 0 0 0 -0 0</pose>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+    </model>
+    <model name='tall_box_right1_clone_17'>
+      <pose>24.1858 -71.5481 0.002473 0 -0 0</pose>
+      <frame name='tall_rectangle::__model__' attached_to='tall_rectangle::link'>
+        <pose relative_to='__model__'>0 0 0 0 -0 0</pose>
+      </frame>
+      <static>1</static>
+      <link name='tall_rectangle::link'>
+        <collision name='collision'>
+          <geometry>
+            <box>
+              <size>1 1 10</size>
+            </box>
+          </geometry>
+          <pose>0 0 5 0 -0 0</pose>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <box>
+              <size>1 1 10</size>
+            </box>
+          </geometry>
+          <pose>0 0 5 0 -0 0</pose>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/Red</name>
+            </script>
+          </material>
+        </visual>
+        <pose relative_to='tall_rectangle::__model__'>0 0 0 0 -0 0</pose>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+    </model>
+    <model name='tall_box_right1_clone_18'>
+      <pose>18.9107 -101.372 -0.002236 0 -0 0</pose>
+      <frame name='tall_rectangle::__model__' attached_to='tall_rectangle::link'>
+        <pose relative_to='__model__'>0 0 0 0 -0 0</pose>
+      </frame>
+      <static>1</static>
+      <link name='tall_rectangle::link'>
+        <collision name='collision'>
+          <geometry>
+            <box>
+              <size>1 1 10</size>
+            </box>
+          </geometry>
+          <pose>0 0 5 0 -0 0</pose>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <box>
+              <size>1 1 10</size>
+            </box>
+          </geometry>
+          <pose>0 0 5 0 -0 0</pose>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/Red</name>
+            </script>
+          </material>
+        </visual>
+        <pose relative_to='tall_rectangle::__model__'>0 0 0 0 -0 0</pose>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+    </model>
+    <model name='tall_box_right1_clone_19'>
+      <pose>13.8564 -115.282 -0.002726 0 -0 0</pose>
+      <frame name='tall_rectangle::__model__' attached_to='tall_rectangle::link'>
+        <pose relative_to='__model__'>0 0 0 0 -0 0</pose>
+      </frame>
+      <static>1</static>
+      <link name='tall_rectangle::link'>
+        <collision name='collision'>
+          <geometry>
+            <box>
+              <size>1 1 10</size>
+            </box>
+          </geometry>
+          <pose>0 0 5 0 -0 0</pose>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <box>
+              <size>1 1 10</size>
+            </box>
+          </geometry>
+          <pose>0 0 5 0 -0 0</pose>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/Red</name>
+            </script>
+          </material>
+        </visual>
+        <pose relative_to='tall_rectangle::__model__'>0 0 0 0 -0 0</pose>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+    </model>
+    <model name='tall_box_right2_clone_0'>
+      <pose>18.3039 17.6851 -0.001221 0 -0 0</pose>
+      <frame name='tall_rectangle::__model__' attached_to='tall_rectangle::link'>
+        <pose relative_to='__model__'>0 0 0 0 -0 0</pose>
+      </frame>
+      <static>1</static>
+      <link name='tall_rectangle::link'>
+        <collision name='collision'>
+          <geometry>
+            <box>
+              <size>1 1 10</size>
+            </box>
+          </geometry>
+          <pose>0 0 5 0 -0 0</pose>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <box>
+              <size>1 1 10</size>
+            </box>
+          </geometry>
+          <pose>0 0 5 0 -0 0</pose>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/Red</name>
+            </script>
+          </material>
+        </visual>
+        <pose relative_to='tall_rectangle::__model__'>0 0 0 0 -0 0</pose>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+    </model>
+    <model name='tall_box_right2_clone_1'>
+      <pose>20.0473 20.131 -0.001119 0 -0 0</pose>
+      <frame name='tall_rectangle::__model__' attached_to='tall_rectangle::link'>
+        <pose relative_to='__model__'>0 0 0 0 -0 0</pose>
+      </frame>
+      <static>1</static>
+      <link name='tall_rectangle::link'>
+        <collision name='collision'>
+          <geometry>
+            <box>
+              <size>1 1 10</size>
+            </box>
+          </geometry>
+          <pose>0 0 5 0 -0 0</pose>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <box>
+              <size>1 1 10</size>
+            </box>
+          </geometry>
+          <pose>0 0 5 0 -0 0</pose>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/Red</name>
+            </script>
+          </material>
+        </visual>
+        <pose relative_to='tall_rectangle::__model__'>0 0 0 0 -0 0</pose>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+    </model>
+    <model name='tall_box_right2_clone_2'>
+      <pose>19.9458 32.2552 -0.0035 0 -0 0</pose>
+      <frame name='tall_rectangle::__model__' attached_to='tall_rectangle::link'>
+        <pose relative_to='__model__'>0 0 0 0 -0 0</pose>
+      </frame>
+      <static>1</static>
+      <link name='tall_rectangle::link'>
+        <collision name='collision'>
+          <geometry>
+            <box>
+              <size>1 1 10</size>
+            </box>
+          </geometry>
+          <pose>0 0 5 0 -0 0</pose>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <box>
+              <size>1 1 10</size>
+            </box>
+          </geometry>
+          <pose>0 0 5 0 -0 0</pose>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/Red</name>
+            </script>
+          </material>
+        </visual>
+        <pose relative_to='tall_rectangle::__model__'>0 0 0 0 -0 0</pose>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+    </model>
+    <model name='tall_box_right2_clone_3'>
+      <pose>23.2973 28.2714 0.000893 0 -0 0</pose>
+      <frame name='tall_rectangle::__model__' attached_to='tall_rectangle::link'>
+        <pose relative_to='__model__'>0 0 0 0 -0 0</pose>
+      </frame>
+      <static>1</static>
+      <link name='tall_rectangle::link'>
+        <collision name='collision'>
+          <geometry>
+            <box>
+              <size>1 1 10</size>
+            </box>
+          </geometry>
+          <pose>0 0 5 0 -0 0</pose>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <box>
+              <size>1 1 10</size>
+            </box>
+          </geometry>
+          <pose>0 0 5 0 -0 0</pose>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/Red</name>
+            </script>
+          </material>
+        </visual>
+        <pose relative_to='tall_rectangle::__model__'>0 0 0 0 -0 0</pose>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+    </model>
+    <model name='tall_box_right2_clone_4'>
+      <pose>21.6859 -14.5804 -0.002265 0 -0 0</pose>
+      <frame name='tall_rectangle::__model__' attached_to='tall_rectangle::link'>
+        <pose relative_to='__model__'>0 0 0 0 -0 0</pose>
+      </frame>
+      <static>1</static>
+      <link name='tall_rectangle::link'>
+        <collision name='collision'>
+          <geometry>
+            <box>
+              <size>1 1 10</size>
+            </box>
+          </geometry>
+          <pose>0 0 5 0 -0 0</pose>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <box>
+              <size>1 1 10</size>
+            </box>
+          </geometry>
+          <pose>0 0 5 0 -0 0</pose>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/Red</name>
+            </script>
+          </material>
+        </visual>
+        <pose relative_to='tall_rectangle::__model__'>0 0 0 0 -0 0</pose>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+    </model>
+    <model name='tall_box_right2_clone_5'>
+      <pose>35.7812 -9.39661 0.000304 0 -0 0</pose>
+      <frame name='tall_rectangle::__model__' attached_to='tall_rectangle::link'>
+        <pose relative_to='__model__'>0 0 0 0 -0 0</pose>
+      </frame>
+      <static>1</static>
+      <link name='tall_rectangle::link'>
+        <collision name='collision'>
+          <geometry>
+            <box>
+              <size>1 1 10</size>
+            </box>
+          </geometry>
+          <pose>0 0 5 0 -0 0</pose>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <box>
+              <size>1 1 10</size>
+            </box>
+          </geometry>
+          <pose>0 0 5 0 -0 0</pose>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/Red</name>
+            </script>
+          </material>
+        </visual>
+        <pose relative_to='tall_rectangle::__model__'>0 0 0 0 -0 0</pose>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+    </model>
+    <model name='tall_box_right2_clone_6'>
+      <pose>20.7207 8.01208 -0.003393 0 -0 0</pose>
+      <frame name='tall_rectangle::__model__' attached_to='tall_rectangle::link'>
+        <pose relative_to='__model__'>0 0 0 0 -0 0</pose>
+      </frame>
+      <static>1</static>
+      <link name='tall_rectangle::link'>
+        <collision name='collision'>
+          <geometry>
+            <box>
+              <size>1 1 10</size>
+            </box>
+          </geometry>
+          <pose>0 0 5 0 -0 0</pose>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <box>
+              <size>1 1 10</size>
+            </box>
+          </geometry>
+          <pose>0 0 5 0 -0 0</pose>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/Red</name>
+            </script>
+          </material>
+        </visual>
+        <pose relative_to='tall_rectangle::__model__'>0 0 0 0 -0 0</pose>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+    </model>
+    <model name='tall_box_right2_clone_7'>
+      <pose>37.2819 7.29886 0.000748 0 -0 0</pose>
+      <frame name='tall_rectangle::__model__' attached_to='tall_rectangle::link'>
+        <pose relative_to='__model__'>0 0 0 0 -0 0</pose>
+      </frame>
+      <static>1</static>
+      <link name='tall_rectangle::link'>
+        <collision name='collision'>
+          <geometry>
+            <box>
+              <size>1 1 10</size>
+            </box>
+          </geometry>
+          <pose>0 0 5 0 -0 0</pose>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <box>
+              <size>1 1 10</size>
+            </box>
+          </geometry>
+          <pose>0 0 5 0 -0 0</pose>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/Red</name>
+            </script>
+          </material>
+        </visual>
+        <pose relative_to='tall_rectangle::__model__'>0 0 0 0 -0 0</pose>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+    </model>
+    <model name='tall_box_right2_clone_8'>
+      <pose>19.2651 -21.9594 -0.002753 0 -0 0</pose>
+      <frame name='tall_rectangle::__model__' attached_to='tall_rectangle::link'>
+        <pose relative_to='__model__'>0 0 0 0 -0 0</pose>
+      </frame>
+      <static>1</static>
+      <link name='tall_rectangle::link'>
+        <collision name='collision'>
+          <geometry>
+            <box>
+              <size>1 1 10</size>
+            </box>
+          </geometry>
+          <pose>0 0 5 0 -0 0</pose>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <box>
+              <size>1 1 10</size>
+            </box>
+          </geometry>
+          <pose>0 0 5 0 -0 0</pose>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/Red</name>
+            </script>
+          </material>
+        </visual>
+        <pose relative_to='tall_rectangle::__model__'>0 0 0 0 -0 0</pose>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+    </model>
+    <model name='tall_box_right2_clone_9'>
+      <pose>22.1899 -29.5038 -0.001493 0 -0 0</pose>
+      <frame name='tall_rectangle::__model__' attached_to='tall_rectangle::link'>
+        <pose relative_to='__model__'>0 0 0 0 -0 0</pose>
+      </frame>
+      <static>1</static>
+      <link name='tall_rectangle::link'>
+        <collision name='collision'>
+          <geometry>
+            <box>
+              <size>1 1 10</size>
+            </box>
+          </geometry>
+          <pose>0 0 5 0 -0 0</pose>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <box>
+              <size>1 1 10</size>
+            </box>
+          </geometry>
+          <pose>0 0 5 0 -0 0</pose>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/Red</name>
+            </script>
+          </material>
+        </visual>
+        <pose relative_to='tall_rectangle::__model__'>0 0 0 0 -0 0</pose>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+    </model>
+    <model name='tall_box_right2_clone_10'>
+      <pose>20.5872 9.55193 -0.004564 0 -0 0</pose>
+      <frame name='tall_rectangle::__model__' attached_to='tall_rectangle::link'>
+        <pose relative_to='__model__'>0 0 0 0 -0 0</pose>
+      </frame>
+      <static>1</static>
+      <link name='tall_rectangle::link'>
+        <collision name='collision'>
+          <geometry>
+            <box>
+              <size>1 1 10</size>
+            </box>
+          </geometry>
+          <pose>0 0 5 0 -0 0</pose>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <box>
+              <size>1 1 10</size>
+            </box>
+          </geometry>
+          <pose>0 0 5 0 -0 0</pose>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/Red</name>
+            </script>
+          </material>
+        </visual>
+        <pose relative_to='tall_rectangle::__model__'>0 0 0 0 -0 0</pose>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+    </model>
+    <model name='tall_box_right2_clone_11'>
+      <pose>19.5851 36.6332 0.002603 0 -0 0</pose>
+      <frame name='tall_rectangle::__model__' attached_to='tall_rectangle::link'>
+        <pose relative_to='__model__'>0 0 0 0 -0 0</pose>
+      </frame>
+      <static>1</static>
+      <link name='tall_rectangle::link'>
+        <collision name='collision'>
+          <geometry>
+            <box>
+              <size>1 1 10</size>
+            </box>
+          </geometry>
+          <pose>0 0 5 0 -0 0</pose>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <box>
+              <size>1 1 10</size>
+            </box>
+          </geometry>
+          <pose>0 0 5 0 -0 0</pose>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/Red</name>
+            </script>
+          </material>
+        </visual>
+        <pose relative_to='tall_rectangle::__model__'>0 0 0 0 -0 0</pose>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+    </model>
+    <model name='tall_box_right2_clone_12'>
+      <pose>20.8532 -17.5352 -0.001583 0 -0 0</pose>
+      <frame name='tall_rectangle::__model__' attached_to='tall_rectangle::link'>
+        <pose relative_to='__model__'>0 0 0 0 -0 0</pose>
+      </frame>
+      <static>1</static>
+      <link name='tall_rectangle::link'>
+        <collision name='collision'>
+          <geometry>
+            <box>
+              <size>1 1 10</size>
+            </box>
+          </geometry>
+          <pose>0 0 5 0 -0 0</pose>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <box>
+              <size>1 1 10</size>
+            </box>
+          </geometry>
+          <pose>0 0 5 0 -0 0</pose>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/Red</name>
+            </script>
+          </material>
+        </visual>
+        <pose relative_to='tall_rectangle::__model__'>0 0 0 0 -0 0</pose>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+    </model>
+    <model name='tall_box_right2_clone_13'>
+      <pose>37.9353 26.9552 0.002488 0 -0 0</pose>
+      <frame name='tall_rectangle::__model__' attached_to='tall_rectangle::link'>
+        <pose relative_to='__model__'>0 0 0 0 -0 0</pose>
+      </frame>
+      <static>1</static>
+      <link name='tall_rectangle::link'>
+        <collision name='collision'>
+          <geometry>
+            <box>
+              <size>1 1 10</size>
+            </box>
+          </geometry>
+          <pose>0 0 5 0 -0 0</pose>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <box>
+              <size>1 1 10</size>
+            </box>
+          </geometry>
+          <pose>0 0 5 0 -0 0</pose>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/Red</name>
+            </script>
+          </material>
+        </visual>
+        <pose relative_to='tall_rectangle::__model__'>0 0 0 0 -0 0</pose>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+    </model>
+    <model name='tall_box_right2_clone_14'>
+      <pose>36.803 10.2335 -0.003294 0 -0 0</pose>
+      <frame name='tall_rectangle::__model__' attached_to='tall_rectangle::link'>
+        <pose relative_to='__model__'>0 0 0 0 -0 0</pose>
+      </frame>
+      <static>1</static>
+      <link name='tall_rectangle::link'>
+        <collision name='collision'>
+          <geometry>
+            <box>
+              <size>1 1 10</size>
+            </box>
+          </geometry>
+          <pose>0 0 5 0 -0 0</pose>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <box>
+              <size>1 1 10</size>
+            </box>
+          </geometry>
+          <pose>0 0 5 0 -0 0</pose>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/Red</name>
+            </script>
+          </material>
+        </visual>
+        <pose relative_to='tall_rectangle::__model__'>0 0 0 0 -0 0</pose>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+    </model>
+    <model name='tall_box_right2_clone_15'>
+      <pose>30.5932 -38.1441 0.000201 0 -0 0</pose>
+      <frame name='tall_rectangle::__model__' attached_to='tall_rectangle::link'>
+        <pose relative_to='__model__'>0 0 0 0 -0 0</pose>
+      </frame>
+      <static>1</static>
+      <link name='tall_rectangle::link'>
+        <collision name='collision'>
+          <geometry>
+            <box>
+              <size>1 1 10</size>
+            </box>
+          </geometry>
+          <pose>0 0 5 0 -0 0</pose>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <box>
+              <size>1 1 10</size>
+            </box>
+          </geometry>
+          <pose>0 0 5 0 -0 0</pose>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/Red</name>
+            </script>
+          </material>
+        </visual>
+        <pose relative_to='tall_rectangle::__model__'>0 0 0 0 -0 0</pose>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+    </model>
+    <model name='tall_box_right2_clone_16'>
+      <pose>26.7455 -21.8765 -0.00078 0 -0 0</pose>
+      <frame name='tall_rectangle::__model__' attached_to='tall_rectangle::link'>
+        <pose relative_to='__model__'>0 0 0 0 -0 0</pose>
+      </frame>
+      <static>1</static>
+      <link name='tall_rectangle::link'>
+        <collision name='collision'>
+          <geometry>
+            <box>
+              <size>1 1 10</size>
+            </box>
+          </geometry>
+          <pose>0 0 5 0 -0 0</pose>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <box>
+              <size>1 1 10</size>
+            </box>
+          </geometry>
+          <pose>0 0 5 0 -0 0</pose>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/Red</name>
+            </script>
+          </material>
+        </visual>
+        <pose relative_to='tall_rectangle::__model__'>0 0 0 0 -0 0</pose>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+    </model>
+    <model name='tall_box_right2_clone_17'>
+      <pose>36.7915 -49.1118 -0.002977 0 -0 0</pose>
+      <frame name='tall_rectangle::__model__' attached_to='tall_rectangle::link'>
+        <pose relative_to='__model__'>0 0 0 0 -0 0</pose>
+      </frame>
+      <static>1</static>
+      <link name='tall_rectangle::link'>
+        <collision name='collision'>
+          <geometry>
+            <box>
+              <size>1 1 10</size>
+            </box>
+          </geometry>
+          <pose>0 0 5 0 -0 0</pose>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <box>
+              <size>1 1 10</size>
+            </box>
+          </geometry>
+          <pose>0 0 5 0 -0 0</pose>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/Red</name>
+            </script>
+          </material>
+        </visual>
+        <pose relative_to='tall_rectangle::__model__'>0 0 0 0 -0 0</pose>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+    </model>
+    <model name='tall_box_right2_clone_18'>
+      <pose>41.5956 31.7861 0.003687 0 -0 0</pose>
+      <frame name='tall_rectangle::__model__' attached_to='tall_rectangle::link'>
+        <pose relative_to='__model__'>0 0 0 0 -0 0</pose>
+      </frame>
+      <static>1</static>
+      <link name='tall_rectangle::link'>
+        <collision name='collision'>
+          <geometry>
+            <box>
+              <size>1 1 10</size>
+            </box>
+          </geometry>
+          <pose>0 0 5 0 -0 0</pose>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <box>
+              <size>1 1 10</size>
+            </box>
+          </geometry>
+          <pose>0 0 5 0 -0 0</pose>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/Red</name>
+            </script>
+          </material>
+        </visual>
+        <pose relative_to='tall_rectangle::__model__'>0 0 0 0 -0 0</pose>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+    </model>
+    <model name='tall_box_right2_clone_19'>
+      <pose>19.4496 46.2263 -0.004206 0 -0 0</pose>
+      <frame name='tall_rectangle::__model__' attached_to='tall_rectangle::link'>
+        <pose relative_to='__model__'>0 0 0 0 -0 0</pose>
+      </frame>
+      <static>1</static>
+      <link name='tall_rectangle::link'>
+        <collision name='collision'>
+          <geometry>
+            <box>
+              <size>1 1 10</size>
+            </box>
+          </geometry>
+          <pose>0 0 5 0 -0 0</pose>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <box>
+              <size>1 1 10</size>
+            </box>
+          </geometry>
+          <pose>0 0 5 0 -0 0</pose>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/Red</name>
+            </script>
+          </material>
+        </visual>
+        <pose relative_to='tall_rectangle::__model__'>0 0 0 0 -0 0</pose>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+    </model>
+    <model name='tall_box_right3_clone_0'>
+      <pose>22.8641 82.5735 0.004255 0 -0 0</pose>
+      <frame name='tall_rectangle::__model__' attached_to='tall_rectangle::link'>
+        <pose relative_to='__model__'>0 0 0 0 -0 0</pose>
+      </frame>
+      <static>1</static>
+      <link name='tall_rectangle::link'>
+        <collision name='collision'>
+          <geometry>
+            <box>
+              <size>1 1 10</size>
+            </box>
+          </geometry>
+          <pose>0 0 5 0 -0 0</pose>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <box>
+              <size>1 1 10</size>
+            </box>
+          </geometry>
+          <pose>0 0 5 0 -0 0</pose>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/Red</name>
+            </script>
+          </material>
+        </visual>
+        <pose relative_to='tall_rectangle::__model__'>0 0 0 0 -0 0</pose>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+    </model>
+    <model name='tall_box_right3_clone_1'>
+      <pose>24.4592 79.3691 0.002864 0 -0 0</pose>
+      <frame name='tall_rectangle::__model__' attached_to='tall_rectangle::link'>
+        <pose relative_to='__model__'>0 0 0 0 -0 0</pose>
+      </frame>
+      <static>1</static>
+      <link name='tall_rectangle::link'>
+        <collision name='collision'>
+          <geometry>
+            <box>
+              <size>1 1 10</size>
+            </box>
+          </geometry>
+          <pose>0 0 5 0 -0 0</pose>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <box>
+              <size>1 1 10</size>
+            </box>
+          </geometry>
+          <pose>0 0 5 0 -0 0</pose>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/Red</name>
+            </script>
+          </material>
+        </visual>
+        <pose relative_to='tall_rectangle::__model__'>0 0 0 0 -0 0</pose>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+    </model>
+    <model name='tall_box_right3_clone_2'>
+      <pose>12.9551 109.973 -0.002575 0 -0 0</pose>
+      <frame name='tall_rectangle::__model__' attached_to='tall_rectangle::link'>
+        <pose relative_to='__model__'>0 0 0 0 -0 0</pose>
+      </frame>
+      <static>1</static>
+      <link name='tall_rectangle::link'>
+        <collision name='collision'>
+          <geometry>
+            <box>
+              <size>1 1 10</size>
+            </box>
+          </geometry>
+          <pose>0 0 5 0 -0 0</pose>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <box>
+              <size>1 1 10</size>
+            </box>
+          </geometry>
+          <pose>0 0 5 0 -0 0</pose>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/Red</name>
+            </script>
+          </material>
+        </visual>
+        <pose relative_to='tall_rectangle::__model__'>0 0 0 0 -0 0</pose>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+    </model>
+    <model name='tall_box_right3_clone_3'>
+      <pose>24.5466 73.5649 -0.003208 0 -0 0</pose>
+      <frame name='tall_rectangle::__model__' attached_to='tall_rectangle::link'>
+        <pose relative_to='__model__'>0 0 0 0 -0 0</pose>
+      </frame>
+      <static>1</static>
+      <link name='tall_rectangle::link'>
+        <collision name='collision'>
+          <geometry>
+            <box>
+              <size>1 1 10</size>
+            </box>
+          </geometry>
+          <pose>0 0 5 0 -0 0</pose>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <box>
+              <size>1 1 10</size>
+            </box>
+          </geometry>
+          <pose>0 0 5 0 -0 0</pose>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/Red</name>
+            </script>
+          </material>
+        </visual>
+        <pose relative_to='tall_rectangle::__model__'>0 0 0 0 -0 0</pose>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+    </model>
+    <model name='tall_box_right3_clone_4'>
+      <pose>20.2339 107.208 -0.004393 0 -0 0</pose>
+      <frame name='tall_rectangle::__model__' attached_to='tall_rectangle::link'>
+        <pose relative_to='__model__'>0 0 0 0 -0 0</pose>
+      </frame>
+      <static>1</static>
+      <link name='tall_rectangle::link'>
+        <collision name='collision'>
+          <geometry>
+            <box>
+              <size>1 1 10</size>
+            </box>
+          </geometry>
+          <pose>0 0 5 0 -0 0</pose>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <box>
+              <size>1 1 10</size>
+            </box>
+          </geometry>
+          <pose>0 0 5 0 -0 0</pose>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/Red</name>
+            </script>
+          </material>
+        </visual>
+        <pose relative_to='tall_rectangle::__model__'>0 0 0 0 -0 0</pose>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+    </model>
+    <model name='tall_box_right3_clone_5'>
+      <pose>7.36436 108.896 0.001991 0 -0 0</pose>
+      <frame name='tall_rectangle::__model__' attached_to='tall_rectangle::link'>
+        <pose relative_to='__model__'>0 0 0 0 -0 0</pose>
+      </frame>
+      <static>1</static>
+      <link name='tall_rectangle::link'>
+        <collision name='collision'>
+          <geometry>
+            <box>
+              <size>1 1 10</size>
+            </box>
+          </geometry>
+          <pose>0 0 5 0 -0 0</pose>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <box>
+              <size>1 1 10</size>
+            </box>
+          </geometry>
+          <pose>0 0 5 0 -0 0</pose>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/Red</name>
+            </script>
+          </material>
+        </visual>
+        <pose relative_to='tall_rectangle::__model__'>0 0 0 0 -0 0</pose>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+    </model>
+    <model name='tall_box_right3_clone_6'>
+      <pose>9.70282 121.348 0.000803 0 -0 0</pose>
+      <frame name='tall_rectangle::__model__' attached_to='tall_rectangle::link'>
+        <pose relative_to='__model__'>0 0 0 0 -0 0</pose>
+      </frame>
+      <static>1</static>
+      <link name='tall_rectangle::link'>
+        <collision name='collision'>
+          <geometry>
+            <box>
+              <size>1 1 10</size>
+            </box>
+          </geometry>
+          <pose>0 0 5 0 -0 0</pose>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <box>
+              <size>1 1 10</size>
+            </box>
+          </geometry>
+          <pose>0 0 5 0 -0 0</pose>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/Red</name>
+            </script>
+          </material>
+        </visual>
+        <pose relative_to='tall_rectangle::__model__'>0 0 0 0 -0 0</pose>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+    </model>
+    <model name='tall_box_right3_clone_7'>
+      <pose>22.1244 124.489 -0.003605 0 -0 0</pose>
+      <frame name='tall_rectangle::__model__' attached_to='tall_rectangle::link'>
+        <pose relative_to='__model__'>0 0 0 0 -0 0</pose>
+      </frame>
+      <static>1</static>
+      <link name='tall_rectangle::link'>
+        <collision name='collision'>
+          <geometry>
+            <box>
+              <size>1 1 10</size>
+            </box>
+          </geometry>
+          <pose>0 0 5 0 -0 0</pose>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <box>
+              <size>1 1 10</size>
+            </box>
+          </geometry>
+          <pose>0 0 5 0 -0 0</pose>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/Red</name>
+            </script>
+          </material>
+        </visual>
+        <pose relative_to='tall_rectangle::__model__'>0 0 0 0 -0 0</pose>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+    </model>
+    <model name='tall_box_right3_clone_8'>
+      <pose>18.1808 111.641 -0.00422 0 -0 0</pose>
+      <frame name='tall_rectangle::__model__' attached_to='tall_rectangle::link'>
+        <pose relative_to='__model__'>0 0 0 0 -0 0</pose>
+      </frame>
+      <static>1</static>
+      <link name='tall_rectangle::link'>
+        <collision name='collision'>
+          <geometry>
+            <box>
+              <size>1 1 10</size>
+            </box>
+          </geometry>
+          <pose>0 0 5 0 -0 0</pose>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <box>
+              <size>1 1 10</size>
+            </box>
+          </geometry>
+          <pose>0 0 5 0 -0 0</pose>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/Red</name>
+            </script>
+          </material>
+        </visual>
+        <pose relative_to='tall_rectangle::__model__'>0 0 0 0 -0 0</pose>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+    </model>
+    <model name='tall_box_right3_clone_9'>
+      <pose>10.4076 92.4159 0.001516 0 -0 0</pose>
+      <frame name='tall_rectangle::__model__' attached_to='tall_rectangle::link'>
+        <pose relative_to='__model__'>0 0 0 0 -0 0</pose>
+      </frame>
+      <static>1</static>
+      <link name='tall_rectangle::link'>
+        <collision name='collision'>
+          <geometry>
+            <box>
+              <size>1 1 10</size>
+            </box>
+          </geometry>
+          <pose>0 0 5 0 -0 0</pose>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <box>
+              <size>1 1 10</size>
+            </box>
+          </geometry>
+          <pose>0 0 5 0 -0 0</pose>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/Red</name>
+            </script>
+          </material>
+        </visual>
+        <pose relative_to='tall_rectangle::__model__'>0 0 0 0 -0 0</pose>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+    </model>
+    <model name='tall_box_right3_clone_10'>
+      <pose>7.0213 83.1609 -0.00039 0 -0 0</pose>
+      <frame name='tall_rectangle::__model__' attached_to='tall_rectangle::link'>
+        <pose relative_to='__model__'>0 0 0 0 -0 0</pose>
+      </frame>
+      <static>1</static>
+      <link name='tall_rectangle::link'>
+        <collision name='collision'>
+          <geometry>
+            <box>
+              <size>1 1 10</size>
+            </box>
+          </geometry>
+          <pose>0 0 5 0 -0 0</pose>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <box>
+              <size>1 1 10</size>
+            </box>
+          </geometry>
+          <pose>0 0 5 0 -0 0</pose>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/Red</name>
+            </script>
+          </material>
+        </visual>
+        <pose relative_to='tall_rectangle::__model__'>0 0 0 0 -0 0</pose>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+    </model>
+    <model name='tall_box_right3_clone_11'>
+      <pose>21.8562 86.9194 -0.000561 0 -0 0</pose>
+      <frame name='tall_rectangle::__model__' attached_to='tall_rectangle::link'>
+        <pose relative_to='__model__'>0 0 0 0 -0 0</pose>
+      </frame>
+      <static>1</static>
+      <link name='tall_rectangle::link'>
+        <collision name='collision'>
+          <geometry>
+            <box>
+              <size>1 1 10</size>
+            </box>
+          </geometry>
+          <pose>0 0 5 0 -0 0</pose>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <box>
+              <size>1 1 10</size>
+            </box>
+          </geometry>
+          <pose>0 0 5 0 -0 0</pose>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/Red</name>
+            </script>
+          </material>
+        </visual>
+        <pose relative_to='tall_rectangle::__model__'>0 0 0 0 -0 0</pose>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+    </model>
+    <model name='tall_box_right3_clone_12'>
+      <pose>13.2213 66.9191 1.9e-05 0 -0 0</pose>
+      <frame name='tall_rectangle::__model__' attached_to='tall_rectangle::link'>
+        <pose relative_to='__model__'>0 0 0 0 -0 0</pose>
+      </frame>
+      <static>1</static>
+      <link name='tall_rectangle::link'>
+        <collision name='collision'>
+          <geometry>
+            <box>
+              <size>1 1 10</size>
+            </box>
+          </geometry>
+          <pose>0 0 5 0 -0 0</pose>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <box>
+              <size>1 1 10</size>
+            </box>
+          </geometry>
+          <pose>0 0 5 0 -0 0</pose>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/Red</name>
+            </script>
+          </material>
+        </visual>
+        <pose relative_to='tall_rectangle::__model__'>0 0 0 0 -0 0</pose>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+    </model>
+    <model name='tall_box_right3_clone_13'>
+      <pose>8.30072 107.305 -0.000399 0 -0 0</pose>
+      <frame name='tall_rectangle::__model__' attached_to='tall_rectangle::link'>
+        <pose relative_to='__model__'>0 0 0 0 -0 0</pose>
+      </frame>
+      <static>1</static>
+      <link name='tall_rectangle::link'>
+        <collision name='collision'>
+          <geometry>
+            <box>
+              <size>1 1 10</size>
+            </box>
+          </geometry>
+          <pose>0 0 5 0 -0 0</pose>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <box>
+              <size>1 1 10</size>
+            </box>
+          </geometry>
+          <pose>0 0 5 0 -0 0</pose>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/Red</name>
+            </script>
+          </material>
+        </visual>
+        <pose relative_to='tall_rectangle::__model__'>0 0 0 0 -0 0</pose>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+    </model>
+    <model name='tall_box_right3_clone_14'>
+      <pose>13.7437 126.106 0.004586 0 -0 0</pose>
+      <frame name='tall_rectangle::__model__' attached_to='tall_rectangle::link'>
+        <pose relative_to='__model__'>0 0 0 0 -0 0</pose>
+      </frame>
+      <static>1</static>
+      <link name='tall_rectangle::link'>
+        <collision name='collision'>
+          <geometry>
+            <box>
+              <size>1 1 10</size>
+            </box>
+          </geometry>
+          <pose>0 0 5 0 -0 0</pose>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <box>
+              <size>1 1 10</size>
+            </box>
+          </geometry>
+          <pose>0 0 5 0 -0 0</pose>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/Red</name>
+            </script>
+          </material>
+        </visual>
+        <pose relative_to='tall_rectangle::__model__'>0 0 0 0 -0 0</pose>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+    </model>
+    <model name='tall_box_right3_clone_15'>
+      <pose>21.2889 116.41 -0.003381 0 -0 0</pose>
+      <frame name='tall_rectangle::__model__' attached_to='tall_rectangle::link'>
+        <pose relative_to='__model__'>0 0 0 0 -0 0</pose>
+      </frame>
+      <static>1</static>
+      <link name='tall_rectangle::link'>
+        <collision name='collision'>
+          <geometry>
+            <box>
+              <size>1 1 10</size>
+            </box>
+          </geometry>
+          <pose>0 0 5 0 -0 0</pose>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <box>
+              <size>1 1 10</size>
+            </box>
+          </geometry>
+          <pose>0 0 5 0 -0 0</pose>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/Red</name>
+            </script>
+          </material>
+        </visual>
+        <pose relative_to='tall_rectangle::__model__'>0 0 0 0 -0 0</pose>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+    </model>
+    <model name='tall_box_right3_clone_16'>
+      <pose>25.305 71.8391 -0.000691 0 -0 0</pose>
+      <frame name='tall_rectangle::__model__' attached_to='tall_rectangle::link'>
+        <pose relative_to='__model__'>0 0 0 0 -0 0</pose>
+      </frame>
+      <static>1</static>
+      <link name='tall_rectangle::link'>
+        <collision name='collision'>
+          <geometry>
+            <box>
+              <size>1 1 10</size>
+            </box>
+          </geometry>
+          <pose>0 0 5 0 -0 0</pose>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <box>
+              <size>1 1 10</size>
+            </box>
+          </geometry>
+          <pose>0 0 5 0 -0 0</pose>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/Red</name>
+            </script>
+          </material>
+        </visual>
+        <pose relative_to='tall_rectangle::__model__'>0 0 0 0 -0 0</pose>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+    </model>
+    <model name='tall_box_right3_clone_17'>
+      <pose>13.0316 80.7162 0.004708 0 -0 0</pose>
+      <frame name='tall_rectangle::__model__' attached_to='tall_rectangle::link'>
+        <pose relative_to='__model__'>0 0 0 0 -0 0</pose>
+      </frame>
+      <static>1</static>
+      <link name='tall_rectangle::link'>
+        <collision name='collision'>
+          <geometry>
+            <box>
+              <size>1 1 10</size>
+            </box>
+          </geometry>
+          <pose>0 0 5 0 -0 0</pose>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <box>
+              <size>1 1 10</size>
+            </box>
+          </geometry>
+          <pose>0 0 5 0 -0 0</pose>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/Red</name>
+            </script>
+          </material>
+        </visual>
+        <pose relative_to='tall_rectangle::__model__'>0 0 0 0 -0 0</pose>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+    </model>
+    <model name='tall_box_right3_clone_18'>
+      <pose>11.3955 132.276 -0.00289 0 -0 0</pose>
+      <frame name='tall_rectangle::__model__' attached_to='tall_rectangle::link'>
+        <pose relative_to='__model__'>0 0 0 0 -0 0</pose>
+      </frame>
+      <static>1</static>
+      <link name='tall_rectangle::link'>
+        <collision name='collision'>
+          <geometry>
+            <box>
+              <size>1 1 10</size>
+            </box>
+          </geometry>
+          <pose>0 0 5 0 -0 0</pose>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <box>
+              <size>1 1 10</size>
+            </box>
+          </geometry>
+          <pose>0 0 5 0 -0 0</pose>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/Red</name>
+            </script>
+          </material>
+        </visual>
+        <pose relative_to='tall_rectangle::__model__'>0 0 0 0 -0 0</pose>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+    </model>
+    <model name='tall_box_right3_clone_19'>
+      <pose>18.4898 117.273 -0.003337 0 -0 0</pose>
+      <frame name='tall_rectangle::__model__' attached_to='tall_rectangle::link'>
+        <pose relative_to='__model__'>0 0 0 0 -0 0</pose>
+      </frame>
+      <static>1</static>
+      <link name='tall_rectangle::link'>
+        <collision name='collision'>
+          <geometry>
+            <box>
+              <size>1 1 10</size>
+            </box>
+          </geometry>
+          <pose>0 0 5 0 -0 0</pose>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <box>
+              <size>1 1 10</size>
+            </box>
+          </geometry>
+          <pose>0 0 5 0 -0 0</pose>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/Red</name>
+            </script>
+          </material>
+        </visual>
+        <pose relative_to='tall_rectangle::__model__'>0 0 0 0 -0 0</pose>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+    </model>
+    <state world_name='default'>
+      <sim_time>123 927000000</sim_time>
+      <real_time>125 405818897</real_time>
+      <wall_time>1736520063 818088395</wall_time>
+      <iterations>123927</iterations>
+      <model name='asphalt_plane_long'>
+        <pose>0 0 0 0 -0 0</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose>0 0 0 0 -0 0</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='ground_plane'>
+        <pose>0 0 0 0 -0 0</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose>0 0 0 0 -0 0</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='lamp1'>
+        <pose>0 0 0 0 -0 0</pose>
+        <scale>1 1 1</scale>
+        <link name='Lamp Post::link'>
+          <pose>-5 -140 0 0 -0 1.57</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='lamp1r'>
+        <pose>-0 0 0 0 -0 0</pose>
+        <scale>1 1 1</scale>
+        <link name='Lamp Post::link'>
+          <pose>5 -140 0 0 0 -1.57</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='lamp2'>
+        <pose>0 0 0 0 -0 0</pose>
+        <scale>1 1 1</scale>
+        <link name='Lamp Post::link'>
+          <pose>-5 -110 0 0 -0 1.57</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='lamp2r'>
+        <pose>-0 0 0 0 -0 0</pose>
+        <scale>1 1 1</scale>
+        <link name='Lamp Post::link'>
+          <pose>5 -110 0 0 0 -1.57</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='lamp3'>
+        <pose>0 0 0 0 -0 0</pose>
+        <scale>1 1 1</scale>
+        <link name='Lamp Post::link'>
+          <pose>-5 -80 0 0 -0 1.57</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='lamp3r'>
+        <pose>0 0 0 0 -0 0</pose>
+        <scale>1 1 1</scale>
+        <link name='Lamp Post::link'>
+          <pose>5 -80 0 0 0 -1.57</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='lamp4'>
+        <pose>0 0 0 0 -0 0</pose>
+        <scale>1 1 1</scale>
+        <link name='Lamp Post::link'>
+          <pose>0 -50 0 0 -0 1.57</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='lamp4r'>
+        <pose>-0 0 0 0 -0 0</pose>
+        <scale>1 1 1</scale>
+        <link name='Lamp Post::link'>
+          <pose>10 -50 0 0 0 -1.57</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='lamp5'>
+        <pose>0 0 0 0 -0 0</pose>
+        <scale>1 1 1</scale>
+        <link name='Lamp Post::link'>
+          <pose>11 -20 0 0 -0 1.57</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='lamp5r'>
+        <pose>-0 0 0 0 -0 0</pose>
+        <scale>1 1 1</scale>
+        <link name='Lamp Post::link'>
+          <pose>21 -20 0 0 0 -1.57</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='lamp6'>
+        <pose>-0 -0 0 0 -0 0</pose>
+        <scale>1 1 1</scale>
+        <link name='Lamp Post::link'>
+          <pose>-1 10 0 0 -0 1.57</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='lamp6r'>
+        <pose>0 0 0 0 -0 0</pose>
+        <scale>1 1 1</scale>
+        <link name='Lamp Post::link'>
+          <pose>9 10 0 0 0 -1.57</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='lamp7'>
+        <pose>-0 -0 0 0 -0 0</pose>
+        <scale>1 1 1</scale>
+        <link name='Lamp Post::link'>
+          <pose>-2.5 40 0 0 -0 1.57</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='lamp7r'>
+        <pose>-0 -0 0 0 -0 0</pose>
+        <scale>1 1 1</scale>
+        <link name='Lamp Post::link'>
+          <pose>7.5 40 0 0 0 -1.57</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='lamp8'>
+        <pose>0 -0 0 0 -0 0</pose>
+        <scale>1 1 1</scale>
+        <link name='Lamp Post::link'>
+          <pose>-2.5 70 0 0 -0 1.57</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='lamp8r'>
+        <pose>0 0 0 0 -0 0</pose>
+        <scale>1 1 1</scale>
+        <link name='Lamp Post::link'>
+          <pose>7.5 70 0 0 0 -1.57</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='lamp9'>
+        <pose>0 0 0 0 -0 0</pose>
+        <scale>1 1 1</scale>
+        <link name='Lamp Post::link'>
+          <pose>-2.5 100 0 0 -0 1.57</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='lamp9r'>
+        <pose>-0 -0 0 0 -0 0</pose>
+        <scale>1 1 1</scale>
+        <link name='Lamp Post::link'>
+          <pose>7.5 100 0 0 0 -1.57</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='rail'>
+        <pose>0 0 0 0 -0 0</pose>
+        <scale>1 1 1</scale>
+        <link name='track::link'>
+          <pose>0 -140 0 0 -0 0</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='tall_box_clone_0'>
+        <pose>-24.5512 -94.038 -0.000571 0 -0 0</pose>
+        <scale>1 1 1</scale>
+        <link name='tall_rectangle::link'>
+          <pose>-24.5512 -94.038 -0.000571 0 -0 0</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='tall_box_clone_1'>
+        <pose>-5.20692 -96.1053 -0.000554 0 -0 0</pose>
+        <scale>1 1 1</scale>
+        <link name='tall_rectangle::link'>
+          <pose>-5.20692 -96.1053 -0.000554 0 -0 0</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='tall_box_clone_10'>
+        <pose>-4.01017 -31.1595 0.000522 0 -0 0</pose>
+        <scale>1 1 1</scale>
+        <link name='tall_rectangle::link'>
+          <pose>-4.01017 -31.1595 0.000522 0 -0 0</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='tall_box_clone_11'>
+        <pose>-8.71474 81.7809 -0.004431 0 -0 0</pose>
+        <scale>1 1 1</scale>
+        <link name='tall_rectangle::link'>
+          <pose>-8.71474 81.7809 -0.004431 0 -0 0</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='tall_box_clone_12'>
+        <pose>-16.4555 41.4288 -0.000575 0 -0 0</pose>
+        <scale>1 1 1</scale>
+        <link name='tall_rectangle::link'>
+          <pose>-16.4555 41.4288 -0.000575 0 -0 0</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='tall_box_clone_13'>
+        <pose>-16.3469 126.609 0.003519 0 -0 0</pose>
+        <scale>1 1 1</scale>
+        <link name='tall_rectangle::link'>
+          <pose>-16.3469 126.609 0.003519 0 -0 0</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='tall_box_clone_14'>
+        <pose>-9.62085 -77.6429 -0.002965 0 -0 0</pose>
+        <scale>1 1 1</scale>
+        <link name='tall_rectangle::link'>
+          <pose>-9.62085 -77.6429 -0.002965 0 -0 0</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='tall_box_clone_15'>
+        <pose>-13.4669 29.9735 -0.00105 0 -0 0</pose>
+        <scale>1 1 1</scale>
+        <link name='tall_rectangle::link'>
+          <pose>-13.4669 29.9735 -0.00105 0 -0 0</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='tall_box_clone_16'>
+        <pose>-18.883 59.5983 0.000104 0 -0 0</pose>
+        <scale>1 1 1</scale>
+        <link name='tall_rectangle::link'>
+          <pose>-18.883 59.5983 0.000104 0 -0 0</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='tall_box_clone_17'>
+        <pose>-24.3543 48.1485 -0.003086 0 -0 0</pose>
+        <scale>1 1 1</scale>
+        <link name='tall_rectangle::link'>
+          <pose>-24.3543 48.1485 -0.003086 0 -0 0</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='tall_box_clone_18'>
+        <pose>-10.5749 -43.8238 0.003688 0 -0 0</pose>
+        <scale>1 1 1</scale>
+        <link name='tall_rectangle::link'>
+          <pose>-10.5749 -43.8238 0.003688 0 -0 0</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='tall_box_clone_19'>
+        <pose>-26.9021 23.1935 0.004637 0 -0 0</pose>
+        <scale>1 1 1</scale>
+        <link name='tall_rectangle::link'>
+          <pose>-26.9021 23.1935 0.004637 0 -0 0</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='tall_box_clone_2'>
+        <pose>-20.6012 -128.382 -0.001441 0 -0 0</pose>
+        <scale>1 1 1</scale>
+        <link name='tall_rectangle::link'>
+          <pose>-20.6012 -128.382 -0.001441 0 -0 0</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='tall_box_clone_3'>
+        <pose>-11.5249 136.631 0.00167 0 -0 0</pose>
+        <scale>1 1 1</scale>
+        <link name='tall_rectangle::link'>
+          <pose>-11.5249 136.631 0.00167 0 -0 0</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='tall_box_clone_4'>
+        <pose>-5.06957 0.77507 0.000476 0 -0 0</pose>
+        <scale>1 1 1</scale>
+        <link name='tall_rectangle::link'>
+          <pose>-5.06957 0.77507 0.000476 0 -0 0</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='tall_box_clone_5'>
+        <pose>-24.7503 -110.656 0.000918 0 -0 0</pose>
+        <scale>1 1 1</scale>
+        <link name='tall_rectangle::link'>
+          <pose>-24.7503 -110.656 0.000918 0 -0 0</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='tall_box_clone_6'>
+        <pose>-2.6741 -131.806 0.000339 0 -0 0</pose>
+        <scale>1 1 1</scale>
+        <link name='tall_rectangle::link'>
+          <pose>-2.6741 -131.806 0.000339 0 -0 0</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='tall_box_clone_7'>
+        <pose>-2.76985 -94.3517 -0.003949 0 -0 0</pose>
+        <scale>1 1 1</scale>
+        <link name='tall_rectangle::link'>
+          <pose>-2.76985 -94.3517 -0.003949 0 -0 0</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='tall_box_clone_8'>
+        <pose>-22.8738 -46.0578 0.003746 0 -0 0</pose>
+        <scale>1 1 1</scale>
+        <link name='tall_rectangle::link'>
+          <pose>-22.8738 -46.0578 0.003746 0 -0 0</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='tall_box_clone_9'>
+        <pose>-19.6136 61.047 -0.000116 0 -0 0</pose>
+        <scale>1 1 1</scale>
+        <link name='tall_rectangle::link'>
+          <pose>-19.6136 61.047 -0.000116 0 -0 0</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='tall_box_right1_clone_0'>
+        <pose>26.6099 -122.141 0.000854 0 -0 0</pose>
+        <scale>1 1 1</scale>
+        <link name='tall_rectangle::link'>
+          <pose>26.6099 -122.141 0.000854 0 -0 0</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='tall_box_right1_clone_1'>
+        <pose>8.53225 -93.6332 0.003912 0 -0 0</pose>
+        <scale>1 1 1</scale>
+        <link name='tall_rectangle::link'>
+          <pose>8.53225 -93.6332 0.003912 0 -0 0</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='tall_box_right1_clone_10'>
+        <pose>11.8813 -59.8091 0.003992 0 -0 0</pose>
+        <scale>1 1 1</scale>
+        <link name='tall_rectangle::link'>
+          <pose>11.8813 -59.8091 0.003992 0 -0 0</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='tall_box_right1_clone_11'>
+        <pose>6.89856 -74.6685 -0.003091 0 -0 0</pose>
+        <scale>1 1 1</scale>
+        <link name='tall_rectangle::link'>
+          <pose>6.89856 -74.6685 -0.003091 0 -0 0</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='tall_box_right1_clone_12'>
+        <pose>19.4264 -65.4831 -0.002482 0 -0 0</pose>
+        <scale>1 1 1</scale>
+        <link name='tall_rectangle::link'>
+          <pose>19.4264 -65.4831 -0.002482 0 -0 0</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='tall_box_right1_clone_13'>
+        <pose>10.0696 -122.983 0.003759 0 -0 0</pose>
+        <scale>1 1 1</scale>
+        <link name='tall_rectangle::link'>
+          <pose>10.0696 -122.983 0.003759 0 -0 0</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='tall_box_right1_clone_14'>
+        <pose>5.10956 -63.6483 -0.004621 0 -0 0</pose>
+        <scale>1 1 1</scale>
+        <link name='tall_rectangle::link'>
+          <pose>5.10956 -63.6483 -0.004621 0 -0 0</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='tall_box_right1_clone_15'>
+        <pose>6.33056 -121.502 0.001837 0 -0 0</pose>
+        <scale>1 1 1</scale>
+        <link name='tall_rectangle::link'>
+          <pose>6.33056 -121.502 0.001837 0 -0 0</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='tall_box_right1_clone_16'>
+        <pose>15.2322 -76.1326 0.000991 0 -0 0</pose>
+        <scale>1 1 1</scale>
+        <link name='tall_rectangle::link'>
+          <pose>15.2322 -76.1326 0.000991 0 -0 0</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='tall_box_right1_clone_17'>
+        <pose>24.1858 -71.5481 0.002473 0 -0 0</pose>
+        <scale>1 1 1</scale>
+        <link name='tall_rectangle::link'>
+          <pose>24.1858 -71.5481 0.002473 0 -0 0</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='tall_box_right1_clone_18'>
+        <pose>18.9107 -101.372 -0.002236 0 -0 0</pose>
+        <scale>1 1 1</scale>
+        <link name='tall_rectangle::link'>
+          <pose>18.9107 -101.372 -0.002236 0 -0 0</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='tall_box_right1_clone_19'>
+        <pose>13.8564 -115.282 -0.002726 0 -0 0</pose>
+        <scale>1 1 1</scale>
+        <link name='tall_rectangle::link'>
+          <pose>13.8564 -115.282 -0.002726 0 -0 0</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='tall_box_right1_clone_2'>
+        <pose>22.843 -130.898 -0.003009 0 -0 0</pose>
+        <scale>1 1 1</scale>
+        <link name='tall_rectangle::link'>
+          <pose>22.843 -130.898 -0.003009 0 -0 0</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='tall_box_right1_clone_3'>
+        <pose>20.968 -118.801 0.002417 0 -0 0</pose>
+        <scale>1 1 1</scale>
+        <link name='tall_rectangle::link'>
+          <pose>20.968 -118.801 0.002417 0 -0 0</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='tall_box_right1_clone_4'>
+        <pose>10.6142 -89.2719 0.004563 0 -0 0</pose>
+        <scale>1 1 1</scale>
+        <link name='tall_rectangle::link'>
+          <pose>10.6142 -89.2719 0.004563 0 -0 0</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='tall_box_right1_clone_5'>
+        <pose>15.2898 -64.0803 -0.000205 0 -0 0</pose>
+        <scale>1 1 1</scale>
+        <link name='tall_rectangle::link'>
+          <pose>15.2898 -64.0803 -0.000205 0 -0 0</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='tall_box_right1_clone_6'>
+        <pose>20.569 -99.1149 0.00287 0 -0 0</pose>
+        <scale>1 1 1</scale>
+        <link name='tall_rectangle::link'>
+          <pose>20.569 -99.1149 0.00287 0 -0 0</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='tall_box_right1_clone_7'>
+        <pose>15.483 -110.918 0.001759 0 -0 0</pose>
+        <scale>1 1 1</scale>
+        <link name='tall_rectangle::link'>
+          <pose>15.483 -110.918 0.001759 0 -0 0</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='tall_box_right1_clone_8'>
+        <pose>25.6106 -70.1663 -0.00248 0 -0 0</pose>
+        <scale>1 1 1</scale>
+        <link name='tall_rectangle::link'>
+          <pose>25.6106 -70.1663 -0.00248 0 -0 0</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='tall_box_right1_clone_9'>
+        <pose>14.8809 -95.1818 -0.003836 0 -0 0</pose>
+        <scale>1 1 1</scale>
+        <link name='tall_rectangle::link'>
+          <pose>14.8809 -95.1818 -0.003836 0 -0 0</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='tall_box_right2_clone_0'>
+        <pose>18.3039 17.6851 -0.001221 0 -0 0</pose>
+        <scale>1 1 1</scale>
+        <link name='tall_rectangle::link'>
+          <pose>18.3039 17.6851 -0.001221 0 -0 0</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='tall_box_right2_clone_1'>
+        <pose>20.0473 20.131 -0.001119 0 -0 0</pose>
+        <scale>1 1 1</scale>
+        <link name='tall_rectangle::link'>
+          <pose>20.0473 20.131 -0.001119 0 -0 0</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='tall_box_right2_clone_10'>
+        <pose>20.5872 9.55193 -0.004564 0 -0 0</pose>
+        <scale>1 1 1</scale>
+        <link name='tall_rectangle::link'>
+          <pose>20.5872 9.55193 -0.004564 0 -0 0</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='tall_box_right2_clone_11'>
+        <pose>19.5851 36.6332 0.002603 0 -0 0</pose>
+        <scale>1 1 1</scale>
+        <link name='tall_rectangle::link'>
+          <pose>19.5851 36.6332 0.002603 0 -0 0</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='tall_box_right2_clone_12'>
+        <pose>20.8532 -17.5352 -0.001583 0 -0 0</pose>
+        <scale>1 1 1</scale>
+        <link name='tall_rectangle::link'>
+          <pose>20.8532 -17.5352 -0.001583 0 -0 0</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='tall_box_right2_clone_13'>
+        <pose>37.9353 26.9552 0.002488 0 -0 0</pose>
+        <scale>1 1 1</scale>
+        <link name='tall_rectangle::link'>
+          <pose>37.9353 26.9552 0.002488 0 -0 0</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='tall_box_right2_clone_14'>
+        <pose>36.803 10.2335 -0.003294 0 -0 0</pose>
+        <scale>1 1 1</scale>
+        <link name='tall_rectangle::link'>
+          <pose>36.803 10.2335 -0.003294 0 -0 0</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='tall_box_right2_clone_15'>
+        <pose>30.5932 -38.1441 0.000201 0 -0 0</pose>
+        <scale>1 1 1</scale>
+        <link name='tall_rectangle::link'>
+          <pose>30.5932 -38.1441 0.000201 0 -0 0</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='tall_box_right2_clone_16'>
+        <pose>26.7455 -21.8765 -0.00078 0 -0 0</pose>
+        <scale>1 1 1</scale>
+        <link name='tall_rectangle::link'>
+          <pose>26.7455 -21.8765 -0.00078 0 -0 0</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='tall_box_right2_clone_17'>
+        <pose>36.7915 -49.1118 -0.002977 0 -0 0</pose>
+        <scale>1 1 1</scale>
+        <link name='tall_rectangle::link'>
+          <pose>36.7915 -49.1118 -0.002977 0 -0 0</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='tall_box_right2_clone_18'>
+        <pose>41.5956 31.7861 0.003687 0 -0 0</pose>
+        <scale>1 1 1</scale>
+        <link name='tall_rectangle::link'>
+          <pose>41.5956 31.7861 0.003687 0 -0 0</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='tall_box_right2_clone_19'>
+        <pose>19.4496 46.2263 -0.004206 0 -0 0</pose>
+        <scale>1 1 1</scale>
+        <link name='tall_rectangle::link'>
+          <pose>19.4496 46.2263 -0.004206 0 -0 0</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='tall_box_right2_clone_2'>
+        <pose>19.9458 32.2552 -0.0035 0 -0 0</pose>
+        <scale>1 1 1</scale>
+        <link name='tall_rectangle::link'>
+          <pose>19.9458 32.2552 -0.0035 0 -0 0</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='tall_box_right2_clone_3'>
+        <pose>23.2973 28.2714 0.000893 0 -0 0</pose>
+        <scale>1 1 1</scale>
+        <link name='tall_rectangle::link'>
+          <pose>23.2973 28.2714 0.000893 0 -0 0</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='tall_box_right2_clone_4'>
+        <pose>21.6859 -14.5804 -0.002265 0 -0 0</pose>
+        <scale>1 1 1</scale>
+        <link name='tall_rectangle::link'>
+          <pose>21.6859 -14.5804 -0.002265 0 -0 0</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='tall_box_right2_clone_5'>
+        <pose>35.7812 -9.39661 0.000304 0 -0 0</pose>
+        <scale>1 1 1</scale>
+        <link name='tall_rectangle::link'>
+          <pose>35.7812 -9.39661 0.000304 0 -0 0</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='tall_box_right2_clone_6'>
+        <pose>20.7207 8.01208 -0.003393 0 -0 0</pose>
+        <scale>1 1 1</scale>
+        <link name='tall_rectangle::link'>
+          <pose>20.7207 8.01208 -0.003393 0 -0 0</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='tall_box_right2_clone_7'>
+        <pose>37.2819 7.29886 0.000748 0 -0 0</pose>
+        <scale>1 1 1</scale>
+        <link name='tall_rectangle::link'>
+          <pose>37.2819 7.29886 0.000748 0 -0 0</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='tall_box_right2_clone_8'>
+        <pose>19.2651 -21.9594 -0.002753 0 -0 0</pose>
+        <scale>1 1 1</scale>
+        <link name='tall_rectangle::link'>
+          <pose>19.2651 -21.9594 -0.002753 0 -0 0</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='tall_box_right2_clone_9'>
+        <pose>22.1899 -29.5038 -0.001493 0 -0 0</pose>
+        <scale>1 1 1</scale>
+        <link name='tall_rectangle::link'>
+          <pose>22.1899 -29.5038 -0.001493 0 -0 0</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='tall_box_right3_clone_0'>
+        <pose>22.8641 82.5735 0.004255 0 -0 0</pose>
+        <scale>1 1 1</scale>
+        <link name='tall_rectangle::link'>
+          <pose>22.8641 82.5735 0.004255 0 -0 0</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='tall_box_right3_clone_1'>
+        <pose>24.4592 79.3691 0.002864 0 -0 0</pose>
+        <scale>1 1 1</scale>
+        <link name='tall_rectangle::link'>
+          <pose>24.4592 79.3691 0.002864 0 -0 0</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='tall_box_right3_clone_10'>
+        <pose>7.0213 83.1609 -0.00039 0 -0 0</pose>
+        <scale>1 1 1</scale>
+        <link name='tall_rectangle::link'>
+          <pose>7.0213 83.1609 -0.00039 0 -0 0</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='tall_box_right3_clone_11'>
+        <pose>21.8562 86.9194 -0.000561 0 -0 0</pose>
+        <scale>1 1 1</scale>
+        <link name='tall_rectangle::link'>
+          <pose>21.8562 86.9194 -0.000561 0 -0 0</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='tall_box_right3_clone_12'>
+        <pose>13.2213 66.9191 1.9e-05 0 -0 0</pose>
+        <scale>1 1 1</scale>
+        <link name='tall_rectangle::link'>
+          <pose>13.2213 66.9191 1.9e-05 0 -0 0</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='tall_box_right3_clone_13'>
+        <pose>8.30072 107.305 -0.000399 0 -0 0</pose>
+        <scale>1 1 1</scale>
+        <link name='tall_rectangle::link'>
+          <pose>8.30072 107.305 -0.000399 0 -0 0</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='tall_box_right3_clone_14'>
+        <pose>13.7437 126.106 0.004586 0 -0 0</pose>
+        <scale>1 1 1</scale>
+        <link name='tall_rectangle::link'>
+          <pose>13.7437 126.106 0.004586 0 -0 0</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='tall_box_right3_clone_15'>
+        <pose>21.2889 116.41 -0.003381 0 -0 0</pose>
+        <scale>1 1 1</scale>
+        <link name='tall_rectangle::link'>
+          <pose>21.2889 116.41 -0.003381 0 -0 0</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='tall_box_right3_clone_16'>
+        <pose>25.305 71.8391 -0.000691 0 -0 0</pose>
+        <scale>1 1 1</scale>
+        <link name='tall_rectangle::link'>
+          <pose>25.305 71.8391 -0.000691 0 -0 0</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='tall_box_right3_clone_17'>
+        <pose>13.0316 80.7162 0.004708 0 -0 0</pose>
+        <scale>1 1 1</scale>
+        <link name='tall_rectangle::link'>
+          <pose>13.0316 80.7162 0.004708 0 -0 0</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='tall_box_right3_clone_18'>
+        <pose>11.3955 132.276 -0.00289 0 -0 0</pose>
+        <scale>1 1 1</scale>
+        <link name='tall_rectangle::link'>
+          <pose>11.3955 132.276 -0.00289 0 -0 0</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='tall_box_right3_clone_19'>
+        <pose>18.4898 117.273 -0.003337 0 -0 0</pose>
+        <scale>1 1 1</scale>
+        <link name='tall_rectangle::link'>
+          <pose>18.4898 117.273 -0.003337 0 -0 0</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='tall_box_right3_clone_2'>
+        <pose>12.9551 109.973 -0.002575 0 -0 0</pose>
+        <scale>1 1 1</scale>
+        <link name='tall_rectangle::link'>
+          <pose>12.9551 109.973 -0.002575 0 -0 0</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='tall_box_right3_clone_3'>
+        <pose>24.5466 73.5649 -0.003208 0 -0 0</pose>
+        <scale>1 1 1</scale>
+        <link name='tall_rectangle::link'>
+          <pose>24.5466 73.5649 -0.003208 0 -0 0</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='tall_box_right3_clone_4'>
+        <pose>20.2339 107.208 -0.004393 0 -0 0</pose>
+        <scale>1 1 1</scale>
+        <link name='tall_rectangle::link'>
+          <pose>20.2339 107.208 -0.004393 0 -0 0</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='tall_box_right3_clone_5'>
+        <pose>7.36436 108.896 0.001991 0 -0 0</pose>
+        <scale>1 1 1</scale>
+        <link name='tall_rectangle::link'>
+          <pose>7.36436 108.896 0.001991 0 -0 0</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='tall_box_right3_clone_6'>
+        <pose>9.70282 121.348 0.000803 0 -0 0</pose>
+        <scale>1 1 1</scale>
+        <link name='tall_rectangle::link'>
+          <pose>9.70282 121.348 0.000803 0 -0 0</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='tall_box_right3_clone_7'>
+        <pose>22.1244 124.489 -0.003605 0 -0 0</pose>
+        <scale>1 1 1</scale>
+        <link name='tall_rectangle::link'>
+          <pose>22.1244 124.489 -0.003605 0 -0 0</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='tall_box_right3_clone_8'>
+        <pose>18.1808 111.641 -0.00422 0 -0 0</pose>
+        <scale>1 1 1</scale>
+        <link name='tall_rectangle::link'>
+          <pose>18.1808 111.641 -0.00422 0 -0 0</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='tall_box_right3_clone_9'>
+        <pose>10.4076 92.4159 0.001516 0 -0 0</pose>
+        <scale>1 1 1</scale>
+        <link name='tall_rectangle::link'>
+          <pose>10.4076 92.4159 0.001516 0 -0 0</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <light name='sun'>
+        <pose>0 0 10 0 -0 0</pose>
+      </light>
+    </state>
+    <gui fullscreen='0'>
+      <camera name='user_camera'>
+        <pose>236.013 54.6188 310.411 0 0.899643 3.06819</pose>
+        <view_controller>orbit</view_controller>
+        <projection_type>perspective</projection_type>
+      </camera>
+    </gui>
+  </world>
+</sdf>

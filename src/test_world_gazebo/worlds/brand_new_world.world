@@ -1,0 +1,205 @@
+<?xml version="1.0" ?>
+<sdf version="1.7">
+  <world name="default">
+
+  <gui>
+      <camera name="user_camera">
+        <pose>3.11 -70 5 0 0.26 1.66</pose>
+      </camera>
+    </gui>
+
+    <!-- A global light source -->
+    <include>
+      <uri>model://sun</uri>
+    </include>
+
+     <model name="big_green_plane"> 
+    <static>1</static>
+    <link name="plane_link">
+      <pose>0 0 0 0 0 0</pose> 
+      <collision name="plane_collision">
+        <geometry>
+          <box>
+            <normal>0 0 1</normal>
+            <size>50 125 0.01</size> 
+          </box>
+        </geometry>
+      </collision>
+      <visual name="plane_visual">
+        <geometry>
+          <box>
+            <normal>0 0 1</normal>
+            <size>50 125 0.01</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0.1, 0.4, 0.1 1</ambient> 
+          <diffuse>0.13 0.4 0.13</diffuse>
+          <specular>0.1, 0.2, 0.1 1</specular>
+          <shininess>10</shininess>
+        </material>
+      </visual>
+    </link>
+  </model>
+  <model name="big_transparent_plane"> 
+  <static>1</static>
+  <link name="plane_link">
+    <pose>0 0 1.8 0 0 0</pose> 
+    <collision name="plane_collision">
+      <geometry>
+        <box>
+          <normal>0 0 1</normal>
+          <size>50 125 0.01</size> 
+        </box>
+      </geometry>
+    </collision>
+    <visual name="plane_visual">
+      <geometry>
+        <box>
+          <normal>0 0 1</normal>
+          <size>50 125 0.01</size>
+        </box>
+      </geometry>
+      <material>
+        <ambient>1 0 0 0</ambient> 
+        <diffuse>1 0 0 0</diffuse>
+        <specular>0.5 0.5 0.5 1</specular>
+      </material>
+    </visual>
+  </link>
+</model>
+
+<model name="rail3">
+    <include>
+      <uri>model://rails2</uri>
+      <pose>1.04612 -58.5192 0 0 -0 1.55592</pose>
+      <static>true</static>
+  </include>
+</model>
+
+<model name="rail4">
+    <include>
+      <uri>model://rails2</uri>
+      <pose>1.47177 -29.8994 0 0 -0 1.55592</pose>
+      <static>true</static>
+  </include>
+</model>
+
+<model name="rail5">
+    <include>
+      <uri>model://rails2</uri>
+      <pose>1.89424 -1.30453 0 0 -0 1.55592</pose>
+      <static>true</static>
+  </include>
+</model>
+
+<model name="rail6">
+    <include>
+      <uri>model://rails2</uri>
+      <pose>2.32124 27.3167 0 0 -0 1.55592</pose>
+      <static>true</static>
+  </include>
+</model>
+
+<model name="lamp4">
+    <include>
+      <uri>model://lamp_post</uri>
+      <pose>-3.8  -50 0 0 0 1.57</pose>
+      <static>true</static>
+  </include>
+</model>
+
+<model name="lamp5">
+    <include>
+      <uri>model://lamp_post</uri>
+      <pose>-3.4  -20 0 0 0 1.57</pose>
+      <static>true</static>
+  </include>
+</model>
+
+<model name="lamp6">
+    <include>
+      <uri>model://lamp_post</uri>
+      <pose>-3  10 0 0 0 1.57</pose>
+      <static>true</static>
+  </include>
+</model>
+
+<model name="lamp7">
+    <include>
+      <uri>model://lamp_post</uri>
+      <pose>-2.6  40 0 0 0 1.57</pose>
+      <static>true</static>
+  </include>
+</model>
+
+
+<model name="lamp4r">
+    <include>
+      <uri>model://lamp_post</uri>
+      <pose>6.2 -50 0 0 0 -1.57</pose>
+      <static>true</static>
+  </include>
+</model>
+
+<model name="lamp5r">
+    <include>
+      <uri>model://lamp_post</uri>
+      <pose>6.6 -20 0 0 0 -1.57</pose>
+      <static>true</static>
+  </include>
+</model>
+
+<model name="lamp6r">
+    <include>
+      <uri>model://lamp_post</uri>
+      <pose>7.0 10 0 0 0 -1.57</pose>
+      <static>true</static>
+  </include>
+</model>
+
+<model name="lamp7r">
+    <include>
+      <uri>model://lamp_post</uri>
+      <pose>7.4 40 0 0 0 -1.57</pose>
+      <static>true</static>
+  </include>
+</model>
+
+<population name="tall_box_population_left">
+      <model name="tall_box">
+        <include>
+          <static>true</static>
+          <uri>model://oak_tree</uri>
+          <pose>0 0 0 0 0 0</pose>
+        </include>
+      </model>
+      <pose>-15 0 0 0 0 0</pose>
+      <box>
+        <size>15 125 0.01</size>
+      </box>
+      <model_count>40</model_count>
+      <distribution>
+        <type>random</type>
+      </distribution>
+    </population>
+
+<population name="tall_box_population_right1">
+      <model name="tall_box_right1">
+        <include>
+          <static>true</static>
+          <uri>model://oak_tree</uri>
+          <pose>0 0 0 0 0 0</pose>
+        </include>
+      </model>
+      <pose>15 0 0 0 0 0</pose>
+      <box>
+        <size>15 125 0.01</size>
+      </box>
+      <model_count>40</model_count>
+      <distribution>
+        <type>random</type>
+      </distribution>
+    </population>
+  </world>
+</sdf>

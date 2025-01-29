@@ -14,7 +14,18 @@ setup(
         ('share/' + package_name, ['package.xml']),
         (os.path.join('share', package_name, 'launch'), glob(os.path.join('launch', '*launch.[pxy][yma]*'))),
         (os.path.join('share', package_name, 'worlds'), glob(os.path.join('worlds', '*.[world]*'))),
-        (os.path.join('share', package_name, 'models'), glob(os.path.join('worlds/models/velodyne_hdl32', '*.[sdf]*'))),
+        (os.path.join('share', package_name, 'models'), glob(os.path.join('worlds/models/amp', '*.[sdf]*'))),
+        (os.path.join('share', package_name, 'models'), glob(os.path.join('worlds/models/amp_hull', '*.[sdf]*'))),
+        (os.path.join('share', package_name, 'models'), glob(os.path.join('worlds/models/amp_axle', '*.[sdf]*'))),
+
+        #new for turtlebot
+        (os.path.join('share', package_name, 'urdf'), glob(os.path.join('urdf', '*.[urdf]*'))),
+        (os.path.join('share', package_name, 'worlds'), glob(os.path.join('worlds', '*.[model]*'))),
+        (os.path.join('share', package_name, 'maps'), glob(os.path.join('maps', '*.[pgm]*'))),
+        (os.path.join('share', package_name, 'maps'), glob(os.path.join('maps', '*.[yaml]*'))),
+        (os.path.join('share', package_name, 'params'), glob(os.path.join('params', '*.[yaml]*'))),
+        (os.path.join('share', package_name, 'rviz'), glob(os.path.join('rviz', '*.[rviz]*'))),
+
     ],
     install_requires=['setuptools'],
     zip_safe=True,
@@ -25,6 +36,9 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
+            'speed = test_world_gazebo.speed:main',
+            'input = test_world_gazebo.input_handler:main',
+            'controller = test_world_gazebo.speed_controller:main'
         ],
     },
 )
