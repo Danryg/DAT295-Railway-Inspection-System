@@ -28,7 +28,6 @@ def generate_launch_description():
         'brand_new_world.world'
     )
 
-
     gzserver_cmd = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
             os.path.join(pkg_gazebo_ros, 'launch', 'gzserver.launch.py')
