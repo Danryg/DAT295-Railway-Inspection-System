@@ -15,6 +15,7 @@ def generate_launch_description():
     pkg_gazebo_ros = get_package_share_directory('gazebo_ros')
 
     model_path = os.path.join(os.getcwd(), "src", base_directory, "worlds", "models")
+
     os.environ["GAZEBO_MODEL_PATH"] = os.path.abspath(model_path)
 
     use_sim_time = LaunchConfiguration('use_sim_time', default='true')
@@ -27,7 +28,7 @@ def generate_launch_description():
     # TurtleBot spawn positions
     tb_spawn_x = '3.06'
     tb_spawn_y = '-56.37'
-    tb_spawn_z = '2.2'
+    tb_spawn_z = '0.2'
 
     # Unique LaunchConfigurations for AMP
     amp_x_pose = LaunchConfiguration('amp_x_pose', default=amp_spawn_x)

@@ -23,12 +23,15 @@ from launch_ros.actions import Node
 
 def generate_launch_description():
     # Get the urdf file
+    base_directory = "test_world_gazebo"
+    
     TURTLEBOT3_MODEL = os.environ['TURTLEBOT3_MODEL']
     model_folder = 'turtlebot3_' + TURTLEBOT3_MODEL
+
+    model_path = os.path.join(os.getcwd(), "src", base_directory, "worlds", "models", model_folder)
+
     urdf_path = os.path.join(
-        get_package_share_directory('turtlebot3_gazebo'),
-        'models',
-        model_folder,
+        model_path,
         'model.sdf'
     )
 
@@ -40,15 +43,15 @@ def generate_launch_description():
     # Declare the launch arguments
     declare_x_position_cmd = DeclareLaunchArgument(
         'x_pose', default_value='0.0',
-        description='Specify namespace of the robot')
+        description='Specify x position of the robot')
 
     declare_y_position_cmd = DeclareLaunchArgument(
         'y_pose', default_value='0.0',
-        description='Specify namespace of the robot')
+        description='Specify y position of the robot')
 
     declare_z_position_cmd = DeclareLaunchArgument(
         'z_pose', default_value='0.0',
-        description='Specify namespace of the robot')
+        description='Specify z position of the robot')
 
     start_gazebo_ros_spawner_cmd = Node(
         package='gazebo_ros',
