@@ -8,17 +8,17 @@ from launch_ros.actions import Node
 
 
 def generate_launch_description():
-    pkg_tb3_worlds = get_package_share_directory("tb3_worlds")
-    default_world_dir = join(pkg_tb3_worlds, "maps", "sim_house_locations.yaml")
+    # pkg_tb3_worlds = get_package_share_directory("tb3_worlds")
+    # default_world_dir = join(pkg_tb3_worlds, "maps", "sim_house_locations.yaml")
 
     return LaunchDescription(
         [
             # Arguments
-            DeclareLaunchArgument(
-                "location_file",
-                default_value=TextSubstitution(text=default_world_dir),
-                description="YAML file name containing map locations in the world.",
-            ),
+            # DeclareLaunchArgument(
+            #     "location_file",
+            #     default_value=TextSubstitution(text=default_world_dir),
+            #     description="YAML file name containing map locations in the world.",
+            # ),
             DeclareLaunchArgument(
                 "target_color",
                 default_value=TextSubstitution(text="blue"),

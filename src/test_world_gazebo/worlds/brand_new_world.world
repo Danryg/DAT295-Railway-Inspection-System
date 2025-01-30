@@ -1,7 +1,9 @@
 <?xml version="1.0" ?>
 <sdf version="1.7">
   <world name="default">
-
+<scene>
+    <shadows>false</shadows>
+  </scene>
   <gui>
       <camera name="user_camera">
         <pose>3.11 -70 5 0 0.26 1.66</pose>

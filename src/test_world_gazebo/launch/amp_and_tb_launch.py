@@ -27,7 +27,7 @@ def generate_launch_description():
     # TurtleBot spawn positions
     tb_spawn_x = '3.06'
     tb_spawn_y = '-56.37'
-    tb_spawn_z = '0.2'
+    tb_spawn_z = '2.2'
 
     # Unique LaunchConfigurations for AMP
     amp_x_pose = LaunchConfiguration('amp_x_pose', default=amp_spawn_x)
