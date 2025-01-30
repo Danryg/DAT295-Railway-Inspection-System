@@ -22,3 +22,9 @@
 [submodule "src/rtab/src/rtabmap"]
 	path = src/rtab/src/rtabmap
 	url = https://github.com/introlab/rtabmap.git
+[submodule "src/velodyne_simulator"]
+	path = src/velodyne_simulator
+	url = https://github.com/ToyotaResearchInstitute/velodyne_simulator
+[submodule "src/lidar_object_detection"]
+	path = src/lidar_object_detection
+	url = https://github.com/keyvan-dadash/lidar_object_detection
