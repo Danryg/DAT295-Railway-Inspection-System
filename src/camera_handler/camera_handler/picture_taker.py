@@ -1,16 +1,18 @@
 import os
+
+import cv2
 import rclpy
+from ament_index_python.packages import get_package_share_path
+from cv_bridge import CvBridge
 from rclpy.node import Node
 from sensor_msgs.msg import Image
 from std_srvs.srv import Trigger
-from cv_bridge import CvBridge
-import cv2
 
 
 class CameraService(Node):
     def __init__(self):
         super().__init__("camera_service_node")
-        self.declare_parameter("save_path", "/tmp")
+        self.declare_parameter("save_path", os.getcwd() + "/temp")
         self.save_path = (
             self.get_parameter("save_path").get_parameter_value().string_value
         )
@@ -22,6 +24,7 @@ class CameraService(Node):
         )
         self.bridge = CvBridge()
         self.latest_image = None
+        self.image_index = 0
         self.get_logger().info("Camera service node started.")
 
     def camera_callback(self, msg):
@@ -31,7 +34,10 @@ class CameraService(Node):
     def handle_take_picture(self, request, response):
         if self.latest_image is not None:
             # Save the latest image
-            file_name = os.path.join(self.save_path, "picture.jpg")
+
+            pic_name = "pic-" + str(self.image_index) + ".jpg"
+            self.image_index = self.image_index + 1
+            file_name = os.path.join(self.save_path, pic_name)
             cv2.imwrite(file_name, self.latest_image)
             self.get_logger().info(f"Picture saved to {file_name}")
             response.success = True
