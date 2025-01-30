@@ -79,14 +79,24 @@ def generate_launch_description():
         launch_arguments={'use_sim_time': use_sim_time}.items()
     )
 
+    # spawn_turtlebot_cmd = IncludeLaunchDescription(
+        # PythonLaunchDescriptionSource(
+            # os.path.join(launch_file_dir, 'spawn_turtlebot3.launch.py')
+        # ),
+        # launch_arguments={
+            # 'x_pose': tb_x_pose,
+            # 'y_pose': tb_y_pose,
+            # 'z_pose': tb_z_pose 
+        # }.items()
+    # )
+
     spawn_turtlebot_cmd = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
-            os.path.join(launch_file_dir, 'spawn_turtlebot3.launch.py')
+            os.path.join(launch_file_dir, 'st.launch.py')
         ),
         launch_arguments={
             'x_pose': tb_x_pose,
-            'y_pose': tb_y_pose,
-            'z_pose': tb_z_pose 
+            'y_pose': tb_y_pose
         }.items()
     )
 
