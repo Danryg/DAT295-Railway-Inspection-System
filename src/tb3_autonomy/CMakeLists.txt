@@ -42,23 +42,5 @@ install(PROGRAMS
     DESTINATION lib/${PROJECT_NAME}
 )
 
-# Install C++ nodes
-#set(AUTONOMY_SOURCES
-    #src/navigation_behaviors.cpp 
-    #src/vision_behaviors.cpp
-#)
-#set(TARGET_DEPENDS
-    #ament_index_cpp rclcpp rclcpp_action
-    #nav2_msgs sensor_msgs cv_bridge image_transport
-    #behaviortree_cpp tf2 tf2_ros tf2_geometry_msgs yaml-cpp
-#)
-#include_directories(include)
-#add_executable(autonomy_node_cpp src/autonomy_node.cpp ${AUTONOMY_SOURCES})
-#install(TARGETS
-    #autonomy_node_cpp
-    #DESTINATION lib/${PROJECT_NAME}
-#)
-#ament_target_dependencies(autonomy_node_cpp ${TARGET_DEPENDS})
-#target_link_libraries(autonomy_node_cpp ${OpenCV_LIBS} ${YAML_CPP_LIBRARIES})
 
 ament_package()
