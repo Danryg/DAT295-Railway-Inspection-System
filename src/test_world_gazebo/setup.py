@@ -18,6 +18,9 @@ setup(
         (os.path.join('share', package_name, 'models'), glob(os.path.join('worlds/models/amp_hull', '*.[sdf]*'))),
         (os.path.join('share', package_name, 'models'), glob(os.path.join('worlds/models/amp_axle', '*.[sdf]*'))),
 
+        (os.path.join('share', package_name, 'models/turtlebot3_burger_velodyne'), glob(os.path.join('worlds/models/turtlebot3_burger_velodyne', '*.[sdf]*'))),
+
+
         #new for turtlebot
         (os.path.join('share', package_name, 'urdf'), glob(os.path.join('urdf', '*.[urdf]*'))),
         (os.path.join('share', package_name, 'worlds'), glob(os.path.join('worlds', '*.[model]*'))),

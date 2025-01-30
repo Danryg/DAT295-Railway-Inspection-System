@@ -2,3 +2,5 @@ build/
 install/
 log/
 .cache/
+compile_commands.json
+.ccls-cache/
