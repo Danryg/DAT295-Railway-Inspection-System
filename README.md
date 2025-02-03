@@ -119,6 +119,8 @@ This will build all necessary packages including rtabmap for slam and px4_ros_co
 ## Rviz2
 ```ros2 run rviz2 rviz2 -d /opt/ros/humble/share/nav2_bringup/rviz/nav2_default_view.rviz```
 
+## Map saver
+ros2 run nav2_map_server map_saver_cli -f current_map
 
 # AMP speed controller topic
 ## publish to a float32 to the /amp_robot/speed topic in order to control the speed via the controller

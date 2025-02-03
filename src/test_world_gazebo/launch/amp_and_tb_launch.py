@@ -26,8 +26,8 @@ def generate_launch_description():
     amp_spawn_z = '0.7'
 
     # TurtleBot spawn positions
-    tb_spawn_x = '3.06'
-    tb_spawn_y = '-56.37'
+    tb_spawn_x = '4.06'
+    tb_spawn_y = '0.0'
     tb_spawn_z = '0.2'
 
     # Unique LaunchConfigurations for AMP
@@ -95,8 +95,9 @@ def generate_launch_description():
     # Add the commands to the launch description
     ld.add_action(gzserver_cmd)
     ld.add_action(gzclient_cmd)
-    ld.add_action(spawn_amp_cmd)
+    # ld.add_action(spawn_amp_cmd)
     ld.add_action(robot_state_publisher_cmd)
+    # ld.add_action(robot_state_publisher_amp_cmd)
     ld.add_action(spawn_turtlebot_cmd)
 
     return ld
