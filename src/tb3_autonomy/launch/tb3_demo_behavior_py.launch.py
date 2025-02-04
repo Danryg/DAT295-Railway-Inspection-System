@@ -43,7 +43,6 @@ def generate_launch_description():
                 emulate_tty=True,
                 parameters=[
                     {
-                        "location_file": LaunchConfiguration("location_file"),
                         "target_color": LaunchConfiguration("target_color"),
                         "tree_type": LaunchConfiguration("tree_type"),
                         "enable_vision": LaunchConfiguration("enable_vision"),
