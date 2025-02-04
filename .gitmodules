@@ -28,6 +28,3 @@
 [submodule "src/lidar_object_detection"]
 	path = src/lidar_object_detection
 	url = https://github.com/keyvan-dadash/lidar_object_detection
-[submodule "slam_toolbox"]
-	path = slam_toolbox
-	url = git@github.com:ArthurAlexandersson/slam_toolbox.git
