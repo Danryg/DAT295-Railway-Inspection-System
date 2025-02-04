@@ -3,7 +3,7 @@
 """
 Autonomy node for the TurtleBot3.
 
-This script relies on a YAML file of potential navigation locations, 
+This script relies on a YAML file of potential navigation locations,
 which is listed as a `location_file` ROS parameter.
 
 Example usage:
@@ -13,22 +13,21 @@ Example usage:
 """
 
 import os
-import yaml
 import random
-import rclpy
-from rclpy.node import Node
 import time
+
 import py_trees
 import py_trees_ros
-from py_trees.common import OneShotPolicy
+import rclpy
+import yaml
 from ament_index_python.packages import get_package_share_directory
-
-from tb3_behaviors.navigation import GoToPose, GetLocationFromQueue
+from py_trees.common import OneShotPolicy
+from rclpy.node import Node
+from tb3_behaviors.navigation import GetLocationFromQueue, GoToPose
 from tb3_behaviors.vision import LookForObject
 
-
 default_location_file = os.path.join(
-    get_package_share_directory("tb3_worlds"), "maps", "sim_house_locations.yaml"
+    get_package_share_directory("tb3_autonomy"), "maps", "sim_house_locations.yaml"
 )
 
 
@@ -37,13 +36,15 @@ class AutonomyBehavior(Node):
         super().__init__("autonomy_node")
         self.declare_parameter("location_file", value=default_location_file)
         self.declare_parameter("tree_type", value="queue")
-        self.declare_parameter("enable_vision", value=True)
+        self.declare_parameter("enable_vision", value=False)
         self.declare_parameter("target_color", value="blue")
 
         # Parse locations YAML file and shuffle the location list.
         location_file = self.get_parameter("location_file").value
+        print("Vision: ", self.get_parameter("enable_vision").value)
         with open(location_file, "r") as f:
             self.locations = yaml.load(f, Loader=yaml.FullLoader)
+        print("Locations: ", self.locations)
         self.loc_list = list(self.locations.keys())
         random.shuffle(self.loc_list)
 
@@ -109,6 +110,7 @@ class AutonomyBehavior(Node):
                 pose = self.locations[loc]
                 seq.add_child(GoToPose(f"go_to_{loc}", pose, self))
 
+            print("Tree: ", tree)
         return tree
 
     def create_queue_tree(self):
