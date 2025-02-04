@@ -43,7 +43,8 @@ setup(
             'speed = test_world_gazebo.speed:main',
             'input = test_world_gazebo.input_handler:main',
             'controller = test_world_gazebo.speed_controller:main',
-            'dock = test_world_gazebo.movetoamp:main'
+            'dock = test_world_gazebo.movetoamp:main',
+            'undock = test_world_gazebo.undock:main'
         ],
     },
 )
