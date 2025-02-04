@@ -102,7 +102,7 @@ def generate_launch_description():
     # Add the commands to the launch description
     ld.add_action(gzserver_cmd)
     ld.add_action(gzclient_cmd)
-    ld.add_action(spawn_amp_cmd)
+    # ld.add_action(spawn_amp_cmd)
     ld.add_action(robot_state_publisher_cmd)
     # ld.add_action(robot_state_publisher_amp_cmd)
     ld.add_action(spawn_turtlebot_cmd)

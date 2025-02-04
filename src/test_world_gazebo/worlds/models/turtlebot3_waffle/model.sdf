@@ -140,19 +140,19 @@
               <samples>360</samples>
               <resolution>1.000000</resolution>
               <min_angle>0.000000</min_angle>
-              <max_angle>6.280000</max_angle>
+              <max_angle>6.28318530718</max_angle>
             </horizontal>
           </scan>
           <range>
-            <min>0.120000</min>
+            <min>0.220000</min>
             <max>20.0</max>
             <resolution>0.015000</resolution>
           </range>
-          <noise>
+          <!-- <noise>
             <type>gaussian</type>
             <mean>0.0</mean>
             <stddev>0.01</stddev>
-          </noise>
+          </noise> -->
         </ray>
         <plugin name="turtlebot3_laserscan" filename="libgazebo_ros_ray_sensor.so">
           <ros>
