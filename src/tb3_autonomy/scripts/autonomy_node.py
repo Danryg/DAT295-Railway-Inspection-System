@@ -36,13 +36,15 @@ class AutonomyBehavior(Node):
         super().__init__("autonomy_node")
         self.declare_parameter("location_file", value=default_location_file)
         self.declare_parameter("tree_type", value="queue")
-        self.declare_parameter("enable_vision", value=True)
+        self.declare_parameter("enable_vision", value=False)
         self.declare_parameter("target_color", value="blue")
 
         # Parse locations YAML file and shuffle the location list.
         location_file = self.get_parameter("location_file").value
+        print("Vision: ", self.get_parameter("enable_vision").value)
         with open(location_file, "r") as f:
             self.locations = yaml.load(f, Loader=yaml.FullLoader)
+        print("Locations: ", self.locations)
         self.loc_list = list(self.locations.keys())
         random.shuffle(self.loc_list)
 
@@ -108,6 +110,7 @@ class AutonomyBehavior(Node):
                 pose = self.locations[loc]
                 seq.add_child(GoToPose(f"go_to_{loc}", pose, self))
 
+            print("Tree: ", tree)
         return tree
 
     def create_queue_tree(self):
