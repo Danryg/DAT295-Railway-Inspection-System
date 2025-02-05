@@ -44,7 +44,9 @@ class ObjectPositionLogger(Node):
         for i, name in enumerate(msg.name):
             position = msg.pose[i].position
             distance = self.calculate_distance(position, self.tb_position)
-            if distance <= self.radius:  # Only include points within the radius
+            if distance <= (
+                self.radius * self.radius
+            ):  # Only include points within the radius
                 self.positions[f"location{i + 1}"] = [
                     position.x,
                     position.y,
@@ -55,7 +57,7 @@ class ObjectPositionLogger(Node):
 
     def calculate_distance(self, position, tb_position):
         """Calculates Euclidean distance between two points"""
-        return math.sqrt(
+        return (
             (position.x - tb_position[0]) ** 2
             + (position.y - tb_position[1]) ** 2
             + (position.z - tb_position[2]) ** 2
