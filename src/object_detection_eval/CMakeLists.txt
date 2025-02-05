@@ -10,6 +10,7 @@ find_package(gazebo_msgs REQUIRED)
 find_package(geometry_msgs REQUIRED)
 find_package(gazebo_dev REQUIRED)
 find_package(std_msgs REQUIRED)
+find_package(vision_msgs REQUIRED)
 find_package(rosidl_default_generators REQUIRED)
 
 # ============================================
@@ -40,6 +41,14 @@ rosidl_get_typesupport_target(cpp_typesupport_target ${PROJECT_NAME} rosidl_type
 
 target_link_libraries(model_position_lib "${cpp_typesupport_target}")
 
+# Create a shared library for FilterModelPosition
+add_library(filter_model_position_lib src/filtered_model_position.cpp)
+target_link_libraries(filter_model_position_lib "${cpp_typesupport_target}")
+ament_target_dependencies(filter_model_position_lib rclcpp gazebo_msgs geometry_msgs std_msgs)
+rosidl_get_typesupport_target(cpp_typesupport_target ${PROJECT_NAME} rosidl_typesupport_cpp)
+
+target_link_libraries(filter_model_position_lib "${cpp_typesupport_target}")
+
 # Create a shared library for the Gazebo World Plugin
 add_library(bounding_box_world_plugin SHARED src/bounding_box_world_plugin.cpp)
 target_link_libraries(bounding_box_world_plugin "${cpp_typesupport_target}")
@@ -52,13 +61,18 @@ target_link_libraries(bounding_box_world_plugin "${cpp_typesupport_target}")
 add_executable(model_position_node src/model_position_node.cpp)
 target_link_libraries(model_position_node model_position_lib)
 
-add_executable(filtered_model_position_node src/filtered_model_position.cpp)
-target_link_libraries(filtered_model_position_node model_position_lib)
+add_executable(filtered_model_position_node src/filter_model_position_node.cpp)
+target_link_libraries(filtered_model_position_node filter_model_position_lib  model_position_lib)
+
+add_executable(exporter_node src/exporter.cpp)
+target_link_libraries(exporter_node filter_model_position_lib model_position_lib)
+ament_target_dependencies(exporter_node rclcpp gazebo_msgs geometry_msgs std_msgs vision_msgs)
 
 # Link dependencies
 ament_target_dependencies(model_position_lib rclcpp gazebo_msgs geometry_msgs std_msgs)
 ament_target_dependencies(model_position_node rclcpp gazebo_msgs geometry_msgs std_msgs)
 ament_target_dependencies(filtered_model_position_node rclcpp gazebo_msgs geometry_msgs std_msgs)
+ament_target_dependencies(exporter_node rclcpp gazebo_msgs geometry_msgs std_msgs vision_msgs)
 ament_target_dependencies(bounding_box_world_plugin rclcpp gazebo_dev std_msgs)
 
 # ============================================
@@ -68,9 +82,14 @@ install(TARGETS model_position_lib
     LIBRARY DESTINATION lib
 )
 
+install(TARGETS filter_model_position_lib 
+    LIBRARY DESTINATION lib
+)
+
 install(TARGETS
   model_position_node
   filtered_model_position_node
+  exporter_node
   DESTINATION lib/${PROJECT_NAME}
 )
 

@@ -13,13 +13,22 @@ std::vector<model_info_t> FilteredModelPosition::getFilteredModelPositions(
   std::vector<model_info_t> filtered_models;
 
   geometry_msgs::msg::Pose reference_pose;
+  model_info_t reference_model_info;
+  bool reference_found = false;
+
   for (const auto &model : models) {
     if (model.model_name == reference_model_) {
       reference_pose = model.model_pose;
+      reference_model_info = model;
+      reference_found = true;
       break;
     }
   }
 
+  if (reference_found) {
+    filtered_models.push_back(reference_model_info); // Push reference model first
+  }
+  
   for (const auto &model : models) {
     if (std::find(exclude_models.begin(), exclude_models.end(),
                   model.model_name) != exclude_models.end()) {
@@ -36,28 +45,3 @@ std::vector<model_info_t> FilteredModelPosition::getFilteredModelPositions(
   return filtered_models;
 }
 
-int main(int argc, char **argv) {
-  rclcpp::init(argc, argv);
-  auto model_position = std::make_shared<ModelPosition>();
-  FilteredModelPosition filtered_model_position(model_position, "waffle");
-
-  std::vector<std::string> exclude_models = {"big_green_plane",
-                                             "big_transparent_plane", "waffle"};
-
-  rclcpp::Rate loop_rate(1);
-  while (rclcpp::ok()) {
-    auto filtered_models =
-        filtered_model_position.getFilteredModelPositions(exclude_models);
-    for (const auto &model : filtered_models) {
-      RCLCPP_INFO(
-          rclcpp::get_logger("FilteredModel"),
-          "Model: %s, Distance: %.2f, Width: %.2f, Height: %.2f, Depth: %.2f",
-          model.model_name.c_str(), model.distance_from_base, model.width, model.height, model.depth);
-    }
-    rclcpp::spin_some(model_position);
-    loop_rate.sleep();
-  }
-
-  rclcpp::shutdown();
-  return 0;
-}
