@@ -163,9 +163,11 @@ class OffboardControl(Node):
         if time.time() - time_when_state_last_steady < 1:
             z_val += 0.004 #might have to change sign to account for descent/land
 
-        self.publish_position_setpoint(round(controller_x.output, 3), round(controller_y.output, 3), round(controller_z.output, 3))
-
-        if abs(round(controller_z.output, 3)) <= 0.06:
+        self.publish_position_setpoint(round(-controller_x.output, 3), round(-controller_y.output, 3), round(controller_z.output, 3))
+        print(abs(self.aruco_poses.poses[-1].position.x - self.vehicle_local_position.x))
+        print(abs(self.aruco_poses.poses[-1].position.y - self.vehicle_local_position.y))
+        if abs(round(controller_z.output, 3)) <= 0.06 and abs(self.aruco_poses.poses[-1].position.x - self.vehicle_local_position.x)<0.1 and \
+             abs(self.aruco_poses.poses[-1].position.y - self.vehicle_local_position.y)<0.1:
             self.land()
             exit(0)
 
