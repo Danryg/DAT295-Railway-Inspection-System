@@ -29,11 +29,6 @@ def generate_launch_description():
                 default_value=TextSubstitution(text="queue"),
                 description="Behavior tree type (naive or queue)",
             ),
-            DeclareLaunchArgument(
-                "enable_vision",
-                default_value=TextSubstitution(text="True"),
-                description="Enable vision behaviors. If false, do navigation only.",
-            ),
             # Main autonomy node
             Node(
                 package="tb3_autonomy",
@@ -46,7 +41,6 @@ def generate_launch_description():
                         "location_file": LaunchConfiguration("location_file"),
                         "target_color": LaunchConfiguration("target_color"),
                         "tree_type": LaunchConfiguration("tree_type"),
-                        "enable_vision": LaunchConfiguration("enable_vision"),
                     }
                 ],
             ),

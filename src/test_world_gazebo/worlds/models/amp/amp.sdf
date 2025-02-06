@@ -3,7 +3,7 @@
     <model name='amp'>
 
 
-        <link name='base_link'>
+        <link name='amp_base_link'>
         <inertial>
         <pose>-0.032 0 0.070 0 0 1.5708</pose>
         <inertia>
@@ -267,7 +267,7 @@
       </joint>
 
       <joint name='swivel_JOINT_0' type='revolute'>
-  <parent>base_link</parent>
+  <parent>amp_base_link</parent>
   <child>front_swivel_link</child>
   <pose>0 0 0 0 0 0</pose>
   <axis>
@@ -296,7 +296,7 @@
 
 
 <joint name='swivel_JOINT_1' type='revolute'>
-  <parent>base_link</parent>
+  <parent>amp_base_link</parent>
   <child>back_swivel_link</child>
   <pose>0 0 0 0 0 0</pose>
   <axis>
@@ -388,7 +388,7 @@
 
       <odometry_topic>odom</odometry_topic>
       <odometry_frame>odom</odometry_frame>
-      <robot_base_frame>base_link</robot_base_frame>
+      <robot_base_frame>amp_base_link</robot_base_frame>
 
     </plugin>
 

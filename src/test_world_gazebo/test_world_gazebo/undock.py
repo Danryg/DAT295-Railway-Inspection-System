@@ -51,9 +51,9 @@ class UndockWaffle(Node):
         launch_file_dir = os.path.join(os.getcwd(), 'src', 'test_world_gazebo', 'launch')
         launch_file = os.path.join(launch_file_dir, 'spawn_turtlebot3.launch.py')
 
-        tb_x_pose = str(self.tb3_pose.position.x)
+        tb_x_pose = str(self.tb3_pose.position.x+2.0)
         tb_y_pose = str(self.tb3_pose.position.y)
-        tb_z_pose = str(self.tb3_pose.position.z+1.5)
+        tb_z_pose = str(self.tb3_pose.position.z)
 
         try:
             subprocess.run([
