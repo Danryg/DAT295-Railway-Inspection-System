@@ -8,18 +8,22 @@
 #include <chrono>
 #include <cmath>
 #include <algorithm>
+#include <iostream>
 
-Exporter::Exporter(std::shared_ptr<FilteredModelPosition> filtered_model_position, const std::string &output_file, double timeout)
-    : Node("exporter_node"), filtered_model_position_(filtered_model_position), timeout_(timeout) {
+Exporter::Exporter(std::shared_ptr<FilteredModelPosition> filtered_model_position, 
+                   const std::string &output_file, double timeout, const std::string &detection_topic)
+    : Node("exporter_node"), filtered_model_position_(filtered_model_position), timeout_(timeout),
+      output_file_path_(output_file), detection_topic_(detection_topic), models_logged_(false), log_ready_(false), entered_ready_(false) {
+    
     detection_subscriber_ = this->create_subscription<vision_msgs::msg::Detection3DArray>(
-        "/detected_objects", 10,
+        detection_topic_, 10,
         std::bind(&Exporter::detectionCallback, this, std::placeholders::_1));
-
-    output_file_.open(output_file, std::ios::out | std::ios::app);
+    
+    output_file_.open(output_file_path_, std::ios::out | std::ios::app);
     if (!output_file_.is_open()) {
-        RCLCPP_ERROR(this->get_logger(), "Failed to open output file: %s", output_file.c_str());
+        RCLCPP_ERROR(this->get_logger(), "Failed to open output file: %s", output_file_path_.c_str());
     } else {
-        RCLCPP_INFO(this->get_logger(), "Logging results to: %s", output_file.c_str());
+        RCLCPP_INFO(this->get_logger(), "Logging results to: %s", output_file_path_.c_str());
     }
     start_time_ = this->now();
 }
@@ -31,6 +35,25 @@ Exporter::~Exporter() {
 }
 
 void Exporter::detectionCallback(const vision_msgs::msg::Detection3DArray::SharedPtr msg) {
+    if (!models_logged_) {
+        auto filtered_models = filtered_model_position_->getFilteredModelPositions({});
+        if (!filtered_models.empty()) {
+            RCLCPP_INFO(this->get_logger(), "Successfully retrieved filtered models.");
+            models_logged_ = true;
+            log_ready_ = true; // Enable processing once models are logged
+        }
+    }
+    
+    if (!log_ready_) {
+        return; // Wait until models are logged before proceeding
+    }
+    
+    if (!entered_ready_) {
+        std::cout << "Press Enter to log detections...";
+        std::cin.get();
+        entered_ready_ = true;
+    }
+    
     double elapsed_time = (this->now() - start_time_).seconds();
     if (elapsed_time >= timeout_) {
         RCLCPP_INFO(this->get_logger(), "Timeout reached, stopping logging.");
@@ -45,14 +68,16 @@ void Exporter::detectionCallback(const vision_msgs::msg::Detection3DArray::Share
 void Exporter::writeToFile(const vision_msgs::msg::Detection3DArray::SharedPtr &detections, 
                            std::vector<model_info_t> &filtered_models, double timestamp) {
     if (!output_file_.is_open()) {
+        start_time_ = this->now();
         return;
     }
 
     model_info_t refrence_pose;
-    if (filtered_models.size() > 0) {
+    if (!filtered_models.empty()) {
         refrence_pose = filtered_models.at(0);
         filtered_models.erase(filtered_models.begin());
     } else {
+        start_time_ = this->now();
         return;
     }
     
@@ -81,9 +106,19 @@ void Exporter::writeToFile(const vision_msgs::msg::Detection3DArray::SharedPtr &
 
 int main(int argc, char **argv) {
     rclcpp::init(argc, argv);
+    std::string output_file = "output_data.txt";
+    std::string detection_topic = "/detected_objects";
+    
+    if (argc > 1) {
+        output_file = argv[1];
+    }
+    if (argc > 2) {
+        detection_topic = argv[2];
+    }
+    
     auto model_position = std::make_shared<ModelPosition>();
     auto filtered_model_position = std::make_shared<FilteredModelPosition>(model_position, "waffle");
-    auto exporter = std::make_shared<Exporter>(filtered_model_position, "output_data.txt", 60.0);
+    auto exporter = std::make_shared<Exporter>(filtered_model_position, output_file, 60.0, detection_topic);
     
     rclcpp::spin(exporter);
     rclcpp::shutdown();
