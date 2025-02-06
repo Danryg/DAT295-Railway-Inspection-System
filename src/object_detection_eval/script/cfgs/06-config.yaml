@@ -1,0 +1,20 @@
+euclidean_cluster_node:
+  ros__parameters:
+    use_height: false
+    input_topic: "velodyne_points" 
+    output_topic: "detected_objects_06" 
+    output_topic_clustered: "clustered_points_06" 
+    min_cluster_size: 70
+    max_cluster_size: 5000
+    distance_threshhold_seg: 0.02
+    tolerance: 0.06
+    max_height: 100.0
+    min_height: 0.05
+    max_width: 100.0
+    min_width: 0.15
+    max_depth: 100.0
+    min_depth: 0.15
+    max_zx: 100.0
+    min_zx: 0.5
+    max_zy: 100.0
+    min_zy: 0.5

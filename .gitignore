@@ -4,3 +4,4 @@ log/
 .cache/
 compile_commands.json
 .ccls-cache/
+output_data*

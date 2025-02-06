@@ -51,6 +51,7 @@ void Exporter::detectionCallback(const vision_msgs::msg::Detection3DArray::Share
     if (!entered_ready_) {
         std::cout << "Press Enter to log detections...";
         std::cin.get();
+        start_time_ = this->now();
         entered_ready_ = true;
     }
     

@@ -1,5 +1,6 @@
 import re
 import matplotlib.pyplot as plt
+import argparse
 
 def is_inside(detected_obj, filtered_model):
     obj_x, obj_y, obj_z = detected_obj["center"]
@@ -57,49 +58,67 @@ def parse_detection_log(file_path):
     
     return results
 
-def time_based_result(results):
-    timestamps = []
-    correct_detections = []
-    false_detections = []
+def time_based_result(file_paths, labels, graph_name):
+    colors = ['green', 'blue', 'red', 'purple', 'orange', 'cyan']
+    markers = ['o', 's', 'x', '^', 'd', '*']
     
-    for parsed_entry in results:
-        false_count = 0
-        correct_count = 0
+    plt.figure(figsize=(12, 6))
+    
+    # **Graph 1: Correct Detections**
+    plt.subplot(2, 1, 1)
+    for idx, (file_path, label) in enumerate(zip(file_paths, labels)):
+        results = parse_detection_log(file_path)
+        timestamps = []
+        correct_detections = []
         
-        for detected_obj in parsed_entry["detected_objects"]:
-            match_found = False
-            for filtered_model in parsed_entry["filtered_models"]:
-                if is_inside(detected_obj, filtered_model):
-                    correct_count += 1
-                    match_found = True
-                    break
-            if not match_found:
-                false_count += 1
+        for parsed_entry in results:
+            correct_count = sum(1 for detected_obj in parsed_entry["detected_objects"]
+                                if any(is_inside(detected_obj, model) for model in parsed_entry["filtered_models"]))
+            
+            timestamps.append(parsed_entry["timestamp"])
+            correct_detections.append(correct_count)
         
-        timestamps.append(parsed_entry["timestamp"])
-        correct_detections.append(correct_count)
-        false_detections.append(false_count)
+        plt.plot(timestamps, correct_detections, label=f"{label} - Correct", marker=markers[idx % len(markers)], color=colors[idx % len(colors)])
     
-    fig, axes = plt.subplots(2, 1, figsize=(10, 10), sharex=True)
+    plt.ylabel("Correct Detections")
+    plt.title(f"{graph_name}: Correct Detections Over Time")
+    plt.legend()
+    plt.grid(True)
+
+    # **Graph 2: False Detections**
+    plt.subplot(2, 1, 2)
+    for idx, (file_path, label) in enumerate(zip(file_paths, labels)):
+        results = parse_detection_log(file_path)
+        timestamps = []
+        false_detections = []
+        
+        for parsed_entry in results:
+            false_count = sum(1 for detected_obj in parsed_entry["detected_objects"]
+                              if not any(is_inside(detected_obj, model) for model in parsed_entry["filtered_models"]))
+            
+            timestamps.append(parsed_entry["timestamp"])
+            false_detections.append(false_count)
+        
+        plt.plot(timestamps, false_detections, label=f"{label} - False", linestyle='dashed', marker=markers[idx % len(markers)], color=colors[idx % len(colors)])
     
-    axes[0].plot(timestamps, correct_detections, label="Correct Detections", marker='o', color='green')
-    axes[0].set_ylabel("Count")
-    axes[0].set_title("Correct Detections Over Time")
-    axes[0].legend()
-    axes[0].grid(True)
-    
-    axes[1].plot(timestamps, false_detections, label="False Detections", marker='x', color='red')
-    axes[1].set_xlabel("Time (s)")
-    axes[1].set_ylabel("Count")
-    axes[1].set_title("False Detections Over Time")
-    axes[1].legend()
-    axes[1].grid(True)
+    plt.xlabel("Time (s)")
+    plt.ylabel("False Detections")
+    plt.title(f"{graph_name}: False Detections Over Time")
+    plt.legend()
+    plt.grid(True)
     
     plt.tight_layout()
     plt.show()
 
-# Example usage
-file_path = "/home/sod/chalmers/DAT295/DAT295-Railway-Inspection-System/output_data.txt"
-parsed_data = parse_detection_log(file_path)
-time_based_result(parsed_data)
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description="Evaluate object detection performance over time.")
+    parser.add_argument("file_paths", nargs='+', help="List of detection log files to compare")
+    parser.add_argument("--labels", nargs='+', required=True, help="Labels for each detection log file")
+    parser.add_argument("--graph_name", type=str, default="Detection Performance", help="Title for the graph")
+    args = parser.parse_args()
+    
+    if len(args.file_paths) != len(args.labels):
+        raise ValueError("Number of file paths must match the number of labels")
+    
+    time_based_result(args.file_paths, args.labels, args.graph_name)
 
