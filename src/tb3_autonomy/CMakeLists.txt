@@ -21,7 +21,7 @@ find_package(tf2_geometry_msgs REQUIRED)
 
 # Install directories
 install(DIRECTORY
-  bt_xml launch maps
+  bt_xml launch locations 
   DESTINATION share/${PROJECT_NAME}
 )
 
