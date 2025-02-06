@@ -24,8 +24,7 @@ from ament_index_python.packages import get_package_share_directory
 from py_trees.common import OneShotPolicy
 from rclpy.node import Node
 from tb3_behaviors.navigation import GetLocationFromQueue, GoToPose
-from tb3_behaviors.vision import LookForObject
-from tb3_behaviors.dock import ModelPoseCopier
+from tb3_behaviors.dock import DockWaffle
 from tb3_behaviors.undock import UndockWaffle 
 
 default_location_file = os.path.join(
@@ -88,16 +87,15 @@ class AutonomyBehavior(Node):
                             name=f"search_{loc}",
                             children=[
                                 GoToPoseAmp,
-                                Undock,
-
+                                UndockWaffle,
                                 GoToPose(f"go_to_{loc}", pose, tree.node),
-                                LookForObject(
-                                    f"find_{self.target_color}_{loc}",
-                                    self.target_color,
-                                    tree.node,
-                                ),
+                                # LookForObject(
+                                #     f"find_{self.target_color}_{loc}",
+                                #     self.target_color,
+                                #     tree.node,
+                                # ),
                                 GoToPose(f"go_to_{loc}", pose, tree.node),
-                                Dock,
+                                DockWaffle
 
                             ],
                             memory=True,
@@ -139,7 +137,7 @@ class AutonomyBehavior(Node):
                 # GoToPose("go_to_location", None, tree.node),
 
                 GoToPoseAmp,
-                Undock,
+                UndockWaffle,
 
                 GoToPose("get_next_location", None, tree.node),
                 # LookForObject(
@@ -148,13 +146,13 @@ class AutonomyBehavior(Node):
                 #     tree.node,
                 # ), Replace with task
                 GoToPose("get_next_location", None, tree.node),
-                Dock,
+                DockWaffle,
             ]
         )
-        if self.enable_vision:
-            seq.add_child(
-                LookForObject(f"find_{self.target_color}", self.target_color, tree.node)
-            )
+        # if self.enable_vision:
+        #     seq.add_child(
+        #         LookForObject(f"find_{self.target_color}", self.target_color, tree.node)
+        #     )
         return tree
 
     def execute(self, period=0.5):

@@ -8,7 +8,7 @@ import subprocess
 import sys
 import math
 
-class ModelPoseCopier(Node):
+class DockWaffle(Node):
     def __init__(self, target_model='waffle'):
         super().__init__('model_pose_copier')
 
@@ -94,7 +94,7 @@ def main(args=None):
     rclpy.init(args=args)
 
     target_model = sys.argv[1] if len(sys.argv) > 1 else 'waffle'
-    copier = ModelPoseCopier(target_model=target_model)
+    copier = DockWaffle(target_model=target_model)
 
     while rclpy.ok() and not copier.model_moved:
         rclpy.spin_once(copier)
