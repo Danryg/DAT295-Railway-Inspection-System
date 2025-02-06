@@ -112,7 +112,7 @@ bt_navigator_navigate_to_pose_rclcpp_node:
 controller_server:
   ros__parameters:
     use_sim_time: True
-    controller_frequency: 20.0
+    controller_frequency: 10.0 # default 20.0
     min_x_velocity_threshold: 0.001
     min_y_velocity_threshold: 0.5
     min_theta_velocity_threshold: 0.001
@@ -135,8 +135,8 @@ controller_server:
     general_goal_checker:
       stateful: True
       plugin: "nav2_controller::SimpleGoalChecker"
-      xy_goal_tolerance: 1.0 # default: 0.25
-      yaw_goal_tolerance: 1.0 # default: 0.25
+      xy_goal_tolerance: 0.5 # default: 0.25
+      yaw_goal_tolerance: 0.25 # default: 0.25
     # DWB parameters
     FollowPath:
       plugin: "dwb_core::DWBLocalPlanner"
@@ -183,14 +183,14 @@ controller_server:
 local_costmap:
   local_costmap:
     ros__parameters:
-      update_frequency: 0.5 # default 5.0
+      update_frequency: 5.0 # default 5.0
       publish_frequency: 2.0
       global_frame: odom
       robot_base_frame: base_link
       use_sim_time: True
       rolling_window: true
-      width: 3
-      height: 3
+      width: 10 # default: 3
+      height: 10  # default 3 
       resolution: 0.05
       robot_radius: 0.22
       plugins: ["voxel_layer", "inflation_layer"]
@@ -275,13 +275,13 @@ map_saver:
 
 planner_server:
   ros__parameters:
-    expected_planner_frequency: 20.0
+    expected_planner_frequency: 10.0 # default 20.0
     use_sim_time: True
     planner_plugins: ["GridBased"]
     GridBased:
       plugin: "nav2_navfn_planner/NavfnPlanner"
-      tolerance: 0.5 # default 0.5
-      use_astar: true
+      tolerance: 1.0 # default 1.0
+      use_astar: false
       allow_unknown: true
 
 smoother_server:
@@ -338,11 +338,11 @@ velocity_smoother:
   ros__parameters:
     use_sim_time: True
     smoothing_frequency: 20.0
-    scale_velocities: False
+    scale_velocities: True 
     feedback: "OPEN_LOOP"
-    max_velocity: [0.26, 0.0, 1.0]
+    max_velocity: [0.5 , 0.0, 1.0]
     min_velocity: [-0.26, 0.0, -1.0]
-    max_accel: [2.5, 0.0, 3.2]
+    max_accel: [3.5, 0.0, 3.2]
     max_decel: [-2.5, 0.0, -3.2]
     odom_topic: "odom"
     odom_duration: 0.1

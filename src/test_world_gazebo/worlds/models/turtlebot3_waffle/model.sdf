@@ -491,8 +491,8 @@
       <wheel_diameter>0.066</wheel_diameter>
 
       <!-- limits -->
-      <max_wheel_torque>20</max_wheel_torque>
-      <max_wheel_acceleration>1.0</max_wheel_acceleration>
+      <max_wheel_torque>30</max_wheel_torque>
+      <max_wheel_acceleration>2.0</max_wheel_acceleration>
 
       <command_topic>cmd_vel</command_topic>
 
