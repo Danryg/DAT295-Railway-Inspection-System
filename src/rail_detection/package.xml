@@ -6,8 +6,6 @@
   <maintainer email="ninghu@chalmers.se">Ning</maintainer>
   <license>MIT</license>
 
-  <buildtool_depend>ament_cmake</buildtool_depend>
-  <buildtool_depend>ament_python</buildtool_depend>
 
   <depend>rclpy</depend>
   <depend>sensor_msgs</depend>

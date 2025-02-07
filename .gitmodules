@@ -15,13 +15,6 @@
 	path = src/ros2_aruco
 	url = https://github.com/JMU-ROBOTICS-VIVA/ros2_aruco.git
 	branch = opencv_4.7
-[submodule "src/rtab/src/rtabmap_ros"]
-	path = src/rtab/src/rtabmap_ros
-	url = git@github.com:ArthurAlexandersson/rtabmap_ros.git
-	branch = ros2
-[submodule "src/rtab/src/rtabmap"]
-	path = src/rtab/src/rtabmap
-	url = https://github.com/introlab/rtabmap.git
 [submodule "src/velodyne_simulator"]
 	path = src/velodyne_simulator
 	url = https://github.com/ToyotaResearchInstitute/velodyne_simulator

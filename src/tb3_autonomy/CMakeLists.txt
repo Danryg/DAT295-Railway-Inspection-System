@@ -12,16 +12,13 @@ find_package(ament_index_cpp REQUIRED)
 find_package(rclpy REQUIRED)
 find_package(nav2_msgs REQUIRED)
 find_package(sensor_msgs REQUIRED)
-find_package(cv_bridge REQUIRED)
-find_package(OpenCV REQUIRED)
-find_package(image_transport REQUIRED)
 find_package(tf2 REQUIRED)
 find_package(tf2_ros REQUIRED)
 find_package(tf2_geometry_msgs REQUIRED)
 
 # Install directories
 install(DIRECTORY
-  bt_xml launch locations 
+  launch locations 
   DESTINATION share/${PROJECT_NAME}
 )
 
