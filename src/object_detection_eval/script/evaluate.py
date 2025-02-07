@@ -68,6 +68,7 @@ def time_based_result(file_paths, labels, graph_name):
     plt.subplot(2, 1, 1)
     for idx, (file_path, label) in enumerate(zip(file_paths, labels)):
         results = parse_detection_log(file_path)
+        print(len(results))
         timestamps = []
         correct_detections = []
         
