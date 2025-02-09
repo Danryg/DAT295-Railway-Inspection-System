@@ -84,7 +84,7 @@ class OffboardControl(Node):
     def publish_position_setpoint(self, x: float, y: float, z: float):
         """Publish the trajectory setpoint."""
         msg = TrajectorySetpoint()
-        msg.position = [x, y, z]
+        msg.position = [x, y, z] # This is wrong on so many levels (how this miss?)
         msg.yaw = 0.0 #1.57079  # (90 degree)
         msg.timestamp = int(self.get_clock().now().nanoseconds / 1000)
         self.trajectory_setpoint_publisher.publish(msg)
@@ -126,33 +126,33 @@ class OffboardControl(Node):
             compare aruco pose and do pid
             correct position and land
         '''
-        controller_x = PID(0.02)
-        controller_y = PID(0.01)
-        controller_z = PID(0.01)
+        controller_x = PID()
+        controller_y = PID()
+        controller_z = PID()
 
+        RAND_OFFSET = 0
         if self.offboard_setpoint_counter == 5:
+            self.publish_position_setpoint(-(round(controller_y.output*10000, 3) - RAND_OFFSET), 0.000, -round(controller_z.output, 3))
             self.engage_offboard_mode()
             exit(0)
 
         #This sort of scales the controllers outputs
         OFFSET_X = 0.0
-        OFFSET_Y = 0.0
+        OFFSET_Y = 0.2
         OFFSET_Z = 0.0
+        RAND_OFFSET = 2
 
-        controller_x.update(self.aruco_poses.poses[-1].position.x - self.vehicle_local_position.x + OFFSET_X)
-        controller_y.update(self.aruco_poses.poses[-1].position.y - self.vehicle_local_position.y + OFFSET_Y) 
-        controller_z.update(self.aruco_poses.poses[-1].position.z - self.vehicle_local_position.z + OFFSET_Z) 
+        controller_x.update(self.aruco_poses.poses[-1].position.x + OFFSET_X)
+        controller_y.update(self.aruco_poses.poses[-1].position.y + OFFSET_Y) 
+        controller_z.update(self.aruco_poses.poses[-1].position.z + OFFSET_Z) 
 
-        self.publish_position_setpoint(round(controller_x.output, 3), round(controller_y.output, 3), -round(controller_z.output, 3))
+        #x and y interchanged in drone convention
+        #-2 offest in both x and y direction ( i donno why, i dont want to) doesnt affect this for now
+        # self.publish_position_setpoint(-(round(controller_y.output*10000, 3) - RAND_OFFSET), round(controller_x.output*1000, 3) + RAND_OFFSET, -round(controller_z.output, 3))
         
         if self.offboard_setpoint_counter < 6:
             self.offboard_setpoint_counter += 1
 
-        # if abs(self.aruco_poses.poses[-1].position.x - self.vehicle_local_position.x)<0.12 and \
-        #     abs(self.aruco_poses.poses[-1].position.y - self.vehicle_local_position.y)<0.12 and \
-        #     abs(self.vehicle_local_position.z) < 1.5:
-        #     self.land()
-        #     exit(0)
 
 
 def main(args=None) -> None:
