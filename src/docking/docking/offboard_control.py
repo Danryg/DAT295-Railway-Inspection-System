@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 
 import rclpy
-import time
 from rclpy.node import Node
 from rclpy.qos import QoSProfile, ReliabilityPolicy, HistoryPolicy, DurabilityPolicy
 from px4_msgs.msg import OffboardControlMode, TrajectorySetpoint, VehicleCommand, VehicleLocalPosition, VehicleStatus
@@ -12,10 +11,10 @@ from geometry_msgs.msg import PoseArray
 from docking.controller import PID
 
 class OffboardControl(Node):
-    """Node for controlling a vehicle in offboard mode."""
+    """Node for docking a drone in offboard mode."""
 
     def __init__(self) -> None:
-        super().__init__('offboard_control_takeoff_and_land')
+        super().__init__('drone_docking')
 
         # Configure QoS profile for publishing and subscribing
         qos_profile = QoSProfile(
@@ -44,11 +43,10 @@ class OffboardControl(Node):
         #         ArucoMarkers, '/aruco_markers', self.aruco_marker_callback, qos_profile)
         
         # Initialize variables
-        self.offboard_setpoint_counter = 0
         self.vehicle_local_position = VehicleLocalPosition()
         self.vehicle_status = VehicleStatus()
         self.aruco_poses = PoseArray
-        self.takeoff_height = -5.0 #not need this
+        self.offboard_setpoint_counter = 0
 
         # Create a timer to publish control commands
         self.timer = self.create_timer(1, self.timer_callback)
@@ -60,12 +58,6 @@ class OffboardControl(Node):
     def vehicle_status_callback(self, vehicle_status):
         """Callback function for vehicle_status topic subscriber."""
         self.vehicle_status = vehicle_status
-
-    def disarm(self):
-        """Send a disarm command to the vehicle."""
-        self.publish_vehicle_command(
-            VehicleCommand.VEHICLE_CMD_COMPONENT_ARM_DISARM, param1=0.0)
-        self.get_logger().info('Disarm command sent')
 
     def engage_offboard_mode(self):
         """Switch to offboard mode."""
@@ -126,7 +118,7 @@ class OffboardControl(Node):
         self.publish_offboard_control_heartbeat_signal()
 
         ##Subscribe to ArUco /aruco_poses
-        self.aruco_pose_subscriber = self.create_subscription(PoseArray, '/aruco_poses', self.aruco_pose_callback, 10)        
+        # self.aruco_pose_subscriber = self.create_subscription(PoseArray, '/aruco_poses', self.aruco_pose_callback, 10)        
 
         ## PID Loop and land
         '''
@@ -134,46 +126,37 @@ class OffboardControl(Node):
             compare aruco pose and do pid
             correct position and land
         '''
-        controller_x = PID()
-        controller_y = PID()
-        controller_z = PID()
-        
-        z_val = -2.5
+        controller_x = PID(0.02)
+        controller_y = PID(0.01)
+        controller_z = PID(0.01)
 
-        time_when_state_last_steady = 0
-
-        #fix this
-        OFFSET_X = 50
-        OFFSET_Y = 3
-        OFFSET_Z = 2
-
-        ERROR_MARGIN = 50 #fix
-            
-        if (
-            abs(self.aruco_poses.poses[-1].position.x - self.vehicle_local_position.x) < ERROR_MARGIN #Change to aruco_pose and modify accordingly
-            and abs(self.aruco_poses.poses[-1].position.y - self.vehicle_local_position.y) < ERROR_MARGIN
-        ):
-            time_when_state_last_steady = time.time()
-
-        controller_x.update(self.aruco_poses.poses[-1].position.x + OFFSET_X) #fix the offsets
-        controller_y.update(self.aruco_poses.poses[-1].position.y + OFFSET_Y) #fix the offsets
-        controller_z.update(self.aruco_poses.poses[-1].position.z + OFFSET_Z) #fix the offsets
-
-
-        if time.time() - time_when_state_last_steady < 1:
-            z_val += 0.004 #might have to change sign to account for descent/land
-
-        self.publish_position_setpoint(round(-controller_x.output, 3), round(-controller_y.output, 3), round(controller_z.output, 3))
-        print(abs(self.aruco_poses.poses[-1].position.x - self.vehicle_local_position.x))
-        print(abs(self.aruco_poses.poses[-1].position.y - self.vehicle_local_position.y))
-        if abs(round(controller_z.output, 3)) <= 0.06 and abs(self.aruco_poses.poses[-1].position.x - self.vehicle_local_position.x)<0.1 and \
-             abs(self.aruco_poses.poses[-1].position.y - self.vehicle_local_position.y)<0.1:
-            self.land()
+        if self.offboard_setpoint_counter == 5:
+            self.engage_offboard_mode()
             exit(0)
+
+        #This sort of scales the controllers outputs
+        OFFSET_X = 0.0
+        OFFSET_Y = 0.0
+        OFFSET_Z = 0.0
+
+        controller_x.update(self.aruco_poses.poses[-1].position.x - self.vehicle_local_position.x + OFFSET_X)
+        controller_y.update(self.aruco_poses.poses[-1].position.y - self.vehicle_local_position.y + OFFSET_Y) 
+        controller_z.update(self.aruco_poses.poses[-1].position.z - self.vehicle_local_position.z + OFFSET_Z) 
+
+        self.publish_position_setpoint(round(controller_x.output, 3), round(controller_y.output, 3), -round(controller_z.output, 3))
+        
+        if self.offboard_setpoint_counter < 6:
+            self.offboard_setpoint_counter += 1
+
+        # if abs(self.aruco_poses.poses[-1].position.x - self.vehicle_local_position.x)<0.12 and \
+        #     abs(self.aruco_poses.poses[-1].position.y - self.vehicle_local_position.y)<0.12 and \
+        #     abs(self.vehicle_local_position.z) < 1.5:
+        #     self.land()
+        #     exit(0)
 
 
 def main(args=None) -> None:
-    print('Starting offboard control node...')
+    print('Starting drone docking node...')
     rclpy.init(args=args)
     offboard_control = OffboardControl()
     rclpy.spin(offboard_control)
