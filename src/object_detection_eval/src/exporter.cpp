@@ -62,7 +62,7 @@ void Exporter::detectionCallback(const vision_msgs::msg::Detection3DArray::Share
         return;
     }
     
-    auto filtered_models = filtered_model_position_->getFilteredModelPositions({});
+    auto filtered_models = filtered_model_position_->getFilteredModelPositions({"big_green_plane", "big_transparent_plane", "waffle"});
     writeToFile(msg, filtered_models, elapsed_time);
 }
 

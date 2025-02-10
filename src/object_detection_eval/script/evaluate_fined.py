@@ -183,6 +183,7 @@ def time_based_result(file_paths, labels, graph_name):
     plt.legend()
     plt.grid(True)
     
+    plt.suptitle("Graph by Keyvan", fontsize=14)
     plt.tight_layout()
     plt.show()
 

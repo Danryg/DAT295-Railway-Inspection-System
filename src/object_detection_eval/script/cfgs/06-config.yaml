@@ -7,7 +7,7 @@ euclidean_cluster_node:
     min_cluster_size: 70
     max_cluster_size: 5000
     distance_threshhold_seg: 0.02
-    tolerance: 0.06
+    tolerance: 0.15
     max_height: 100.0
     min_height: 0.05
     max_width: 100.0
