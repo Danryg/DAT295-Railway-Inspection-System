@@ -3,6 +3,8 @@
 import os
 
 from ament_index_python.packages import get_package_share_directory
+from launch_ros.actions import Node
+
 from launch import LaunchDescription
 from launch.actions import IncludeLaunchDescription
 from launch.launch_description_sources import PythonLaunchDescriptionSource
@@ -24,9 +26,14 @@ def generate_launch_description():
     amp_spawn_y = '-56.37'
     amp_spawn_z = '0.7'
 
+#     # TurtleBot spawn positions
+    # tb_spawn_x = '3.06'
+    # tb_spawn_y = '-56.37'
+    # tb_spawn_z = '0.2'
+
     # TurtleBot spawn positions
-    tb_spawn_x = '3.06'
-    tb_spawn_y = '-56.37'
+    tb_spawn_x = '4.06'
+    tb_spawn_y = '0.0'
     tb_spawn_z = '0.2'
 
     # Unique LaunchConfigurations for AMP
@@ -88,13 +95,49 @@ def generate_launch_description():
         }.items()
     )
 
+#     # nodes
+    # camera_node = Node(
+        # package="camera_handler",
+        # executable="picture_taker",
+    # )
+
+
+    slam_node_cmd= IncludeLaunchDescription(
+        PythonLaunchDescriptionSource(
+            os.path.join(launch_file_dir, "slam.launch.py")
+        ),
+        launch_arguments={"use_sim_time": use_sim_time}.items(),
+    )
+
+    nav2_node_cmd = IncludeLaunchDescription(
+        PythonLaunchDescriptionSource(
+            os.path.join(launch_file_dir, "nav2.launch.py"),
+        ),
+        launch_arguments={"use_sim_time": use_sim_time}.items(),
+    )
+
+
+
+
     ld = LaunchDescription()
+
+#     # Add the commands to the launch description
+    # ld.add_action(gzserver_cmd)
+    # ld.add_action(gzclient_cmd)
+    # ld.add_action(spawn_amp_cmd)
+    # ld.add_action(robot_state_publisher_cmd)
+    # ld.add_action(spawn_turtlebot_cmd)
+
 
     # Add the commands to the launch description
     ld.add_action(gzserver_cmd)
     ld.add_action(gzclient_cmd)
     ld.add_action(spawn_amp_cmd)
     ld.add_action(robot_state_publisher_cmd)
+    # ld.add_action(robot_state_publisher_amp_cmd)
     ld.add_action(spawn_turtlebot_cmd)
+    # ld.add_action(camera_node)
+    ld.add_action(slam_node_cmd)
+    # ld.add_action(nav2_node_cmd)
 
     return ld
