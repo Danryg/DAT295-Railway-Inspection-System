@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <sdf version="1.7">
   <world name="default">
-    <plugin name="bounding_box_world_plugin" filename="libbounding_box_world_plugin.so"/>
+    <!--<plugin name="bounding_box_world_plugin" filename="libbounding_box_world_plugin.so"/>-->
     <plugin name="gazebo_ros_state" filename="libgazebo_ros_state.so">
       <ros>
         <namespace>/gazebo</namespace>
