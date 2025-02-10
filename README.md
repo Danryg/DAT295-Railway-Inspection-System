@@ -105,6 +105,14 @@ This will build all necessary packages including rtabmap for slam and px4_ros_co
 ```ros2 run px4_ros_com control.py```
 
 
+# TurtleBot with LiDAR object detection
+
+## TB3 with velodyne in the world
+```ros2 launch test_world_gazebo amp_and_tb_3d_lidar_launch.py```
+
+## Start Euclidean clustering
+```ros2 launch lidar_object_detection euclidean_cluster_launch.py namespace:=cluster02 input_pointcloud:=/velodyne_points euclidean_param_path:=(path to yaml file)```
+
 # Turtlebot + mapping
 
 ## TB3 in our world
