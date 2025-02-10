@@ -36,6 +36,10 @@ class AutonomyBehavior(Node):
         self.declare_parameter("location_file", value=default_location_file)
         self.declare_parameter("tree_type", value="queue")
         self.declare_parameter("target_color", value="blue")
+        
+        # Create a YAML file with locations if it doesn't exist
+        self.create_yaml_file()
+
 
         # Parse locations YAML file and shuffle the location list.
         location_file = self.get_parameter("location_file").value

@@ -98,6 +98,15 @@ def generate_launch_description():
         executable="picture_taker",
     )
 
+    tb_pose_node_cmd = Node(
+        package="tb_pose_node",
+        executable="tb_pose_node",
+    )
+
+    pose_logger_node_cmd = Node(
+        package="pose_logger_node",
+        executable="pose_logger_node",
+    )
 
     slam_node_cmd= IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
@@ -106,14 +115,12 @@ def generate_launch_description():
         launch_arguments={"use_sim_time": use_sim_time}.items(),
     )
 
-    nav2_node_cmd = IncludeLaunchDescription(
-        PythonLaunchDescriptionSource(
-            os.path.join(launch_file_dir, "nav2.launch.py"),
-        ),
-        launch_arguments={"use_sim_time": use_sim_time}.items(),
-    )
-
-
+    # nav2_node_cmd = IncludeLaunchDescription(
+    #     PythonLaunchDescriptionSource(
+    #         os.path.join(launch_file_dir, "nav2.launch.py"),
+    #     ),
+    #     launch_arguments={"use_sim_time": use_sim_time}.items(),
+    # )
 
     ld = LaunchDescription()
 
@@ -126,6 +133,8 @@ def generate_launch_description():
     ld.add_action(spawn_turtlebot_cmd)
     ld.add_action(camera_node)
     ld.add_action(slam_node_cmd)
+    ld.add_action(tb_pose_node_cmd)
+    # ld.add_action(pose_logger_node_cmd)
     # ld.add_action(nav2_node_cmd)
 
     return ld

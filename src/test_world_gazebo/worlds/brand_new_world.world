@@ -145,7 +145,6 @@
       </include>
     </model>
 
-
     <model name="lamp4r">
       <pose>6.2 -50 0 0 0 -1.57</pose>
       <include>
@@ -178,8 +177,8 @@
       </include>
     </model>
 
-    <population name="tall_box_population_left">
-      <model name="tall_box">
+    <population name="tree_population_left">
+      <model name="tree_left">
         <include>
           <static>true</static>
           <uri>model://oak_tree</uri>
@@ -196,8 +195,8 @@
       </distribution>
     </population>
 
-    <population name="tall_box_population_right1">
-      <model name="tall_box_right1">
+    <population name="tree_population_right1">
+      <model name="tree_right">
         <include>
           <static>true</static>
           <uri>model://oak_tree</uri>
