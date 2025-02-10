@@ -7,6 +7,9 @@ import os
 import subprocess
 import sys
 import math
+import time
+from std_msgs.msg import Float32
+
 
 class ModelPoseCopier(Node):
     def __init__(self, target_model='waffle'):
@@ -16,11 +19,13 @@ class ModelPoseCopier(Node):
         self.odom_subscriber = self.create_subscription(Odometry, '/amp_robot/odom', self.odom_callback, 10)
         self.tb3_odom_subscriber = self.create_subscription(Odometry, '/odom', self.tb3_odom_callback, 10)
         self.delete_client = self.create_client(DeleteEntity, '/delete_entity')
+        self.publisher_ = self.create_publisher(Float32, '/amp_robot/speed', 10)
 
         self.get_logger().info(f'Waiting for /delete_entity service to delete {self.target_model}...')
         while not self.delete_client.wait_for_service(timeout_sec=0.3):
             self.get_logger().info('Still waiting for /delete_entity service...')
 
+        self.slowdownFactor = 10
         self.amp_pose = None
         self.tb3_pose = None
         self.model_moved = False  # To ensure we move the model only once
@@ -45,11 +50,17 @@ class ModelPoseCopier(Node):
             self.get_logger().info(f'Distance between AMP robot and TurtleBot3: {distance:.2f} meters.')
 
             if distance <= 3.0:
+                self.move_amp(0)
                 self.move_turtlebot3()
                 self.model_moved = True
-                self.shutdown_node()
             else:
-                self.get_logger().info('TurtleBot3 is more than 3 meters away. No movement will be performed.')
+                self.move_amp(distance)
+                self.get_logger().info('TurtleBot3 is more than 3 meters away. Moving the amp over.')
+
+    def move_amp(self, distance):
+        publishedSpeed = Float32()
+        publishedSpeed.data = float(distance/self.slowdownFactor)
+        self.publisher_.publish(publishedSpeed) 
 
     def move_turtlebot3(self):
         if self.amp_pose is None:
@@ -71,7 +82,6 @@ class ModelPoseCopier(Node):
         tb_x_pose = str(self.amp_pose.position.x)
         tb_y_pose = str(self.amp_pose.position.y-0.2)
         tb_z_pose = str(self.amp_pose.position.z+0.2)
-
         try:
             subprocess.run([
                 'ros2', 'launch', launch_file,
@@ -84,21 +94,21 @@ class ModelPoseCopier(Node):
         except subprocess.CalledProcessError as e:
             self.get_logger().error(f'Failed to spawn {self.target_model}: {e}')
 
-    def shutdown_node(self):
-        self.get_logger().info('Shutting down node after completing the operation.')
-        self.destroy_node()
-        rclpy.shutdown()
-
 
 def main(args=None):
     rclpy.init(args=args)
-
+    factor = float(input("Slowdown factor: "))
     target_model = sys.argv[1] if len(sys.argv) > 1 else 'waffle'
     copier = ModelPoseCopier(target_model=target_model)
-
+    copier.slowdownFactor = factor
+    startTime = time.time()
     while rclpy.ok() and not copier.model_moved:
         rclpy.spin_once(copier)
-
+    endTime = time.time()
+    executeTime = endTime - startTime
+    print(executeTime)
+    copier.get_logger().info(f'Docking took: {executeTime}')
+    copier.get_logger().info('Shutting down node after completing the operation.')
     copier.destroy_node()
     rclpy.shutdown()
 

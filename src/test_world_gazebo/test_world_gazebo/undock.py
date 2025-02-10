@@ -35,7 +35,6 @@ class UndockWaffle(Node):
 
             self.move_turtlebot3()
             self.model_moved = True
-            self.shutdown_node()
 
     def move_turtlebot3(self):
 
@@ -67,12 +66,6 @@ class UndockWaffle(Node):
         except subprocess.CalledProcessError as e:
             self.get_logger().error(f'Failed to spawn {self.target_model}: {e}')
 
-    def shutdown_node(self):
-        self.get_logger().info('Shutting down node after completing the operation.')
-        self.destroy_node()
-        rclpy.shutdown()
-
-
 def main(args=None):
     rclpy.init(args=args)
 
@@ -82,7 +75,7 @@ def main(args=None):
     while rclpy.ok() and not undocker.model_moved:
         rclpy.spin_once(undocker)
 
-    copier.destroy_node()
+    undocker.destroy_node()
     rclpy.shutdown()
 
 
