@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 import rclpy
+import time
 from rclpy.node import Node
 from rclpy.qos import QoSProfile, ReliabilityPolicy, HistoryPolicy, DurabilityPolicy
 from px4_msgs.msg import OffboardControlMode, TrajectorySetpoint, VehicleCommand, VehicleLocalPosition, VehicleStatus
@@ -47,6 +48,11 @@ class OffboardControl(Node):
         self.vehicle_status = VehicleStatus()
         self.aruco_poses = PoseArray
         self.offboard_setpoint_counter = 0
+
+        #This sort of scales the controllers outputs
+        self.OFFSET_X = 0.0
+        self.OFFSET_Y = 0.0
+        self.RAND_OFFSET = -2
 
         # Create a timer to publish control commands
         self.timer = self.create_timer(1, self.timer_callback)
@@ -128,29 +134,22 @@ class OffboardControl(Node):
         '''
         controller_x = PID()
         controller_y = PID()
-        controller_z = PID()
 
-        RAND_OFFSET = 0
-        if self.offboard_setpoint_counter == 5:
-            self.publish_position_setpoint(-(round(controller_y.output*10000, 3) - RAND_OFFSET), 0.000, -round(controller_z.output, 3))
+        if self.offboard_setpoint_counter == 10:
+            # self.publish_position_setpoint(-(round(self.controller_y.output*1000, 3) - self.RAND_OFFSET), -(round(self.controller_x.output*1000, 3) - self.RAND_OFFSET), 0.160)
             self.engage_offboard_mode()
+            # time.sleep(5)
             exit(0)
 
-        #This sort of scales the controllers outputs
-        OFFSET_X = 0.0
-        OFFSET_Y = 0.2
-        OFFSET_Z = 0.0
-        RAND_OFFSET = 2
-
-        controller_x.update(self.aruco_poses.poses[-1].position.x + OFFSET_X)
-        controller_y.update(self.aruco_poses.poses[-1].position.y + OFFSET_Y) 
-        controller_z.update(self.aruco_poses.poses[-1].position.z + OFFSET_Z) 
+        controller_x.update(self.aruco_poses.poses[-1].position.x + self.OFFSET_X)
+        controller_y.update(self.aruco_poses.poses[-1].position.y + self.OFFSET_Y) 
 
         #x and y interchanged in drone convention
         #-2 offest in both x and y direction ( i donno why, i dont want to) doesnt affect this for now
-        # self.publish_position_setpoint(-(round(controller_y.output*10000, 3) - RAND_OFFSET), round(controller_x.output*1000, 3) + RAND_OFFSET, -round(controller_z.output, 3))
+        # self.publish_position_setpoint(-(round(self.controller_y.output*100, 3) - RAND_OFFSET), round(self.controller_x.output*1000, 3) + RAND_OFFSET, 0.16)
+        self.publish_position_setpoint(-(round(controller_y.output*1000, 3) - self.RAND_OFFSET), -(round(controller_x.output*1000, 3) - self.RAND_OFFSET), 0.160)
         
-        if self.offboard_setpoint_counter < 6:
+        if self.offboard_setpoint_counter < 11:
             self.offboard_setpoint_counter += 1
 
 
