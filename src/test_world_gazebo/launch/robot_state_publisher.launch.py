@@ -34,7 +34,7 @@ def generate_launch_description():
     print('urdf_file_name : {}'.format(urdf_file_name))
 
     urdf_path = os.path.join(
-        get_package_share_directory('turtlebot3_gazebo'),
+        get_package_share_directory('test_world_gazebo'),
         'urdf',
         urdf_file_name)
 
@@ -50,7 +50,7 @@ def generate_launch_description():
         Node(
             package='robot_state_publisher',
             executable='robot_state_publisher',
-            name='robot_state_publisher',
+            name='robot_state_publisher_turtle',
             output='screen',
             parameters=[{
                 'use_sim_time': use_sim_time,

@@ -12,10 +12,10 @@ from geometry_msgs.msg import PoseArray
 from docking.controller import PID
 
 class OffboardControl(Node):
-    """Node for controlling a vehicle in offboard mode."""
+    """Node for docking a drone in offboard mode."""
 
     def __init__(self) -> None:
-        super().__init__('offboard_control_takeoff_and_land')
+        super().__init__('drone_docking')
 
         # Configure QoS profile for publishing and subscribing
         qos_profile = QoSProfile(
@@ -44,11 +44,15 @@ class OffboardControl(Node):
         #         ArucoMarkers, '/aruco_markers', self.aruco_marker_callback, qos_profile)
         
         # Initialize variables
-        self.offboard_setpoint_counter = 0
         self.vehicle_local_position = VehicleLocalPosition()
         self.vehicle_status = VehicleStatus()
         self.aruco_poses = PoseArray
-        self.takeoff_height = -5.0 #not need this
+        self.offboard_setpoint_counter = 0
+
+        #This sort of scales the controllers outputs
+        self.OFFSET_X = 0.0
+        self.OFFSET_Y = 0.0
+        self.RAND_OFFSET = -2
 
         # Create a timer to publish control commands
         self.timer = self.create_timer(1, self.timer_callback)
@@ -60,12 +64,6 @@ class OffboardControl(Node):
     def vehicle_status_callback(self, vehicle_status):
         """Callback function for vehicle_status topic subscriber."""
         self.vehicle_status = vehicle_status
-
-    def disarm(self):
-        """Send a disarm command to the vehicle."""
-        self.publish_vehicle_command(
-            VehicleCommand.VEHICLE_CMD_COMPONENT_ARM_DISARM, param1=0.0)
-        self.get_logger().info('Disarm command sent')
 
     def engage_offboard_mode(self):
         """Switch to offboard mode."""
@@ -92,7 +90,7 @@ class OffboardControl(Node):
     def publish_position_setpoint(self, x: float, y: float, z: float):
         """Publish the trajectory setpoint."""
         msg = TrajectorySetpoint()
-        msg.position = [x, y, z]
+        msg.position = [x, y, z] # This is wrong on so many levels (how this miss?)
         msg.yaw = 0.0 #1.57079  # (90 degree)
         msg.timestamp = int(self.get_clock().now().nanoseconds / 1000)
         self.trajectory_setpoint_publisher.publish(msg)
@@ -126,7 +124,7 @@ class OffboardControl(Node):
         self.publish_offboard_control_heartbeat_signal()
 
         ##Subscribe to ArUco /aruco_poses
-        self.aruco_pose_subscriber = self.create_subscription(PoseArray, '/aruco_poses', self.aruco_pose_callback, 10)        
+        # self.aruco_pose_subscriber = self.create_subscription(PoseArray, '/aruco_poses', self.aruco_pose_callback, 10)        
 
         ## PID Loop and land
         '''
@@ -136,42 +134,28 @@ class OffboardControl(Node):
         '''
         controller_x = PID()
         controller_y = PID()
-        controller_z = PID()
-        
-        z_val = -2.5
 
-        time_when_state_last_steady = 0
-
-        #fix this
-        OFFSET_X = 50
-        OFFSET_Y = 3
-        OFFSET_Z = 2
-
-        ERROR_MARGIN = 50 #fix
-            
-        if (
-            abs(self.aruco_poses.poses[-1].position.x - self.vehicle_local_position.x) < ERROR_MARGIN #Change to aruco_pose and modify accordingly
-            and abs(self.aruco_poses.poses[-1].position.y - self.vehicle_local_position.y) < ERROR_MARGIN
-        ):
-            time_when_state_last_steady = time.time()
-
-        controller_x.update(self.aruco_poses.poses[-1].position.x + OFFSET_X) #fix the offsets
-        controller_y.update(self.aruco_poses.poses[-1].position.y + OFFSET_Y) #fix the offsets
-        controller_z.update(self.aruco_poses.poses[-1].position.z + OFFSET_Z) #fix the offsets
-
-
-        if time.time() - time_when_state_last_steady < 1:
-            z_val += 0.004 #might have to change sign to account for descent/land
-
-        self.publish_position_setpoint(round(controller_x.output, 3), round(controller_y.output, 3), round(controller_z.output, 3))
-
-        if abs(round(controller_z.output, 3)) <= 0.06:
-            self.land()
+        if self.offboard_setpoint_counter == 10:
+            # self.publish_position_setpoint(-(round(self.controller_y.output*1000, 3) - self.RAND_OFFSET), -(round(self.controller_x.output*1000, 3) - self.RAND_OFFSET), 0.160)
+            self.engage_offboard_mode()
+            # time.sleep(5)
             exit(0)
+
+        controller_x.update(self.aruco_poses.poses[-1].position.x + self.OFFSET_X)
+        controller_y.update(self.aruco_poses.poses[-1].position.y + self.OFFSET_Y) 
+
+        #x and y interchanged in drone convention
+        #-2 offest in both x and y direction ( i donno why, i dont want to) doesnt affect this for now
+        # self.publish_position_setpoint(-(round(self.controller_y.output*100, 3) - RAND_OFFSET), round(self.controller_x.output*1000, 3) + RAND_OFFSET, 0.16)
+        self.publish_position_setpoint(-(round(controller_y.output*1000, 3) - self.RAND_OFFSET), -(round(controller_x.output*1000, 3) - self.RAND_OFFSET), 0.160)
+        
+        if self.offboard_setpoint_counter < 11:
+            self.offboard_setpoint_counter += 1
+
 
 
 def main(args=None) -> None:
-    print('Starting offboard control node...')
+    print('Starting drone docking node...')
     rclpy.init(args=args)
     offboard_control = OffboardControl()
     rclpy.spin(offboard_control)

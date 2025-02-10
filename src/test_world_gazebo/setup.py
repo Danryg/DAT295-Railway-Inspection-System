@@ -18,6 +18,10 @@ setup(
         (os.path.join('share', package_name, 'models'), glob(os.path.join('worlds/models/amp_hull', '*.[sdf]*'))),
         (os.path.join('share', package_name, 'models'), glob(os.path.join('worlds/models/amp_axle', '*.[sdf]*'))),
 
+        (os.path.join('share', package_name, 'models/turtlebot3_burger_velodyne'), glob(os.path.join('worlds/models/turtlebot3_burger_velodyne', '*.[sdf]*'))),
+        (os.path.join('share', package_name, 'models/turtlebot3_waffle_velodyne'), glob(os.path.join('worlds/models/turtlebot3_waffle_velodyne', '*.[sdf]*'))),
+
+
         #new for turtlebot
         (os.path.join('share', package_name, 'urdf'), glob(os.path.join('urdf', '*.[urdf]*'))),
         (os.path.join('share', package_name, 'worlds'), glob(os.path.join('worlds', '*.[model]*'))),
@@ -38,7 +42,9 @@ setup(
         'console_scripts': [
             'speed = test_world_gazebo.speed:main',
             'input = test_world_gazebo.input_handler:main',
-            'controller = test_world_gazebo.speed_controller:main'
+            'controller = test_world_gazebo.speed_controller:main',
+            'dock = test_world_gazebo.movetoamp:main',
+            'undock = test_world_gazebo.undock:main'
         ],
     },
 )

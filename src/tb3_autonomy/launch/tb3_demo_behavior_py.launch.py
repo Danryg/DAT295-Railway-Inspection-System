@@ -8,17 +8,17 @@ from launch_ros.actions import Node
 
 
 def generate_launch_description():
-    pkg_tb3_worlds = get_package_share_directory("tb3_worlds")
-    default_world_dir = join(pkg_tb3_worlds, "maps", "sim_house_locations.yaml")
+    # pkg_tb3_worlds = get_package_share_directory("tb3_worlds")
+    # default_world_dir = join(pkg_tb3_worlds, "maps", "sim_house_locations.yaml")
 
     return LaunchDescription(
         [
             # Arguments
-            DeclareLaunchArgument(
-                "location_file",
-                default_value=TextSubstitution(text=default_world_dir),
-                description="YAML file name containing map locations in the world.",
-            ),
+            # DeclareLaunchArgument(
+            #     "location_file",
+            #     default_value=TextSubstitution(text=default_world_dir),
+            #     description="YAML file name containing map locations in the world.",
+            # ),
             DeclareLaunchArgument(
                 "target_color",
                 default_value=TextSubstitution(text="blue"),
@@ -28,11 +28,6 @@ def generate_launch_description():
                 "tree_type",
                 default_value=TextSubstitution(text="queue"),
                 description="Behavior tree type (naive or queue)",
-            ),
-            DeclareLaunchArgument(
-                "enable_vision",
-                default_value=TextSubstitution(text="True"),
-                description="Enable vision behaviors. If false, do navigation only.",
             ),
             # Main autonomy node
             Node(
@@ -46,7 +41,6 @@ def generate_launch_description():
                         "location_file": LaunchConfiguration("location_file"),
                         "target_color": LaunchConfiguration("target_color"),
                         "tree_type": LaunchConfiguration("tree_type"),
-                        "enable_vision": LaunchConfiguration("enable_vision"),
                     }
                 ],
             ),

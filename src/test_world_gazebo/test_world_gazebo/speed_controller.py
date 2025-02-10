@@ -41,7 +41,7 @@ class SpeedController(Node):
 		twist.angular.z = 0.0
 		self.publisher_.publish(twist)
 		
-		self.get_logger().info(f'Current speed is: {self.target_velocity} \t Target speed is: {self.target_velocity}')
+		self.get_logger().info(f'Current speed is: {self.current_velocity} \t Target speed is: {self.target_velocity}')
 
 def main(args=None):
 	print("Started speed controller node")
